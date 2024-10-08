@@ -4,6 +4,15 @@
   "newProjectRoot": "projects",
   "projects": {
     "abccall-web": {
+      "i18n": {
+       "sourceLocale": "en-US",
+       "locales": {
+         "en": {
+           "translation": "src/locale/messages.en.xlf",
+           "baseHref": ""
+         }
+       }
+     },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,14 +29,15 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
-        "build": {
+        "build": {          
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/abccall-web",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -43,6 +53,11 @@
             "scripts": []
           },
           "configurations": {
+            "en": {
+            "localize": ["en"],
+            "outputPath": "dist/abccall-web-en/",
+            "i18nMissingTranslation": "error"
+            },
             "production": {
               "budgets": [
                 {
@@ -72,9 +87,12 @@
           },
           "defaultConfiguration": "production"
         },
-        "serve": {
+        "serve": {         
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
+            "en": {
+              "buildTarget": "abccall-web:build:en"
+            },
             "production": {
               "buildTarget": "abccall-web:build:production"
             },
@@ -92,7 +110,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
