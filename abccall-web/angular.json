@@ -5,14 +5,14 @@
   "projects": {
     "abccall-web": {
       "i18n": {
-       "sourceLocale": "en-US",
-       "locales": {
-         "en": {
-           "translation": "src/locale/messages.en.xlf",
-           "baseHref": ""
-         }
-       }
-     },
+        "sourceLocale": "en-US",
+        "locales": {
+          "en": {
+            "translation": "src/locale/messages.en.xlf",
+            "baseHref": ""
+          }
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -29,7 +29,7 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
-        "build": {          
+        "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/abccall-web",
@@ -54,9 +54,11 @@
           },
           "configurations": {
             "en": {
-            "localize": ["en"],
-            "outputPath": "dist/abccall-web-en/",
-            "i18nMissingTranslation": "error"
+              "localize": [
+                "en"
+              ],
+              "outputPath": "dist/abccall-web-en/",
+              "i18nMissingTranslation": "error"
             },
             "production": {
               "budgets": [
@@ -87,7 +89,7 @@
           },
           "defaultConfiguration": "production"
         },
-        "serve": {         
+        "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "en": {
@@ -126,11 +128,60 @@
             ],
             "scripts": []
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "abccall-web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "abccall-web:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "abccall-web:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "abccall-web:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "abccall-web:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "abccall-web:serve:production"
+            }
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "@cypress/schematic",
+      "@schematics/angular"
+    ]
   }
 }
