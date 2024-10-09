@@ -24,6 +24,6 @@ describe('IncidentComponent', () => {
 
   it('should render "incident works!"', () => {
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p').textContent).toContain('incident works!');
+    expect(compiled.querySelector('p').textContent).toContain('Incidentes Componente!');
   });
 });

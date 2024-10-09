@@ -12,4 +12,54 @@ export class IncidentComponent implements OnInit {
   ngOnInit() {
   }
 
+  function1 () {
+    console.log('')
+  }
+
+  function2 () {
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+  }
+
+  function3 () {
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+    console.log('')
+  }
+
+  function4 () {
+    console.log('')
+  }
+
+  function5 () {
+    console.log('')
+  }
+
+  function6 () {
+    console.log('')
+  }
 }
