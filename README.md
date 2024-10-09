@@ -1,21 +1,27 @@
-# ABCall-web-proyecto-final-grupo-16
-# Versiones
-Angular Version 18
-Node Version 20.9.0
+# AbccallWeb
 
-# Ejecución Proyecto
-1. En la terminal realizar un cd a la carpeta abccall-web
-2. npm install
-3. ng serve (Default español)
-4. ng serve --configuration=en (Ejecución en ingles)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
 
-# Ejecución Pruebas Unitarias
-1. En la terminal realizar un cd a la carpeta abccall-web
-2. ng test
-3. (Opcional) Para generar el informe de coverage ng test --code-coverage
+## Development server
 
-# Ejecución Pruebas E2E
-1. En la terminal realizar un cd a la carpeta abcall-web
-2. ng e2e
-3. Seleccionar navegador para pruebas
-4. Ejecutar la prueba en el CLI de Cypress
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

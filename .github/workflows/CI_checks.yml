@@ -1,0 +1,39 @@
+name: CI checks
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Use Node.js v16.19.1
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16.19.1
+    - name: npm install and npm run build
+      run: |
+        npm ci --force
+        npm run build
+    - name: npm test
+      run: |
+        npm run test
+    # - name: Unit Test
+    #   run: |
+    #     coverage run -m unittest discover
+    #     coverage json
+    # - name: get coverage
+    #   id: vars
+    #   run: |
+    #     # apt-get install jq
+    #     echo "coverage=$(jq .totals.percent_covered coverage.json)" >> $GITHUB_OUTPUT
+    #     echo ${{ steps.vars.outputs.coverage }}  
+    # - name: validate coverage
+    #   if: ${{ steps.vars.outputs.coverage < 75 }}
+    #   run: exit 1
+   
+        
