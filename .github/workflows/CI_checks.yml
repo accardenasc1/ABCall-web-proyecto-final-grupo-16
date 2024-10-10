@@ -16,21 +16,9 @@ jobs:
       run: |
         npm ci --force
         npm run build
+    - name: Lint
+      run: |
+        npm run lint
     - name: npm test
       run: |
         npm run test
-    # - name: Unit Test
-    #   run: |
-    #     coverage run -m unittest discover
-    #     coverage json
-    # - name: get coverage
-    #   id: vars
-    #   run: |
-    #     # apt-get install jq
-    #     echo "coverage=$(jq .totals.percent_covered coverage.json)" >> $GITHUB_OUTPUT
-    #     echo ${{ steps.vars.outputs.coverage }}  
-    # - name: validate coverage
-    #   if: ${{ steps.vars.outputs.coverage < 75 }}
-    #   run: exit 1
-   
-        

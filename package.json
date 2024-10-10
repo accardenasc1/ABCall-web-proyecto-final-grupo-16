@@ -9,7 +9,8 @@
     "test": "ng test --no-watch --code-coverage --browsers ChromeHeadless",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +35,9 @@
     "@angular/localize": "^18.2.7",
     "@cypress/schematic": "^2.5.2",
     "@types/jasmine": "~5.1.0",
+    "angular-eslint": "18.3.1",
+    "cypress": "latest",
+    "eslint": "^9.9.1",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -41,6 +45,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.5.2",
-    "cypress": "latest"
+    "typescript-eslint": "8.2.0"
   }
 }
