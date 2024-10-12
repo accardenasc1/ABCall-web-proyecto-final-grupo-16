@@ -1,25 +1,29 @@
-<mat-toolbar class="custom-toolbar">
-  <button mat-icon-button (click)="sidenav.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>ABCCall</span>
-</mat-toolbar>
+<ng-container *ngIf="token; else templateA">
+  <mat-toolbar class="custom-toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>ABCCall</span>
+  </mat-toolbar>
 
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened>
-    <mat-nav-list>
-      <mat-list-item routerLink="/home" routerLinkActive="active">
-        <mat-icon matListIcon>home</mat-icon>
-        <span matLine i18n>Inicio</span>
-      </mat-list-item>
-      <mat-list-item routerLink="/incident" routerLinkActive="active">
-        <mat-icon matListIcon>add</mat-icon>
-        <span matLine i18n>Incidentes</span>
-      </mat-list-item>
-    </mat-nav-list>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened>
+      <mat-nav-list>
+        <mat-list-item routerLink="/home" routerLinkActive="active">
+          <mat-icon matListIcon>home</mat-icon>
+          <span matLine i18n>Inicio</span>
+        </mat-list-item>
+        <mat-list-item routerLink="/incident" routerLinkActive="active">
+          <mat-icon matListIcon>add</mat-icon>
+          <span matLine i18n>Incidentes</span>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>
+<ng-template #templateA>
+  <router-outlet></router-outlet>
+</ng-template>

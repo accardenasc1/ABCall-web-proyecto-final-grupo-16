@@ -3,16 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
 import { IncidentComponent } from './incident/incident.component';
+import { UserSignUpComponent } from './user-sign-up/user-sign-up.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    children: [  
+    children: [
       // Ejemplo:
-       { path: 'home', component: HomeComponent },  
+       { path: 'home', component: HomeComponent },
        { path: 'incident', component: IncidentComponent },
-       { path: '', redirectTo: 'home', pathMatch: 'full' } 
+       { path: 'user-sign-up', component: UserSignUpComponent },
+       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   }
 ];

@@ -7,17 +7,19 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { LayoutModule } from './layout/layout.module';
 import { HomeModule } from './home/home.module';
 import { IncidentModule } from './incident/incident.module';
+import { UserSignUpModule } from './user-sign-up/user-sign-up.module';
 
 @NgModule({
   declarations: [
-    AppComponent    
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
     HomeModule,
-    IncidentModule
+    IncidentModule,
+    UserSignUpModule
   ],
   providers: [
     provideAnimationsAsync()

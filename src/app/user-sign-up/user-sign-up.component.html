@@ -1,0 +1,57 @@
+<div class="page">
+  <mat-card class="card" appearance="outlined">
+    <mat-card-content class="content">
+      <div class="logo">
+        <img src="assets/images/logo-no-background.png" alt="logo ABCall">
+      </div>
+      <form [formGroup]="userForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Usuario</mat-label>
+          <input formControlName="username" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Identificación</mat-label>
+          <input formControlName="id" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input formControlName="password" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input formControlName="confirmPassword" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Celular</mat-label>
+          <input formControlName="phone" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Departamento</mat-label>
+          <input formControlName="department" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Ciudad</mat-label>
+          <input formControlName="city" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Dirección</mat-label>
+          <input formControlName="address" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha De Nacimiento</mat-label>
+          <input formControlName="birthday" matInput>
+        </mat-form-field>
+        <mat-checkbox formControlName="dataCheck">Aceptar tratamiento de datos personales</mat-checkbox>
+        <div class="actions">
+          <button class="cancel" mat-stroked-button (click)="cancel()">CANCELAR</button>
+          <button class="save" mat-flat-button (click)="save()">REGISTRAR</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
