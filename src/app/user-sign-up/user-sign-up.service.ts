@@ -10,10 +10,6 @@ export class UserSignUpService {
 
   constructor(private http: HttpClient) { }
 
-  public get() {
-    return this.http.get(`${environment.usersURL}/ping`);
-  }
-
   public post(body: User) {
     return this.http.post(`${environment.usersURL}/user`, body);
   }

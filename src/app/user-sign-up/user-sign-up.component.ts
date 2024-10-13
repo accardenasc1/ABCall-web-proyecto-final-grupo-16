@@ -39,14 +39,14 @@ export class UserSignUpComponent {
   }
 
   cancel() {
-    console.log(this.userForm.errors);
-    //this.router.navigate(['/', 'login']);
+    this.router.navigate(['/', 'login']);
   }
 
   save() {
     const user = this.userForm.value;
     this.userSignUpService.post({...user, type: 1} as User).subscribe(value => {
       console.log(value);
+      this.router.navigate(['/', 'login']);
     });
   }
 
