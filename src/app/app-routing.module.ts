@@ -8,13 +8,18 @@ import { UserSignUpComponent } from './user-sign-up/user-sign-up.component';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'user-sign-up',
+    pathMatch: 'full'
+  },
+  { path: 'user-sign-up', component: UserSignUpComponent },
+  {
+    path: 'app',
     component: LayoutComponent,
     children: [
-      // Ejemplo:
-       { path: 'home', component: HomeComponent },
-       { path: 'incident', component: IncidentComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'incident', component: IncidentComponent },
        { path: 'user-sign-up', component: UserSignUpComponent },
-       { path: '', redirectTo: 'home', pathMatch: 'full' }
+      { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   }
 ];

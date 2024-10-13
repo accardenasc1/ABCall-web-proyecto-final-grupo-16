@@ -38,7 +38,21 @@ form {
   width: 50%;
   display: flex;
   flex-direction: column;
+}
 
+.done {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.back {
+  width: auto;
+  border-radius: 4px;
+  background-color: var(--primary) !important;
 }
 
 .actions {
@@ -47,7 +61,7 @@ form {
   justify-content: space-between;
 }
 
-button {
+.actions button {
   width: calc(50% - 5px);
   border-radius: 4px;
 }
@@ -64,4 +78,8 @@ button {
 
 .save.mat-mdc-button-disabled {
   background-color: var(--disabled) !important;
+}
+
+.error {
+  color: var(--error);
 }

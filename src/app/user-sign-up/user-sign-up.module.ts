@@ -11,6 +11,8 @@ import { UserSignUpComponent } from './user-sign-up.component';
 import { provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { NgxLoadingModule } from "@dchtools/ngx-loading-v18";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatCheckboxModule,
     MatButtonModule,
     MatDatepickerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxLoadingModule.forRoot({}),
   ],
   declarations: [UserSignUpComponent],
   exports: [UserSignUpComponent],

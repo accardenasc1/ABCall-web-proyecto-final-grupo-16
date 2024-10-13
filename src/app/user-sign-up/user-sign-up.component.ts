@@ -13,7 +13,7 @@ import { Colombia } from './colombia';
 export class UserSignUpComponent {
   colombia = Colombia;
   department = Colombia[0];
-
+  today = new Date();
   userForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     id_number: new FormControl('', [Validators.required]),
@@ -28,35 +28,51 @@ export class UserSignUpComponent {
     department: new FormControl(this.colombia[0].departamento, [Validators.required]),
     city: new FormControl(this.department.ciudades[0], [Validators.required]),
     address: new FormControl('', [Validators.required]),
-    birthday: new FormControl(null, [Validators.required]),
+    birthday: new FormControl(new Date(), [Validators.required]),
     dataCheck: new FormControl(false, [Validators.required]),
   });
+  loading = false;
+  done = false;
 
   constructor(private router: Router, private userSignUpService: UserSignUpService) {
-    this.userForm.setErrors({
-      needToCheck: true
-    });
+
   }
 
-  cancel() {
+  goToLogin() {
     this.router.navigate(['/', 'login']);
   }
 
   save() {
+    this.loading = true;
     const user = this.userForm.value;
-    this.userSignUpService.post({...user, type: 1} as User).subscribe(value => {
-      console.log(value);
-      this.router.navigate(['/', 'login']);
+    this.userSignUpService.post({...user, type: 1} as User).subscribe(() => {
+      this.loading = false;
+      this.done = true;
+    }, error => {
+      this.loading = false;
+      switch (error.error) {
+        case 'invalid username':
+          this.userForm.setErrors({
+            invalid_username: true
+          })
+          break;
+        case 'invalid id_number':
+          this.userForm.setErrors({
+            invalid_id_number: true
+          })
+          break;
+        case 'invalid email':
+          this.userForm.setErrors({
+            invalid_email: true
+          })
+          break;
+      }
     });
   }
 
   selectDeparment(value: string) {
     this.department = Colombia.find(d => d.departamento === value) ?? Colombia[0];
-    const user = this.userForm.value;
-    this.userForm.setValue({
-      ...user,
-      city: this.department.ciudades[0]
-    } as User);
+    this.userForm.get('city')?.setValue(this.department.ciudades[0]);
   }
 
   validatePassword() {
@@ -67,6 +83,10 @@ export class UserSignUpComponent {
         confirmedError: true
       });
     }
+  }
+
+  isValid() {
+    return this.userForm.valid && this.userForm.get('dataCheck')?.value === true;
   }
 }
 
