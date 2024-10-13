@@ -1,6 +1,6 @@
 export interface User {
   username: string | null;
-  id: string | null;
+  id_number: string | null;
   email: string | null;
   password: string | null;
   confirmPassword: string | null;
@@ -10,4 +10,5 @@ export interface User {
   address: string | null;
   birthday: null;
   dataCheck: boolean | null;
+  type: number | null;
 }
