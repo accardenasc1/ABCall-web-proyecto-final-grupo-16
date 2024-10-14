@@ -1,0 +1,139 @@
+<div class="page">
+  <mat-card class="card" appearance="outlined">
+    <mat-card-content class="content">
+      <div class="logo">
+        <img src="assets/images/logo-no-background.png" alt="logo ABCall" />
+      </div>
+      <ng-container *ngIf="!done">
+        <form [formGroup]="userForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <mat-hint
+              *ngIf="userForm.hasError('invalid_username')"
+              class="error"
+              >Usuario ya existe</mat-hint
+            >
+            <input formControlName="username" matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Identificación</mat-label>
+            <mat-hint
+              *ngIf="userForm.hasError('invalid_id_number')"
+              class="error"
+              >Identificación ya existe</mat-hint
+            >
+            <input formControlName="id_number" matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <mat-hint *ngIf="userForm.hasError('invalid_email')" class="error"
+              >Email ya existe</mat-hint
+            >
+            <input formControlName="email" matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input
+              type="password"
+              formControlName="password"
+              matInput
+              (change)="validatePassword()"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Confirmar Contraseña</mat-label>
+            <mat-hint *ngIf="userForm.hasError('confirmedError')" class="error"
+              >La contraseña no coincide</mat-hint
+            >
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              matInput
+              (change)="validatePassword()"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Celular</mat-label>
+            <input formControlName="phone" matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Departamento</mat-label>
+            <select
+              matNativeControl
+              formControlName="department"
+              (ngModelChange)="selectDeparment($event)"
+            >
+              @for (item of colombia; track item) {
+              <option [value]="item.departamento">
+                {{ item.departamento }}
+              </option>
+              }
+            </select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Ciudad</mat-label>
+            <select matNativeControl formControlName="city">
+              @for (item of department.ciudades; track item) {
+              <option [value]="item">{{ item }}</option>
+              }
+            </select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Dirección</mat-label>
+            <input formControlName="address" matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha De Nacimiento</mat-label>
+            <input
+              formControlName="birthday"
+              matInput
+              [matDatepicker]="picker"
+              [max]="today"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-checkbox formControlName="dataCheck"
+            >Aceptar tratamiento de datos personales</mat-checkbox
+          >
+          <div class="actions">
+            <button class="cancel" mat-stroked-button (click)="goToLogin()">
+              CANCELAR
+            </button>
+            <button
+              class="save"
+              mat-flat-button
+              (click)="save()"
+              [disabled]="!isValid()"
+            >
+              REGISTRAR
+            </button>
+          </div>
+        </form>
+      </ng-container>
+      <ng-container *ngIf="done">
+        <div class="done">
+          <p>Usuario registrado correctamente.</p>
+          <button class="back" mat-flat-button (click)="goToLogin()">
+            Volver al Login
+          </button>
+        </div>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+    <h3>Loading...</h3>
+  </div>
+</ng-template>
+
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+  [template]="customLoadingTemplate"
+></ngx-loading>
