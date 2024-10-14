@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { UserSignUpService } from './user-sign-up.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../models/user';
+import { User } from './user';
 import { Colombia } from './colombia';
 
 @Component({
