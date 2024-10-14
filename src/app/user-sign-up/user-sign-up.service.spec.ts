@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { UserSignUpService } from './user-sign-up.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
-import { User } from './user';
+import { User } from '../models/user';
 import { environment } from '../../environments/environment';
 
 describe('UserSignUpService', () => {
