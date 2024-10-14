@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserSignUpComponent } from './user-sign-up.component';
 import { UserSignUpService } from './user-sign-up.service';
-import { User } from './user';
+import { User } from '../models/user';
 import { of, throwError } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
