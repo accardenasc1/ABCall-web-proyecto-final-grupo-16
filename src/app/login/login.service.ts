@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +12,7 @@ import { Login } from '../models/login';
 export class LoginService {
   private backendUrl = environment.usersURL;
   constructor(private http: HttpClient) {}
+
   login(
     value: Partial<{ username: string | null; password: string | null }>
   ): Observable<BaseResponse<Login>> {
@@ -19,7 +21,12 @@ export class LoginService {
       value
     );
   }
+
   saveToken(token: string): void {
     sessionStorage.setItem('access_token', token);
+  }
+
+  saveUser(user: any): void {
+    sessionStorage.setItem('user', JSON.stringify(user));
   }
 }

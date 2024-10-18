@@ -1,6 +1,7 @@
 <mat-toolbar class="custom-toolbar">
-  <button mat-icon-button (click)="sidenav.toggle()">
-    <mat-icon>menu</mat-icon>
+  <button class="logo-button" mat-icon-button (click)="sidenav.toggle()">
+    <!-- <mat-icon>menu</mat-icon> -->
+    <img src="assets/images/logo.png" width="64px" alt="logo ABCall" />
   </button>
   <span>ABCCall</span>
 </mat-toolbar>
@@ -8,17 +9,47 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="side" opened>
     <mat-nav-list>
-      <mat-list-item routerLink="/home" routerLinkActive="active">
-        <mat-icon matListIcon>home</mat-icon>
-        <span matLine i18n>Inicio</span>
+      <mat-list-item>
+        <div class="item user">
+          <mat-icon matListIcon>face</mat-icon>
+          <div class="username">
+            <span matLine i18n>{{user.name}}</span>
+            <span *ngIf="user.type === 0" class="rol" matLine i18n>Administrador</span>
+            <span *ngIf="user.type === 1" class="rol" matLine i18n>Usuario</span>
+            <span *ngIf="user.type === 2" class="rol" matLine i18n>Agente</span>
+            <span *ngIf="user.type === 3" class="rol" matLine i18n>Cliente</span>
+          </div>
+        </div>
       </mat-list-item>
-      <mat-list-item routerLink="/incident" routerLinkActive="active">
-        <mat-icon matListIcon>add</mat-icon>
+      <mat-list-item routerLink="/app/Home" [class.active]="isActive('/app/home')">
+        <div class="item">
+          <mat-icon matListIcon>home</mat-icon>
+          <span matLine i18n>Inicio</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item routerLink="/app/incident" [class.active]="isActive('/app/incident')">
+        <div class="item">
+          <mat-icon matListIcon>add</mat-icon>
         <span matLine i18n>Incidentes</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item routerLink="/app/client" [class.active]="isActive('/app/client')">
+        <div class="item">
+          <mat-icon matListIcon>add</mat-icon>
+        <span matLine i18n>Clientes</span>
+        </div>
+      </mat-list-item>
+      <mat-list-item routerLink="/app/client" [class.active]="isActive('/app/client')">
+        <div class="item">
+          <mat-icon matListIcon>add</mat-icon>
+        <span matLine i18n>Usuarios</span>
+        </div>
       </mat-list-item>
       <mat-list-item (click)="logout()">
-        <mat-icon matListIcon>exit_to_app</mat-icon>
+        <div class="item">
+          <mat-icon matListIcon>exit_to_app</mat-icon>
         <span matLine i18n>Cerrar sesión</span>
+        </div>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
