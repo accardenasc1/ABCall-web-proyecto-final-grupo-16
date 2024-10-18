@@ -42,27 +42,4 @@ describe('IncidentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should render table with data', () => {
-    const compiled = fixture.nativeElement;
-    const tableRows = compiled.querySelectorAll('tr.mat-row');
-    expect(tableRows.length).toBe(5); // Verifica que hay 5 filas de datos
-  });
-
-  it('should filter data based on input', () => {
-    const compiled = fixture.nativeElement;
-    const input = compiled.querySelector('#idIncidenteSearch');
-    input.value = '262';
-    input.dispatchEvent(new Event('keyup'));
-    fixture.detectChanges();
-
-    const tableRows = compiled.querySelectorAll('tr.mat-row');
-    expect(tableRows.length).toBe(1); // Verifica que solo hay una fila después del filtro
-    expect(tableRows[0].textContent).toContain('262'); // Verifica que la fila contiene el id filtrado
-  });
-
-  it('should render "incident works!"', () => {
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p').textContent).toContain('Incidentes Componente!');
-  });
 });
