@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IncidentComponent } from './incident.component';
 import { IncidentService } from './incident.service';
 import { Incident } from '../models/incident';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -24,7 +24,6 @@ import { MatIconModule } from '@angular/material/icon';
 describe('IncidentComponent', () => {
   let component: IncidentComponent;
   let fixture: ComponentFixture<IncidentComponent>;
-  let incidentService: jasmine.SpyObj<IncidentService>;
 
   const mockRouter = {
     navigate: (commands: any[]) => {
@@ -75,7 +74,6 @@ describe('IncidentComponent', () => {
 
     fixture = TestBed.createComponent(IncidentComponent);
     component = fixture.componentInstance;
-    incidentService = TestBed.inject(IncidentService) as jasmine.SpyObj<IncidentService>;
     fixture.detectChanges();
   });
 
