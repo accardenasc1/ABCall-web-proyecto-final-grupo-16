@@ -1,0 +1,12 @@
+.container {
+  margin: 30px;
+}
+
+.toolbar {
+   display: flex;
+   flex-direction: row-reverse;
+}
+
+.toolbar mat-form-field {
+  width: 300px;
+}

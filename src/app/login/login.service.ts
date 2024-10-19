@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { BaseResponse } from '../models/base-response';
 import { Login } from '../models/login';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class LoginService {
     sessionStorage.setItem('access_token', token);
   }
 
-  saveUser(user: any): void {
+  saveUser(user: User): void {
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 }

@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit{
           if (response.status === 200) {
             if (response.data?.access_token) {
               this.loginService.saveToken(response.data.access_token);
-              this.loginService.saveUser(response.data);
+              this.loginService.saveUser(response.data.user);
 
               console.log('Token guardado correctamente:', response);
               this.router.navigate(['/app/home']);
