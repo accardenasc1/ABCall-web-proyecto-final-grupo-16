@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Incident } from '../models/incident';
 import { HttpHeaders } from '@angular/common/http';
-import { catchError, throwError, Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,17 +30,20 @@ export class IncidentService {
                     // Token no válido o expirado
                     console.error('Token no válido o expirado. Por favor, inicie sesión de nuevo.');
                     // Aquí podrías redirigir al usuario a la página de inicio de sesión o manejar el estado de la aplicación
+
                 }
-                // Lanzar el error para que pueda ser manejado más adelante
-                return throwError(error);
+
+                return of([{ error: true, message:'Token no válido o expirado. Por favor, inicie sesión de nuevo.'}]);
+
             })
         );
     } else {
         console.error('Error: No se pudo realizar la solicitud porque no hay token.');
         // Lanzar un error controlado
-        return throwError(new Error('No hay token disponible para realizar la solicitud.'));
+        //return throwError(new Error('No hay token disponible para realizar la solicitud.'));
+        return of([{ error: true, message:'Error: No se pudo realizar la solicitud porque no hay token.'}]);
     }
-}
+  }
   public user_token(){
     const token = this.getToken();
     if (token) {
@@ -49,7 +52,7 @@ export class IncidentService {
       });
       return this.http.get(`${environment.usersURL}/login`, { headers });
     }else{
-        return null;
+        return of([{ error: true, message: 'Error al validar token' }]);
       }
   }
   public getAllUsers(): Observable<any[]> {
@@ -62,7 +65,9 @@ export class IncidentService {
     } else {
         console.error('Error: No se pudo realizar la solicitud porque no hay token.');
         // Lanzar un error controlado
-        return throwError(new Error('No hay token disponible para realizar la solicitud.'));
+        //return throwError(new Error('No hay token disponible para realizar la solicitud.'));
+        return of([{ error: true, message: 'Error: No se pudo realizar la solicitud porque no hay token.' }]);
     }
   }
+
 }

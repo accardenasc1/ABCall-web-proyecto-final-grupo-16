@@ -14,10 +14,10 @@ export class IncidentComponent implements OnInit {
   state = 'Create';
   incidentForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    type: new FormControl('', [Validators.required]),
+    type: new FormControl<number | null>(null, [Validators.required]),
     description: new FormControl('', [Validators.required, Validators.maxLength(255)]),
     clientid: new FormControl('', [Validators.required]),
-    iduser: new FormControl('', [Validators.required]),
+    iduser: new FormControl<number | null>(null, [Validators.required]),
   });
   loading = false;
   done = false;
@@ -99,6 +99,7 @@ export class IncidentComponent implements OnInit {
     // Deshabilitar el otro toggle
     this.updateToggleStates();
   }
+
   updateToggleStates() {
     // Si hay un toggle activado, deshabilitar los otros
     if (this.isPhoneEnabled || this.isMailEnabled) {
