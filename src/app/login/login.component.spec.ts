@@ -68,17 +68,19 @@ describe('LoginComponent', () => {
   it('should navigate to home on successful login', () => {
     const mockResponse: BaseResponse<Login> = {
       status: 200,
-      data: { access_token: 'test-token', usuario: null },
+      data: { access_token: 'test-token', user: { } },
       message: null
     };
     spyOn(loginService, 'login').and.returnValue(of(mockResponse));
     spyOn(loginService, 'saveToken');
+    spyOn(loginService, 'saveUser');
 
     component.loginForm.setValue({ username: 'test', password: 'test' });
     component.onLogInUser();
     fixture.detectChanges();
 
     expect(loginService.saveToken).toHaveBeenCalledWith('test-token');
+    expect(loginService.saveUser).toHaveBeenCalledWith({ });
     expect(router.navigate).toHaveBeenCalledWith(['/app/home']);
   });
 });

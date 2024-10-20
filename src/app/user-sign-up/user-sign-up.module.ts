@@ -8,7 +8,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { UserSignUpComponent } from './user-sign-up.component';
-import { provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { NgxLoadingModule } from "@dchtools/ngx-loading-v18";
@@ -24,10 +23,10 @@ import { NgxLoadingModule } from "@dchtools/ngx-loading-v18";
     MatButtonModule,
     MatDatepickerModule,
     ReactiveFormsModule,
-    NgxLoadingModule.forRoot({}),
+    NgxLoadingModule.forRoot({})
   ],
   declarations: [UserSignUpComponent],
   exports: [UserSignUpComponent],
-  providers: [provideHttpClient(), provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter()],
 })
 export class UserSignUpModule {}
