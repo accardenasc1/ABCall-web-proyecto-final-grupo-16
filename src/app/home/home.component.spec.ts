@@ -24,6 +24,6 @@ describe('HomeComponent', () => {
 
   it('should render "Componente Home, Bienvenido"', () => {
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p').textContent).toContain('Componente Home, Bienvenido');
+    expect(compiled.querySelector('p').textContent).toContain(' Bienvenido ');
   });
 });

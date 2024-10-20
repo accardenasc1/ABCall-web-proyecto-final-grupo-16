@@ -2,17 +2,28 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
-import { IncidentComponent } from './incident/incident.component';
+import { CreateIncidentComponent } from './create-incident/create-incident.component';
+import { UserSignUpComponent } from './user-sign-up/user-sign-up.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  { path: 'login', component: LoginComponent },
+  { path: 'user-sign-up', component: UserSignUpComponent },
+  {
+    path: 'app',
     component: LayoutComponent,
-    children: [  
-      // Ejemplo:
-       { path: 'home', component: HomeComponent },  
-       { path: 'incident', component: IncidentComponent },
-       { path: '', redirectTo: 'home', pathMatch: 'full' } 
+    children: [
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+      { path: 'incident', component: CreateIncidentComponent , canActivate: [AuthGuard]},
+      { path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+      { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   }
 ];

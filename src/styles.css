@@ -2,3 +2,28 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Colors */
+:root {
+
+  --primary: #006874;
+  --on-primary: #ffffff;
+  --secundary: #4A6267;
+  --on-secundary: #ffffff;
+  --tertiary: #525E7D;
+  --on-tertiary: #ffffff;
+  --error: #BA1A1A;
+  --white: #ffffff;
+  --black: #000000;
+  --disabled: #F5F5F5;
+
+  /* checkbox */
+  .mdc-checkbox:hover .mdc-checkbox__native-control:checked~.mdc-checkbox__background, .mdc-checkbox:hover .mdc-checkbox__native-control:indeterminate~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background {
+    background-color: var(--primary) !important;
+  }
+
+  .mdc-switch__track::after {
+    background-color: var(--primary) !important;
+  }
+
+}
