@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
-import { IncidentComponent } from './incident/incident.component';
+import { CreateIncidentComponent } from './create-incident/create-incident.component';
 import { UserSignUpComponent } from './user-sign-up/user-sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
@@ -21,7 +21,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-      { path: 'incident', component: IncidentComponent , canActivate: [AuthGuard]},
+      { path: 'incident', component: CreateIncidentComponent , canActivate: [AuthGuard]},
       { path: 'user', component: UserComponent, canActivate: [AuthGuard]},
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
