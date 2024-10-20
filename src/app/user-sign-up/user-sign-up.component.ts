@@ -15,8 +15,10 @@ export class UserSignUpComponent {
   department = Colombia[0];
   today = new Date();
   userForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    id_number: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    first_name: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+    last_name: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+    id_number: new FormControl('', [Validators.required, Validators.maxLength(12)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.pattern(
       /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
