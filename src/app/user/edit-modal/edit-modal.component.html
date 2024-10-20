@@ -1,0 +1,46 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
+<h2 mat-dialog-title>Cambiar Permisos</h2>
+<mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Usuario</mat-label>
+      <input formControlName="username" matInput />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Rol</mat-label>
+      <select
+        matNativeControl
+        formControlName="type"
+      >
+        @for (item of types; track item) {
+        <option [value]="item">
+          <ng-container *ngIf="item === 0" i18n>Administrador</ng-container>
+          <ng-container *ngIf="item === 1" i18n>Usuario</ng-container>
+          <ng-container *ngIf="item === 2" i18n>Agente</ng-container>
+          <ng-container *ngIf="item === 3" i18n>Cliente</ng-container>
+        </option>
+        }
+      </select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" *ngIf="userForm.get('type')?.value == 3">
+      <mat-label>Cliente</mat-label>
+      <mat-hint *ngIf="userForm.hasError('invalid_client')" class="error"
+        >Cliente es requerido!</mat-hint
+      >
+      <select
+        matNativeControl
+        formControlName="client_id"
+      >
+        @for (item of data.clients; track item) {
+        <option [value]="item.id">
+          {{ item.name }}
+        </option>
+        }
+      </select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button class="save" (click)="onSave()">Guardar</button>
+</mat-dialog-actions>

@@ -7,6 +7,14 @@
       <ng-container *ngIf="!done">
         <form [formGroup]="userForm">
           <mat-form-field appearance="outline">
+            <mat-label>Nombres</mat-label>
+            <input formControlName="first_name" matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Apellidos</mat-label>
+            <input formControlName="last_name" matInput />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
             <mat-label>Usuario</mat-label>
             <mat-hint
               *ngIf="userForm.hasError('invalid_username')"

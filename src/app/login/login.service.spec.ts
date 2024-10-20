@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { BaseResponse } from '../models/base-response';
 import { Login } from '../models/login';
 import { provideHttpClient } from '@angular/common/http';
+import { User } from '../models/user';
 
 describe('LoginService', () => {
   let service: LoginService;
@@ -33,7 +34,7 @@ describe('LoginService', () => {
   it('should login and return a token', () => {
     const mockResponse: BaseResponse<Login> = {
       status: 200,
-      data: { access_token: 'test-token', usuario: null },
+      data: { access_token: 'test-token', user: { } },
       message: null
     };
 
@@ -51,5 +52,15 @@ describe('LoginService', () => {
     const token = 'test-token';
     service.saveToken(token);
     expect(sessionStorage.getItem('access_token')).toBe(token);
+  });
+
+  it('should save user in sessionStorage', () => {
+    const user: User = {
+      username: 'prueba',
+      id: '12345',
+      type: 1
+    };
+    service.saveUser(user);
+    expect(sessionStorage.getItem('user')).toBe(JSON.stringify(user));
   });
 });
