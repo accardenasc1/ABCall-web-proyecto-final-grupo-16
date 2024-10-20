@@ -165,6 +165,8 @@ describe('UserSignUpComponent', () => {
 
     component.userForm.setValue({
       username: 'test01',
+      first_name: 'Humberto Enrique',
+      last_name: 'Maury Maury',
       id_number: '1234567890',
       email: 'test@test.com',
       password: 'Qwerty123*#',
