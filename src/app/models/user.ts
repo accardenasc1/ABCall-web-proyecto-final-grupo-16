@@ -1,15 +1,16 @@
 export interface User {
-  id?: string;
-  username?: string;
-  id_number?: string;
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
-  phone?: string;
-  department?: string;
-  city?: string;
-  address?: string;
-  birthday?: string;
-  dataCheck?: boolean;
-  type?: number;
+  id?: string | null;
+  username?: string | null;
+  id_number?: string | null;
+  email?: string | null;
+  password?: string | null;
+  confirmPassword?: string | null;
+  phone?: string | null;
+  department?: string | null;
+  city?: string | null;
+  address?: string | null;
+  birthday?: string | null;
+  dataCheck?: boolean | null;
+  type?: number | null;
+  client_id?: string | null;
 }

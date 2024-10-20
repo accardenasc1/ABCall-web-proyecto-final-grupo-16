@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserService } from './user.service';
 import { User } from '../models/user';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { EditModalComponent } from './edit-modal/edit-modal.component';
+import { Client } from '../models/client';
+import { ClientService } from '../client/client.service';
 
 @Component({
   selector: 'app-users',
@@ -10,6 +14,7 @@ import { FormControl } from '@angular/forms';
 })
 
 export class UserComponent {
+
   displayedColumns: string[] = [
     'username',
     'id_number',
@@ -20,19 +25,29 @@ export class UserComponent {
     'type',
     'client_id',
     'birthday',
+    'action'
   ];
   dataSource: User[] = [];
   baseData: User[] = [];
   searchField = new FormControl('');
+  readonly dialog = inject(MatDialog);
+  clients: Client[] = [];
 
-  constructor(private userService: UserService) {
-    userService.get().subscribe(value => {
+  constructor(private userService: UserService, private clientService: ClientService) {
+    this.onLoad();
+  }
+
+  onLoad() {
+    this.clientService.get().subscribe(value => {
+      this.clients = value;
+    });
+    this.userService.get().subscribe(value => {
       this.baseData = value;
       this.dataSource = value;
     });
   }
 
-  search() {
+  onSearch() {
     const value = this.searchField.value;
     if (value === '' || value == null) {
       this.dataSource = this.baseData;
@@ -45,5 +60,20 @@ export class UserComponent {
       x.id_number?.toString().includes(lower_value) ||
       x.email?.toLocaleLowerCase().includes(lower_value)
     );
+  }
+
+  onOpenModal(element: User) {
+    this.dialog.open(EditModalComponent, {
+      width: '600px',
+      data: { user: element, clients: this.clients },
+    });
+
+    this.dialog.afterAllClosed.subscribe(
+      () => this.onLoad()
+    );
+  }
+
+  getClient(value: string) {
+    return this.clients.find(c => c.id === value)?.name;
   }
 }

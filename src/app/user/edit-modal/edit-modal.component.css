@@ -1,0 +1,22 @@
+form {
+  margin-top: 10px !important;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  border-radius: 4px;
+}
+
+.save {
+  background-color: var(--primary) !important;
+  color: var(--on-primary) !important;
+}
+
+.save.mat-mdc-button-disabled {
+  background-color: var(--disabled) !important;
+}
+
+.error {
+  color: var(--error);
+}

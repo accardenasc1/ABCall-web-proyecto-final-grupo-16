@@ -23,7 +23,7 @@ import { NgxLoadingModule } from "@dchtools/ngx-loading-v18";
     MatButtonModule,
     MatDatepickerModule,
     ReactiveFormsModule,
-    NgxLoadingModule.forRoot({}),
+    NgxLoadingModule.forRoot({})
   ],
   declarations: [UserSignUpComponent],
   exports: [UserSignUpComponent],

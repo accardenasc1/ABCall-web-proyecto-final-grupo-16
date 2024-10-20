@@ -21,7 +21,7 @@
           </div>
         </div>
       </mat-list-item>
-      <mat-list-item routerLink="/app/Home" [class.active]="isActive('/app/home')">
+      <mat-list-item routerLink="/app/home" [class.active]="isActive('/app/home')">
         <div class="item">
           <mat-icon matListIcon>home</mat-icon>
           <span matLine i18n>Inicio</span>
@@ -33,13 +33,13 @@
         <span matLine i18n>Incidentes</span>
         </div>
       </mat-list-item>
-      <mat-list-item routerLink="/app/client" [class.active]="isActive('/app/client')">
+      <mat-list-item routerLink="/app/client" [class.active]="isActive('/app/client')" *ngIf="user.type?.toString() === '0' || user.type?.toString() === '2'">
         <div class="item">
           <mat-icon matListIcon>add</mat-icon>
         <span matLine i18n>Clientes</span>
         </div>
       </mat-list-item>
-      <mat-list-item routerLink="/app/user" [class.active]="isActive('/app/user')">
+      <mat-list-item routerLink="/app/user" [class.active]="isActive('/app/user')" *ngIf="user.type?.toString() === '0'">
         <div class="item">
           <mat-icon matListIcon>add</mat-icon>
         <span matLine i18n>Usuarios y Roles</span>

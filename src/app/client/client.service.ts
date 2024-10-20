@@ -2,22 +2,18 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../models/user';
+import { Client } from '../models/client';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  private url = environment.usersURL;
+export class ClientService {
+  private url = environment.clientsURL;
   constructor(private http: HttpClient) {}
 
-  get(): Observable<User[]> {
-    return this.http.get<User[]>(
-      `${this.url}/user`
+  get(): Observable<Client[]> {
+    return this.http.get<Client[]>(
+      `${this.url}/client`
     );
-  }
-
-  put(body: User) {
-    return this.http.put(`${environment.usersURL}/user`, body);
   }
 }
