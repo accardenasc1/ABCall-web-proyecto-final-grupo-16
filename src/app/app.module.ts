@@ -9,8 +9,9 @@ import { HomeModule } from './home/home.module';
 import { IncidentModule } from './incident/incident.module';
 import { UserSignUpModule } from './user-sign-up/user-sign-up.module';
 import { LoginModule } from './login/login.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -23,11 +24,12 @@ import { AuthInterceptor } from './auth.interceptor';
     HomeModule,
     IncidentModule,
     UserSignUpModule,
-    LoginModule
+    LoginModule,
+    UserModule
   ],
   providers: [
+    provideHttpClient(withInterceptors([AuthInterceptor])),
     provideAnimationsAsync(),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

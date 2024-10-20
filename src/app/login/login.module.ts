@@ -5,7 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -17,6 +16,5 @@ import { provideHttpClient } from '@angular/common/http';
   ],
   declarations: [LoginComponent],
   exports: [LoginComponent],
-  providers: [provideHttpClient()]
 })
 export class LoginModule { }
