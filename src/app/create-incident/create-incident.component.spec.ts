@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IncidentComponent } from './incident.component';
+import { CreateIncidentComponent } from './create-incident.component';
 import { IncidentService } from './create-incident.service';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -21,8 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { Incident } from '../models/incident';
 
 describe('IncidentComponent', () => {
-  let component: IncidentComponent;
-  let fixture: ComponentFixture<IncidentComponent>;
+  let component: CreateIncidentComponent;
+  let fixture: ComponentFixture<CreateIncidentComponent>;
   let router: Router;
 
   const mockRouter = {
@@ -37,7 +37,7 @@ describe('IncidentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [IncidentComponent],
+      declarations: [CreateIncidentComponent],
       imports: [
         CommonModule,
         MatCardModule,
@@ -60,7 +60,7 @@ describe('IncidentComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(IncidentComponent);
+    fixture = TestBed.createComponent(CreateIncidentComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     fixture.detectChanges();
@@ -113,7 +113,7 @@ describe('IncidentComponent', () => {
     //expect(component.loading).toBeTrue();
 
     // Verificar que el post ha sido llamado con los datos correctos
-    expect(postSpy).toHaveBeenCalledWith({...mockIncident, serviceid: '1', userid: '123', agentid: 'agent1' } as Incident);
+    expect(postSpy).toHaveBeenCalledWith({...mockIncident, serviceid: '1', userid: '123', agentid: 'agent1', state: '' } as Incident);
 
     // Verificar que loading se establece en false y done en true después del guardado
     expect(component.loading).toBeFalse();

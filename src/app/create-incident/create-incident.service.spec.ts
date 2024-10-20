@@ -17,6 +17,9 @@ describe('IncidentService', () => {
     description: 'Test description',
     clientid: 'Client1',
     iduser: 1,
+    state: '',
+    agentid: '',
+    serviceid: ''
   };
 
   beforeEach(() => {
