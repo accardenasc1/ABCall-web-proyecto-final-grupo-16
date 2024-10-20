@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { IncidentComponent } from './incident.component';
+import { CreateIncidentComponent } from './create-incident.component';
 import { provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -32,8 +32,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatAutocompleteModule,
     NgxLoadingModule.forRoot({}),
   ],
-  declarations: [IncidentComponent],
-  exports: [IncidentComponent],
+  declarations: [CreateIncidentComponent],
+  exports: [CreateIncidentComponent],
   providers: [provideHttpClient(), provideNativeDateAdapter()],
 })
 export class IncidentModule {}

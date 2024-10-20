@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IncidentComponent } from './incident.component';
-import { IncidentService } from './incident.service';
+import { IncidentService } from './create-incident.service';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -71,8 +71,8 @@ describe('IncidentComponent', () => {
   });
 
   it('should navigate to login', () => {
-    component.goToLogin(); // Llama al método que se va a probar
-    expect(router.navigate).toHaveBeenCalledWith(['/', 'login']); // Verifica que se llame a navigate con la ruta esperada
+    component.goBack(); // Llama al método que se va a probar
+    expect(router.navigate).toHaveBeenCalledWith(['/', 'app', 'incident']); // Verifica que se llame a navigate con la ruta esperada
   });
 
   it('should call incidentService.user_token and return the correct data', () => {

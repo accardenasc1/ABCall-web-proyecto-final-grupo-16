@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit  } from '@angular/core';
-import { IncidentService } from './incident.service';
+import { IncidentService } from './create-incident.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Incident } from '../models/incident';
 
 @Component({
   selector: 'app-incident',
-  templateUrl: './incident.component.html',
-  styleUrl: './incident.component.css'
+  templateUrl: './create-incident.component.html',
+  styleUrl: './create-incident.component.css'
 })
-export class IncidentComponent implements OnInit {
+export class CreateIncidentComponent implements OnInit {
   state = 'Create';
   incidentForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     type: new FormControl<number | null>(null, [Validators.required]),
-    description: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+    description: new FormControl('', [Validators.required]),
     clientid: new FormControl('', [Validators.required]),
     iduser: new FormControl<number | null>(null, [Validators.required]),
   });
@@ -42,8 +42,8 @@ export class IncidentComponent implements OnInit {
   }
 
 
-  goToLogin() {
-    this.router.navigate(['/', 'login']);
+  goBack() {
+    this.router.navigate(['/', 'app', 'incident']);
   }
 
   getUserData() {
@@ -60,7 +60,7 @@ export class IncidentComponent implements OnInit {
       userData$.subscribe({
         next: (response: any) => {
           // Ahora realiza la solicitud de guardado del incidente
-          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id} as Incident).subscribe(() => {
+          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: ''} as Incident).subscribe(() => {
             this.loading = false;
             this.done = true;
           });
@@ -77,7 +77,7 @@ export class IncidentComponent implements OnInit {
   }
 
   isValid() {
-    return this.incidentForm.valid && !!this.selectedFile && this.selectedFile.size > 0;
+    return this.incidentForm.valid;
   }
 
   onToggleChange(toggleType: string) {
