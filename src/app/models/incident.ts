@@ -1,13 +1,10 @@
-
 export interface Incident {
-    title: string;
-    id: number;
-    type: string;
-    description?: string;
-    state: string;
-    clientid?: number;
-    agentid?: number;
-    serviceid?: number;
-    userid : number;
-  }
-  
+  title: string | null;
+  description: string | null;
+  clientid: string | null;
+  state: string | null;
+  agentid: string | null;
+  serviceid: string | null;
+  iduser: number | null;
+  type: number | null;
+}
