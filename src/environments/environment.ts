@@ -1,5 +1,5 @@
 export const environment = {
-  usersURL: 'http://127.0.0.1:5000',
-  incidentURL: 'http://127.0.0.1:5001',
-  clientsURL: 'http://127.0.0.1:5002'
+  usersURL: 'https://users-96254398457.us-central1.run.app',
+  incidentURL: 'https://incidents-96254398457.us-central1.run.app',
+  clientsURL: 'https://clients-96254398457.us-central1.run.app'
 };
