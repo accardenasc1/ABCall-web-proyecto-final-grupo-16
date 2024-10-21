@@ -8,8 +8,7 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    align-items: center; 
-    background-color: var(--on-secundary) !important; 
+    align-items: center;
   }
   
   .search-item {
@@ -52,4 +51,11 @@
   mat-paginator {
     margin-top: 20px;
     background-color: var(--on-secundary) !important;
+  }
+  .create {
+    color: var(--primary) !important;
+  }
+  
+  button {
+    border-radius: 4px;
   }

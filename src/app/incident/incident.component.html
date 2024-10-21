@@ -1,25 +1,23 @@
 <div class="container">
+  <button mat-button class="create" (click)="onCreate()">Crear</button>
   <!-- Filtros de búsqueda -->
   <div class="search-filters">
-    <div class="search-item">
-      <label for="idIncidenteSearch">Id Incidente</label>
+    <div class="search-item">    
       <mat-form-field appearance="outline" class="small-form-field">
-        <input matInput id="idIncidenteSearch" (keyup)="applyFilter($event)" placeholder="Seleccionar" />
+        <input matInput id="idIncidenteSearch" (keyup)="applyFilter($event)" placeholder="Id Incidente" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
 
-    <div class="search-item">
-      <label for="usuarioSearch">Id Usuario</label>
+    <div class="search-item">    
       <mat-form-field appearance="outline" class="small-form-field">
-        <input matInput id="usuarioSearch" (keyup)="applyFilter($event)" placeholder="Seleccionar" />
+        <input matInput id="usuarioSearch" (keyup)="applyFilter($event)" placeholder="Id Usuario" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
   </div>
 
   <!-- Tabla -->
-  <div class="table-container">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
       <!-- Columna Título Incidente -->
@@ -59,5 +57,5 @@
 
     <!-- Paginación -->
     <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator> -->
-  </div>
+  
 </div>

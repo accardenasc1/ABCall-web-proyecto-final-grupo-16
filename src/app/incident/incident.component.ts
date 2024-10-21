@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Incident } from '../models/incident';
 import { IncidentService } from './incident.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-incident',
@@ -19,10 +20,11 @@ export class IncidentComponent implements OnInit{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private incidentService: IncidentService ) { }
+  constructor(private incidentService: IncidentService,private router: Router ) { }
 
   ngOnInit() {    
     this.getIncidents();    
+    
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -35,6 +37,9 @@ export class IncidentComponent implements OnInit{
       this.dataSource.paginator = this.paginator;
        this.dataSource.sort = this.sort; 
     });
+  }
+  onCreate() {
+    this.router.navigate(['/', 'app', 'create-incident']);
   }
 
 
