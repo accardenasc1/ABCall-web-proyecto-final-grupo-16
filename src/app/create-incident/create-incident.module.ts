@@ -36,5 +36,5 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
   exports: [CreateIncidentComponent],
   providers: [provideHttpClient(), provideNativeDateAdapter()],
 })
-export class IncidentModule {}
+export class CreateIncidentModule {}
 

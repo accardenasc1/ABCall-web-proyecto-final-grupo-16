@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('IncidentComponent', () => {
   let component: IncidentComponent;
@@ -28,7 +30,11 @@ describe('IncidentComponent', () => {
         NoopAnimationsModule,
         FormsModule,
         ReactiveFormsModule
-      ]
+      ],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ],
     })
     .compileComponents();
   });
