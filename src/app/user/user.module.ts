@@ -8,7 +8,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditModalComponent } from './edit-modal/edit-modal.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  {
+    path: '',
+    component: UserComponent
+  }
+];
 @NgModule({
   declarations: [
     UserComponent,
@@ -21,7 +28,9 @@ import { EditModalComponent } from './edit-modal/edit-modal.component';
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatDialogModule
-  ]
+    MatDialogModule,
+    RouterModule.forChild(routes)
+  ],
+  exports: [RouterModule]
 })
 export class UserModule { }
