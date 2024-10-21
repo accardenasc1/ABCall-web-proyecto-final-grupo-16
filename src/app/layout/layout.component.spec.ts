@@ -7,11 +7,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
+import { LayoutService } from './layout.service';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
   let fixture: ComponentFixture<LayoutComponent>;
-
+  const mockLayoutService = {getUser: () => of({userName: 'Test User', type: 0})};
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -23,7 +25,8 @@ describe('LayoutComponent', () => {
         BrowserAnimationsModule,
         RouterTestingModule
       ],
-      declarations: [LayoutComponent]
+      declarations: [LayoutComponent],
+      providers: [{provide: LayoutService, useValue: mockLayoutService}]
     }).compileComponents();
   });
 
