@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +16,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
+const routes: Routes = [
+  {
+    path: '',
+    component: CreateIncidentComponent
+  }
+];
 @NgModule({
   imports: [
     CommonModule,
@@ -31,10 +37,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSlideToggleModule,
     MatAutocompleteModule,
     NgxLoadingModule.forRoot({}),
+    RouterModule.forChild(routes)
+    
   ],
   declarations: [CreateIncidentComponent],
-  exports: [CreateIncidentComponent],
+  exports: [CreateIncidentComponent, RouterModule],
   providers: [provideHttpClient(), provideNativeDateAdapter()],
 })
-export class IncidentModule {}
+export class CreateIncidentModule {}
 
