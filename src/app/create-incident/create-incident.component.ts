@@ -60,7 +60,7 @@ export class CreateIncidentComponent implements OnInit {
       userData$.subscribe({
         next: (response: any) => {
           // Ahora realiza la solicitud de guardado del incidente
-          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: ''} as Incident).subscribe(() => {
+          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: 0} as Incident).subscribe(() => {
             this.loading = false;
             this.done = true;
           });
