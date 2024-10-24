@@ -5,6 +5,7 @@ export interface Incident {
   state: string | null;
   agentid: string | null;
   serviceid: string | null;
-  iduser: number | null;
+  userid: number | null;
   type: number | null;
+  username?: string | null;
 }

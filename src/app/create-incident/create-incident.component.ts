@@ -141,6 +141,6 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   onUserSelected(event: any): void {
-    this.userid = event.option.value.id;
+    this.userid = event.option.value.id_number;
   }
 }

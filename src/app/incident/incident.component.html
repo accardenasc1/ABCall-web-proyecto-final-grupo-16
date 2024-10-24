@@ -16,9 +16,15 @@
       </mat-form-field>
     </div>
   </div>
-
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   <!-- Tabla -->
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+       <!-- Columna Id Incidente -->
+       <ng-container matColumnDef="id_number">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id incidente </th>
+        <td mat-cell *matCellDef="let element"> {{element.id_number}} </td>
+      </ng-container>
 
       <!-- Columna Título Incidente -->
       <ng-container matColumnDef="title">
@@ -26,16 +32,16 @@
         <td mat-cell *matCellDef="let element"> {{element.title}} </td>
       </ng-container>
 
-      <!-- Columna Id Incidente -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id incidente </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-
+     
       <!-- Columna Usuario -->
       <ng-container matColumnDef="userid">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Identificacion Usuario </th>
         <td mat-cell *matCellDef="let element"> {{element.userid}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de Usuario</th>
+        <td mat-cell *matCellDef="let element">{{element.username}}</td>
       </ng-container>
 
       <!-- Columna Tipo PQR -->
@@ -46,7 +52,7 @@
 
       <!-- Columna Tipo Ingreso -->
       <ng-container matColumnDef="state">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Ingreso </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado</th>
         <td mat-cell *matCellDef="let element"> {{element.state}} </td>
       </ng-container>
 
