@@ -13,6 +13,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { UserModule } from './user/user.module';
 import { IncidentModule } from './incident/incident.module';
+import { CreateClientModule } from './create-client/create-client.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { IncidentModule } from './incident/incident.module';
     UserSignUpModule,
     LoginModule,
     UserModule,
-    IncidentModule
+    IncidentModule,
+    CreateClientModule
   ],
   providers: [
     provideHttpClient(withInterceptors([AuthInterceptor])),

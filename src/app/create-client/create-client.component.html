@@ -1,0 +1,95 @@
+<div class="page">
+    <ng-container *ngIf="!done">
+      <form [formGroup]="clientForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Razón social</mat-label>
+          <mat-hint
+            *ngIf="clientForm.hasError('invalid_name')"
+            class="error"
+            >Razón social ya existe</mat-hint
+          >
+          <input formControlName="name" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nit</mat-label>
+          <mat-hint
+            *ngIf="clientForm.hasError('invalid_nit')"
+            class="error"
+            >Nit ya existe</mat-hint
+          >
+          <input formControlName="nit" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <mat-hint *ngIf="clientForm.hasError('invalid_email')" class="error"
+            >Email ya existe</mat-hint
+          >
+          <input formControlName="email" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input formControlName="phone" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Departamento</mat-label>
+          <select
+            matNativeControl
+            formControlName="department"
+            (ngModelChange)="selectDeparment($event)"
+          >
+            @for (item of colombia; track item) {
+            <option [value]="item.departamento">
+              {{ item.departamento }}
+            </option>
+            }
+          </select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Ciudad</mat-label>
+          <select matNativeControl formControlName="city">
+            @for (item of department.ciudades; track item) {
+            <option [value]="item">{{ item }}</option>
+            }
+          </select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Dirección</mat-label>
+          <input formControlName="address" matInput />
+        </mat-form-field>
+        <div class="actions">
+          <button
+            class="save"
+            mat-flat-button
+            (click)="save()"
+            [disabled]="!isValid()"
+          >
+            GUARDAR
+          </button>
+          <button class="cancel" mat-stroked-button (click)="goBack()">
+            CANCELAR
+          </button>
+        </div>
+      </form>
+    </ng-container>
+    <ng-container *ngIf="done">
+      <div class="done">
+        <p>Empresa registrada correctamente.</p>
+        <button class="back" mat-flat-button (click)="goBack()">
+          Volver al home
+        </button>
+      </div>
+    </ng-container>
+</div>
+
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+    <h3>Loading...</h3>
+  </div>
+</ng-template>
+
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+  [template]="customLoadingTemplate"
+></ngx-loading>
+
