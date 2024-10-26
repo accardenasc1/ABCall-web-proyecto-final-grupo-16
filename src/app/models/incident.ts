@@ -1,4 +1,5 @@
 import { State } from "./state";
+import { Type } from "./type";
 
 export interface Incident {
   title: string | null;
@@ -8,6 +9,6 @@ export interface Incident {
   agentid: string | null;
   serviceid: string | null;
   userid: number | null;
-  type: number | null;
+  type: Type | null;
   username?: string | null;
 }

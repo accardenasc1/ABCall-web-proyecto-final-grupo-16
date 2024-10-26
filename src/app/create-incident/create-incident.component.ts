@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Incident } from '../models/incident';
 import { State } from '../models/state';
-
+import { Type } from '../models/type';
 @Component({
   selector: 'app-incident',
   templateUrl: './create-incident.component.html',
@@ -13,9 +13,10 @@ import { State } from '../models/state';
 })
 export class CreateIncidentComponent implements OnInit {
   state = 'Create';
+  IncidentType = Type; 
   incidentForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    type: new FormControl<number | null>(0, [Validators.required]),
+    type: new FormControl<Type | null>(0, [Validators.required]),
     description: new FormControl('', [Validators.required]),
     clientid: new FormControl('', [Validators.required]),
     iduser: new FormControl<number | null>(null, [Validators.required]),
@@ -54,13 +55,15 @@ export class CreateIncidentComponent implements OnInit {
   save() {
     this.loading = true;
     const incident = this.incidentForm.value;
-    // Obtener los datos del usuario
+    // Obtener los datos del usuario    
     const userData$ = this.getUserData();
-
+    incident.type = Number(incident.type);
     if (userData$) {
       userData$.subscribe({
         next: (response: any) => {
-          // Ahora realiza la solicitud de guardado del incidente   
+          // Ahora realiza la solicitud de guardado del incidente 
+         
+         
           this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: State.Open} as Incident).subscribe(() => {
             this.loading = false;
             this.done = true;
