@@ -24,7 +24,7 @@ describe('UsersService', () => {
 
   it('should get user', async () => {
     const users = [{
-      id: "d7515355-8e35-11ef-a172-38dead9029f4",
+      id: 1,
       username: "prueba",
       id_number: '825634951',
       email: "prueba@example.com",
@@ -47,7 +47,7 @@ describe('UsersService', () => {
 
   it('should edit user', async () => {
     const user = {
-      id: "d7515355-8e35-11ef-a172-38dead9029f4",
+      id: 2,
       username: "prueba",
       id_number: '825634951',
       email: "prueba@example.com",

@@ -4,6 +4,7 @@ import { IncidentService } from './create-incident.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Incident } from '../models/incident';
+import { State } from '../models/state';
 
 @Component({
   selector: 'app-incident',
@@ -14,7 +15,7 @@ export class CreateIncidentComponent implements OnInit {
   state = 'Create';
   incidentForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    type: new FormControl<number | null>(null, [Validators.required]),
+    type: new FormControl<number | null>(0, [Validators.required]),
     description: new FormControl('', [Validators.required]),
     clientid: new FormControl('', [Validators.required]),
     iduser: new FormControl<number | null>(null, [Validators.required]),
@@ -28,7 +29,7 @@ export class CreateIncidentComponent implements OnInit {
   selectedFile: File | null = null;
   filteredUsers: any[] = [];
   allUsers: any[] = [];
-  userid: string | null = null;
+  userid: number | null = null;
 
   constructor(private router: Router, private incidentService: IncidentService) {
 
@@ -59,8 +60,8 @@ export class CreateIncidentComponent implements OnInit {
     if (userData$) {
       userData$.subscribe({
         next: (response: any) => {
-          // Ahora realiza la solicitud de guardado del incidente
-          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: 0} as Incident).subscribe(() => {
+          // Ahora realiza la solicitud de guardado del incidente   
+          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: State.Open} as Incident).subscribe(() => {
             this.loading = false;
             this.done = true;
           });

@@ -55,7 +55,7 @@ describe('EditModalComponent', () => {
 
   const mockData = {
     user: {
-      id: "d7515355-8e35-11ef-a172-38dead9029f4",
+      id: 1,
       username: "prueba",
       id_number: '825634951',
       email: "prueba@example.com",
@@ -68,7 +68,7 @@ describe('EditModalComponent', () => {
       birthday: "1990-05-15"
     },
     clients: [{
-      id: "a8d601c6-8e65-11ef-bb9d-38dead9029f4",
+      id: 2,
       name: "Amazon",
       nit: '1234567890',
       email: "prueba@example.com",
