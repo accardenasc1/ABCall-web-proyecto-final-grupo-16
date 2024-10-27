@@ -32,11 +32,11 @@ describe('IncidentComponent', () => {
 
   const mockIncidentService = {
     getAll: () => of([
-      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: 1, type: Type.Other }
+      { title: 'Test 1', description: 'Test 1', clientid: 1, state: State.Open, agentid: 1, serviceid: '1', userid: 1, type: Type.Other }
     ]),
 
     getByRole: () => of([
-      { title: 'Test 1', description: 'Test 2', clientid: '2', state: State.Open, agentid: '2', serviceid: '2', userid: 2, type: Type.Other }
+      { title: 'Test 1', description: 'Test 2', clientid: 2, state: State.Open, agentid: 2, serviceid: '2', userid: 2, type: Type.Other }
     ])
   };
    
@@ -84,7 +84,36 @@ describe('IncidentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-    
+
+  it('should fetch all incidents for admin', () => {
+    component.incidents = [
+      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: 1, type: Type.Other }
+    ];
+    console.log("inci",component.incidents);
+    expect(component.incidents.length).toBe(1);
+    expect(component.incidents[0].title).toBe('Test 1');
+  });  
+
+  it('should fetch incidents for agent', () => {
+    component.incidents = [
+      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: 1, type: Type.Other }
+    ];
+    mockLayoutService.getUser = () => ({ id: 1, type: Role.Agent } as User);
+    component.getIncidents();
+    expect(component.incidents.length).toBe(1);
+    expect(component.incidents[0].title).toBe('Test 1');
+  });
+
+  it('should fetch incidents for user', () => {
+    component.incidents = [
+      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: 1, type: Type.Other }
+    ];
+    mockLayoutService.getUser = () => ({ id: 1, type: Role.User } as User);
+    component.getIncidents();
+    expect(component.incidents.length).toBe(1);
+    expect(component.incidents[0].title).toBe('Test 1');
+  });
+
   it('should navigate to create incident page on create', () => {
     component.onCreate();
     expect(router.navigate).toHaveBeenCalledWith(['/', 'app', 'create-incident']);
