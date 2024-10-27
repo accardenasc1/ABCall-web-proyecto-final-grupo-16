@@ -46,10 +46,26 @@ export class IncidentComponent implements OnInit {
   ngOnInit() {
     this.getIncidents();
   }
+    
+  applyFilterByIdAndTitle(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.filterPredicate = (data: Incident, filter: string) => {
+      return (data.id_number?.toString().includes(filter) ?? false) || (data.title?.toLowerCase().includes(filter) ?? false);
+    };
+    this.dataSource.filter = filterValue;
+    this.updateErrorMessage();
+  
+  }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilterByUser(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.filterPredicate = (data: Incident, filter: string) => {
+      return (data.userid?.toString().includes(filter) ?? false) || (data.username ?? '').toLowerCase().includes(filter);
+    };
+    this.dataSource.filter = filterValue;  
+    this.updateErrorMessage();
+  }
+  updateErrorMessage() {
     if (this.dataSource.filteredData.length === 0) {
       this.errorMessage = 'No hay incidentes para mostrar';
     } else {

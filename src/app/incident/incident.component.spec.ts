@@ -105,28 +105,45 @@ describe('IncidentComponent', () => {
     expect(component.incidents[0].title).toBe('Test 1');
   });
 
-  it('should apply filter and show error message if no incidents found', () => {
-    component.dataSource.data = [];
-    const event = new Event('input', { bubbles: true, cancelable: true });
-    Object.defineProperty(event, 'target', { value: { value: 'test' }, writable: true });
-    component.applyFilter(event);
-    expect(component.errorMessage).toBe('No hay incidentes para mostrar');
-  });
-
   it('should navigate to create incident page on create', () => {
     component.onCreate();
     expect(router.navigate).toHaveBeenCalledWith(['/', 'app', 'create-incident']);
   });
 
-  it('should filter incidents', () => {
+  it('should filter incidents by id and title', () => {
     component.dataSource.data = [
-      { title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: 1, type: Type.Other, username: 'User 1' },
-      { title: 'Incident 2', description: 'Description 2', clientid: '2', state: State.Closed, agentid: 'agent2', serviceid: 'service2', userid: 2, type: Type.Other, username: 'User 2' }
+      { id_number: 1, title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: 1, type: Type.Other, username: 'User 1' },
+      { id_number: 2, title: 'Incident 2', description: 'Description 2', clientid: '2', state: State.Closed, agentid: 'agent2', serviceid: 'service2', userid: 2, type: Type.Other, username: 'User 2' }
     ];
     const event = new Event('input', { bubbles: true, cancelable: true });
-    Object.defineProperty(event, 'target', { value: { value: 'Incident 1' }, writable: true });
-    component.applyFilter(event);
+    Object.defineProperty(event, 'target', { value: { value: '1' }, writable: true });
+    component.applyFilterByIdAndTitle(event);
     expect(component.dataSource.filteredData.length).toBe(1);
-    expect(component.dataSource.filteredData[0].title).toBe('Incident 1');
+    expect(component.dataSource.filteredData[0].id_number).toBe(1);
+  });
+
+  it('should filter incidents by user', () => {
+    component.dataSource.data = [
+      { id_number: 1, title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: 1, type: Type.Other, username: 'User 1' },
+      { id_number: 2, title: 'Incident 2', description: 'Description 2', clientid: '2', state: State.Closed, agentid: 'agent2', serviceid: 'service2', userid: 2, type: Type.Other, username: 'User 2' }
+    ];
+    const event = new Event('input', { bubbles: true, cancelable: true });
+    Object.defineProperty(event, 'target', { value: { value: 'User 1' }, writable: true });
+    component.applyFilterByUser(event);
+    expect(component.dataSource.filteredData.length).toBe(1);
+    expect(component.dataSource.filteredData[0].username).toBe('User 1');
+  });
+  it('should update error message when no incidents found', () => {
+    component.dataSource.data = [];
+    component.updateErrorMessage();
+    expect(component.errorMessage).toBe('No hay incidentes para mostrar');
+  });
+
+  it('should clear error message when incidents are found', () => {
+    component.dataSource.data = [
+      { id_number: 1, title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: 1, type: Type.Other, username: 'User 1' }
+    ];
+    component.updateErrorMessage();
+    expect(component.errorMessage).toBe('');
   });
 });

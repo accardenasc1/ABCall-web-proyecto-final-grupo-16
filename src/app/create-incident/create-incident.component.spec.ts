@@ -111,9 +111,9 @@ describe('IncidentComponent', () => {
 
     // Verificar que loading está activo al inicio
     //expect(component.loading).toBeTrue();
-
-    // Verificar que el post ha sido llamado con los datos correctos
-    expect(postSpy).toHaveBeenCalledWith({...mockIncident, serviceid: '1', userid: 123, agentid: 'agent1',state: 0,type: Type.Other} as Incident);
+    const expectedIncident = { ...mockIncident, serviceid: '1', userid: 123, agentid: 'agent1', state: 0, type: Type.Other } as Incident;
+    // Verificar que el post ha sido llamado con los datos correctos 
+    expect(postSpy).toHaveBeenCalledWith(expectedIncident);
 
     // Verificar que loading se establece en false y done en true después del guardado
     expect(component.loading).toBeFalse();

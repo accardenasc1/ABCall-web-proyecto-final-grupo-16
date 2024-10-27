@@ -11,4 +11,5 @@ export interface Incident {
   userid: number | null;
   type: Type | null;
   username?: string | null;
+  id_number?: number | null;
 }

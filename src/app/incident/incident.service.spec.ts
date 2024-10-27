@@ -10,6 +10,7 @@ describe('IncidentService', () => {
   let httpTestingController: HttpTestingController;
 
   const mockIncident: Incident = {
+    id_number: 1,
     title: 'Mock Incident',
     description: 'Test description',
     clientid: 'Client1',
