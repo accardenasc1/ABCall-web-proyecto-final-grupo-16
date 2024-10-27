@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit{
         (response: BaseResponse<Login>) => {
           if (response.status === 200) {
             if (response.data?.access_token) {
-              this.loginService.saveToken(response.data.access_token);
+              this.loginService.saveToken(response.data.access_token);   
               this.loginService.saveUser(response.data.user);
 
               console.log('Token guardado correctamente:', response);
