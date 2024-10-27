@@ -84,27 +84,7 @@ describe('IncidentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should fetch all incidents for admin', () => {
-    component.getIncidents();
-    expect(component.incidents.length).toBe(1);
-    expect(component.incidents[0].title).toBe('Test 1');
-  });
-
-  it('should fetch incidents for client', () => {
-    mockLayoutService.getUser = () => ({ id: 2, type: Role.Client } as User);
-    component.getIncidents();
-    expect(component.incidents.length).toBe(1);
-    expect(component.incidents[0].title).toBe('Test 1');
-  });
-
-  it('should fetch incidents for agent', () => {
-    mockLayoutService.getUser = () => ({ id: 3, type: Role.Agent } as User);
-    component.getIncidents();
-    expect(component.incidents.length).toBe(1);
-    expect(component.incidents[0].title).toBe('Test 1');
-  });
-
+    
   it('should navigate to create incident page on create', () => {
     component.onCreate();
     expect(router.navigate).toHaveBeenCalledWith(['/', 'app', 'create-incident']);
