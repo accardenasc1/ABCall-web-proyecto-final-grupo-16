@@ -12,12 +12,13 @@ describe('IncidentService', () => {
   let httpMock: HttpTestingController;
 
   const mockIncident: Incident = {
+    id_number: 1,
     title: 'Mock Incident',
     type: 1,
     description: 'Test description',
     clientid: 'Client1',
-    iduser: 1,
-    state: '',
+    userid: 1,
+    state: 0,
     agentid: '',
     serviceid: ''
   };

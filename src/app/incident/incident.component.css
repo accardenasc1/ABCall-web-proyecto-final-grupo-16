@@ -59,3 +59,8 @@
   button {
     border-radius: 4px;
   }
+  .error-message {
+    color: var(--error) !important;
+    text-align: center;
+    margin-top: -5px;
+  }
