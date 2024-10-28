@@ -4,21 +4,27 @@
   <div class="search-filters">
     <div class="search-item">    
       <mat-form-field appearance="outline" class="small-form-field">
-        <input matInput id="idIncidenteSearch" (keyup)="applyFilter($event)" placeholder="Id Incidente" />
+        <input matInput id="idIncidenteSearch" (keyup)="applyFilterByIdAndTitle($event)" placeholder="Id Incidente o Título" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
 
     <div class="search-item">    
       <mat-form-field appearance="outline" class="small-form-field">
-        <input matInput id="usuarioSearch" (keyup)="applyFilter($event)" placeholder="Id Usuario" />
+        <input matInput id="usuarioSearch" (keyup)="applyFilterByUser($event)" placeholder="Id Usuario o Nombre de Usuario" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
   </div>
-
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   <!-- Tabla -->
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+       <!-- Columna Id Incidente -->
+       <ng-container matColumnDef="id_number">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id incidente </th>
+        <td mat-cell *matCellDef="let element"> {{element.id_number}} </td>
+      </ng-container>
 
       <!-- Columna Título Incidente -->
       <ng-container matColumnDef="title">
@@ -26,28 +32,28 @@
         <td mat-cell *matCellDef="let element"> {{element.title}} </td>
       </ng-container>
 
-      <!-- Columna Id Incidente -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id incidente </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-
+     
       <!-- Columna Usuario -->
       <ng-container matColumnDef="userid">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Identificacion Usuario </th>
         <td mat-cell *matCellDef="let element"> {{element.userid}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de Usuario</th>
+        <td mat-cell *matCellDef="let element">{{element.username}}</td>
       </ng-container>
 
       <!-- Columna Tipo PQR -->
       <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo PQR </th>
-        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        <td mat-cell *matCellDef="let element">{{ getTypeString(element.type) }}  </td>
       </ng-container>
 
       <!-- Columna Tipo Ingreso -->
       <ng-container matColumnDef="state">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Ingreso </th>
-        <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado</th>
+        <td mat-cell *matCellDef="let element"> {{ getIncidentStateString(element.state) }}  </td>
       </ng-container>
 
       <!-- Encabezados y filas -->

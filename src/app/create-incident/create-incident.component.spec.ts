@@ -19,6 +19,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { Incident } from '../models/incident';
+import { Type } from '../models/type';
 
 describe('IncidentComponent', () => {
   let component: CreateIncidentComponent;
@@ -95,7 +96,7 @@ describe('IncidentComponent', () => {
   it('should save the incident successfully', () => {
     // Datos de usuario simulados
     const mockUserData = { data: { id: 'agent1' } };
-    const mockIncident = { title: 'Test Incident', description: 'Test Description', clientid: '123', iduser: 456, type: 1 };
+    const mockIncident = { title: 'Test Incident', description: 'Test Description', clientid: '123', iduser: 456, type: Type.Other };
 
     // Espiar getUserData y post del servicio
     spyOn(component, 'getUserData').and.returnValue(of(mockUserData)); // Retorna datos de usuario simulados
@@ -104,16 +105,15 @@ describe('IncidentComponent', () => {
     // Simular el valor del formulario
     component.incidentForm.setValue(mockIncident);
     component.serviceId = '1';
-    component.userid = '123';
-
+    component.userid = 123;
     // Ejecutar el método save
     component.save();
 
     // Verificar que loading está activo al inicio
     //expect(component.loading).toBeTrue();
-
-    // Verificar que el post ha sido llamado con los datos correctos
-    expect(postSpy).toHaveBeenCalledWith({...mockIncident, serviceid: '1', userid: '123', agentid: 'agent1', state: 0 } as Incident);
+    const expectedIncident = { ...mockIncident, serviceid: '1', userid: 123, agentid: 'agent1', state: 0, type: Type.Other } as Incident;
+    // Verificar que el post ha sido llamado con los datos correctos 
+    expect(postSpy).toHaveBeenCalledWith(expectedIncident);
 
     // Verificar que loading se establece en false y done en true después del guardado
     expect(component.loading).toBeFalse();
@@ -156,14 +156,14 @@ describe('IncidentComponent', () => {
     const mockEvent = {
       option: {
         value: {
-          id: '12345'  // Valor simulado del id de usuario
+          id_number: 12345  // Valor simulado del id de usuario
         }
       }
     };
     // Llamar a la función con el evento simulado
     component.onUserSelected(mockEvent);
     // Verificar que el valor de userid se haya actualizado correctamente
-    expect(component.userid).toBe('12345');
+    expect(component.userid).toBe(12345);
   });
 
   it('should return formatted string when a valid user is provided', () => {
