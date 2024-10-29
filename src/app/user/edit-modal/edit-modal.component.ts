@@ -45,11 +45,6 @@ export class EditModalComponent {
       client_id: user.type?.toString() === '3' ? user.client_id : null
     } as User).subscribe(() => {
       this.dialogRef.close();
-    }, error => {
-      if (error.error === 'invalid client')
-      this.userForm.setErrors({
-        invalid_client: true
-      })
     });
   }
 }
