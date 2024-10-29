@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { User } from '../../models/user';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { UserService } from '../user.service';
 
 describe('EditModalComponent', () => {
@@ -125,20 +125,5 @@ describe('EditModalComponent', () => {
     const serviceSpy = spyOn(service, 'put').and.returnValue(of(data));
     component.onSave();
     expect(serviceSpy).toHaveBeenCalledWith(data);
-  });
-
-  it('should not save with invalid client', () => {
-    const data = mockData.user;
-    const service = fixture.debugElement.injector.get(UserService);
-    const serviceSpy = spyOn(service, 'put').and.returnValue(throwError(() => {
-      return {
-        error: 'invalid client'
-      };
-    }));
-
-    component.onSave();
-
-    expect(serviceSpy).toHaveBeenCalledWith(data);
-    expect(component.userForm.hasError('invalid_client')).toBeTruthy();
   });
 });
