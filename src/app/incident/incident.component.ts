@@ -46,7 +46,7 @@ export class IncidentComponent implements OnInit {
   ngOnInit() {
     this.getIncidents();
   }
-    
+
   applyFilterByIdAndTitle(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.dataSource.filterPredicate = (data: Incident, filter: string) => {
@@ -54,7 +54,7 @@ export class IncidentComponent implements OnInit {
     };
     this.dataSource.filter = filterValue;
     this.updateErrorMessage();
-  
+
   }
 
   applyFilterByUser(event: Event) {
@@ -62,7 +62,7 @@ export class IncidentComponent implements OnInit {
     this.dataSource.filterPredicate = (data: Incident, filter: string) => {
       return (data.userid?.toString().includes(filter) ?? false) || (data.username ?? '').toLowerCase().includes(filter);
     };
-    this.dataSource.filter = filterValue;  
+    this.dataSource.filter = filterValue;
     this.updateErrorMessage();
   }
   updateErrorMessage() {
@@ -75,18 +75,19 @@ export class IncidentComponent implements OnInit {
 
   getIncidents(): void {
     switch (this.user.type) {
-      case Role.Admin || Role.Agent:
+      case Role.Admin:
+      case Role.Agent:
         this.fetchIncidents(this.incidentService.getAll());
         break;
       case Role.Client:
         this.fetchIncidents(this.incidentService.getByRole(this.user.id, Role.Client));
-        break;    
-      case Role.User:       
+        break;
+      case Role.User:
         this.fetchIncidents(this.incidentService.getByRole(Number(this.user.id_number), Role.User));
         break;
     }
   }
-  
+
   fetchIncidents(incidentObservable: Observable<Incident[]>): void {
     incidentObservable.subscribe((incidents) => {
       const userRequests = incidents.map((incident) =>
@@ -97,14 +98,14 @@ export class IncidentComponent implements OnInit {
           })
         )
       );
-  
+
       forkJoin(userRequests).subscribe((updatedIncidents) => {
         this.incidents = updatedIncidents;
         this.updateDataSource();
       });
     });
   }
-  
+
 
   updateDataSource(): void {
     this.dataSource.data = this.incidents;
