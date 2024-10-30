@@ -2,14 +2,14 @@
   <button mat-button class="create" (click)="onCreate()">Crear</button>
   <!-- Filtros de búsqueda -->
   <div class="search-filters">
-    <div class="search-item">    
+    <div class="search-item">
       <mat-form-field appearance="outline" class="small-form-field">
         <input matInput id="idIncidenteSearch" (keyup)="applyFilterByIdAndTitle($event)" placeholder="Id Incidente o Título" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
 
-    <div class="search-item">    
+    <div class="search-item">
       <mat-form-field appearance="outline" class="small-form-field">
         <input matInput id="usuarioSearch" (keyup)="applyFilterByUser($event)" placeholder="Id Usuario o Nombre de Usuario" />
         <mat-icon matSuffix>search</mat-icon>
@@ -32,7 +32,7 @@
         <td mat-cell *matCellDef="let element"> {{element.title}} </td>
       </ng-container>
 
-     
+
       <!-- Columna Usuario -->
       <ng-container matColumnDef="userid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Identificacion Usuario </th>
@@ -63,5 +63,5 @@
 
     <!-- Paginación -->
     <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator> -->
-  
+
 </div>

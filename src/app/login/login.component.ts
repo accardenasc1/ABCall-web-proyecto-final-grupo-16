@@ -20,33 +20,35 @@ export class LoginComponent implements OnInit{
   constructor(private loginService: LoginService, private router: Router ) { }
 
   ngOnInit(): void {
+    this.validateToken();
+  }
+
+  validateToken(): boolean {
     const token = sessionStorage.getItem('access_token');
     if (token) {
       this.router.navigate(['/app']);
+      return false;
     }
+    return true;
   }
 
   onLogInUser() {
-    console.log('onlogInUser');
     if (this.loginForm.value){
       this.loginService.login(this.loginForm.value).subscribe(
         (response: BaseResponse<Login>) => {
           if (response.status === 200) {
             if (response.data?.access_token) {
-              this.loginService.saveToken(response.data.access_token);   
+              this.loginService.saveToken(response.data.access_token);
               this.loginService.saveUser(response.data.user);
 
-              console.log('Token guardado correctamente:', response);
               this.router.navigate(['/app/home']);
 
-            } else {
-              console.log('Token no disponible en la respuesta:', response);
             }
           }
         },
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         error => {
           this.errorMessage = 'Nombre de usuario o contraseña incorrectos';
-          console.log('Error al guardar el token:', error);
         }
       );
   }

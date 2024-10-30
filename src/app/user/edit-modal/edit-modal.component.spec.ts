@@ -67,6 +67,19 @@ describe('EditModalComponent', () => {
       client_id: null,
       birthday: "1990-05-15"
     },
+    userClient: {
+      id: 1,
+      username: "prueba",
+      id_number: '825634951',
+      email: "prueba@example.com",
+      password: "c893bad68927b457dbed39460e6afd62",
+      phone: "+57 321 9876543",
+      department: "Cundinamarca",
+      city: "Bogotá",
+      type: 3,
+      client_id: "client_id",
+      birthday: "1990-05-15"
+    },
     clients: [{
       id: 2,
       name: "Amazon",
@@ -121,6 +134,20 @@ describe('EditModalComponent', () => {
 
   it('should save', () => {
     const data = mockData.user;
+    const service = fixture.debugElement.injector.get(UserService);
+    const serviceSpy = spyOn(service, 'put').and.returnValue(of(data));
+    component.onSave();
+    expect(serviceSpy).toHaveBeenCalledWith(data);
+  });
+
+  it('should save type client', () => {
+    const data = mockData.userClient;
+    component.userForm.setValue({
+      id: data.id,
+      username: data.username,
+      type: data.type,
+      client_id: data.client_id
+    })
     const service = fixture.debugElement.injector.get(UserService);
     const serviceSpy = spyOn(service, 'put').and.returnValue(of(data));
     component.onSave();
