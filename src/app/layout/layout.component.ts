@@ -9,7 +9,7 @@ import { User } from '../models/user';
   styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
-  user: User;
+  user: User | undefined;
 
   constructor(private router: Router, private layoutService: LayoutService) {
     this.user = layoutService.getUser();

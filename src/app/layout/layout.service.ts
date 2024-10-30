@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LayoutService {
 
-  getUser(): any {
-    return JSON.parse(sessionStorage.getItem('user')?.toString() ?? '');
+  getUser(): User | undefined {
+    const data = sessionStorage.getItem('user');
+    return data ? JSON.parse(data) : undefined;
   }
 }
