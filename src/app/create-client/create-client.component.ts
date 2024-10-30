@@ -30,7 +30,7 @@ export class CreateClientComponent {
   loading = false;
   done = false;
   hasClientAssigned = true;
-  user: User;
+  user: User | undefined = undefined;;
   userData: any;
   filteredUsers: any[] = [];
   allUsers: any[] = [];
@@ -66,13 +66,18 @@ export class CreateClientComponent {
     if (this.userData) {
           // Ahora realiza la solicitud de guardado del cliente
           this.clientServise.post(client as Client).subscribe((response: any) => {
-            this.user.client_id = response.id;
-            this.clientServise.assignedClient({
-              ...this.user,
-            } as User).subscribe(() => {
-              this.loading = false;
-              this.done = true;
-            });
+            if (this.user) {
+              this.user.client_id = response.id;
+              this.clientServise.assignedClient({
+                ...this.user,
+              } as User).subscribe(() => {
+                this.loading = false;
+                this.done = true;
+              });
+            } else {
+              console.error('User is null, cannot assign client_id.');
+              this.loading = false; // Asegúrate de manejar el estado de carga
+            }
           }, error => {
               this.loading = false;
               switch (error.error) {
