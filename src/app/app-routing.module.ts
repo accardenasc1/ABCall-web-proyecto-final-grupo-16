@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: 'home',  loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate: [AuthGuard] },
       { path: 'incident', loadChildren: () => import('./incident/incident.module').then(m => m.IncidentModule), canActivate: [AuthGuard]},
       { path: 'create-incident', loadChildren: () => import('./create-incident/create-incident.module').then(m => m.CreateIncidentModule) , canActivate: [AuthGuard]},
-      { path: 'create-client', loadChildren: () => import('./create-client/create-client.module').then(m => m.CreateClientModule) , canActivate: [AuthGuard]},
+      { path: 'client', loadChildren: () => import('./create-client/create-client.module').then(m => m.CreateClientModule) , canActivate: [AuthGuard]},
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [AuthGuard]},
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]

@@ -6,6 +6,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { Client } from '../models/client';
 import { environment } from '../../environments/environment';
+import { User } from '../models/user';
 
 describe('ClientService', () => {
   let service: ClientService;
@@ -87,6 +88,23 @@ describe('ClientService', () => {
         expect(response[0].error).toBeTrue();  // Verificamos que error sea true
         expect(response[0].message).toBe('Error al validar token');  // Mensaje de error
     });
+  });
+
+  it('should send a PUT request to assignedClient and return the response', () => {
+    const mockUser: User = { /* Aquí debes incluir los campos de User */ };
+    const mockResponse = { success: true }; // Simula la respuesta que esperas
+
+    service.assignedClient(mockUser).subscribe(response => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    // Expect a request to be made
+    const req = httpMock.expectOne(`${environment.usersURL}/client`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual(mockUser); // Verifica que el cuerpo de la solicitud sea el correcto
+
+    // Responde con datos simulados
+    req.flush(mockResponse);
   });
 
 });

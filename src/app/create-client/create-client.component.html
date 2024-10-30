@@ -1,12 +1,13 @@
 <div class="page">
+  <ng-container *ngIf="!hasClientAssigned">
     <ng-container *ngIf="!done">
       <form [formGroup]="clientForm">
         <mat-form-field appearance="outline">
-          <mat-label>Razón social</mat-label>
+          <mat-label i18n>Razón social</mat-label>
           <mat-hint
             *ngIf="clientForm.hasError('invalid_name')"
             class="error"
-            >Razón social ya existe</mat-hint
+            >Razón social ya existe </mat-hint
           >
           <input formControlName="name" matInput />
         </mat-form-field>
@@ -79,6 +80,15 @@
         </button>
       </div>
     </ng-container>
+  </ng-container>
+  <ng-container *ngIf="hasClientAssigned">
+    <div class="assigned-message">
+      <p>Ya se ha asignado un cliente. </p>
+      <button class="back" mat-flat-button (click)="goBack()">
+        Volver al home
+      </button>
+    </div>
+  </ng-container>
 </div>
 
 <ng-template #customLoadingTemplate>

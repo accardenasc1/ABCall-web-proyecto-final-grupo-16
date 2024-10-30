@@ -4,6 +4,8 @@ import { ClientService } from './create-client.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Client } from '../models/client';
+import { User } from '../models/user';
+import { LayoutService } from '../layout/layout.service';
 import { Colombia } from '../user-sign-up/colombia';
 
 @Component({
@@ -27,33 +29,50 @@ export class CreateClientComponent {
   });
   loading = false;
   done = false;
+  hasClientAssigned = true;
+  user: User;
+  userData: any;
   filteredUsers: any[] = [];
   allUsers: any[] = [];
   userid: string | null = null;
 
-  constructor(private router: Router, private clientServise: ClientService) {
-
-  }
+  constructor(private router: Router,
+    private clientServise: ClientService,
+    private layoutService: LayoutService) {
+      this.user = layoutService.getUser();
+      this.getUserData();
+    }
 
   goBack() {
     this.router.navigate(['/', 'app', 'home']);
   }
 
   getUserData() {
-      return this.clientServise.user_token();
+    this.clientServise.user_token().subscribe(
+      (response: any) => {
+          this.userData = response.data;
+          if(this.userData?.client_id == null) {
+            this.hasClientAssigned = false
+          }else{
+            this.hasClientAssigned = true
+          }
+      }
+    );
   }
 
   save() {
     this.loading = true;
     const client = this.clientForm.value;
-    // Obtener los datos del usuario
-    const userData$ = this.getUserData();
-
-    if (userData$) {
+    if (this.userData) {
           // Ahora realiza la solicitud de guardado del cliente
-          this.clientServise.post(client as Client).subscribe(() => {
-            this.loading = false;
-            this.done = true;
+          this.clientServise.post(client as Client).subscribe((response: any) => {
+            this.user.client_id = response.id;
+            this.clientServise.assignedClient({
+              ...this.user,
+            } as User).subscribe(() => {
+              this.loading = false;
+              this.done = true;
+            });
           }, error => {
               this.loading = false;
               switch (error.error) {

@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Client } from '../models/client';
 import { HttpHeaders } from '@angular/common/http';
 import { of } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -42,4 +43,8 @@ export class ClientService {
         return of([{ error: true, message: 'Error al validar token' }]);
       }
   }
+  public assignedClient(body: User){
+      return this.http.put(`${environment.usersURL}/client`, body);
+  }
+
 }

@@ -20,6 +20,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { Client } from '../models/client';
 import { Colombia } from '../user-sign-up/colombia';
+import { LayoutService } from '../layout/layout.service';
+import { User } from '../models/user';
+import { Role } from '../models/role';
 
 describe('ClientComponent', () => {
   let component: CreateClientComponent;
@@ -32,8 +35,13 @@ describe('ClientComponent', () => {
 
   const mockClientService = {
     post: (data: any) => of(data),
-    user_token: () => of({ data: { id: 'agent1' } })
+    user_token: () => of({ data: { id: 'agent1' } }),
+    assignedClient: (data: User) => of(data)
   };
+  const mockLayoutService = {
+    getUser: () => ({ id: 1, type: Role.Admin } as User)
+  };
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -56,6 +64,7 @@ describe('ClientComponent', () => {
       providers: [
         { provide: ClientService, useValue: mockClientService }, // Solo un proveedor para Service
         { provide: Router, useValue: mockRouter }, // Espía para el router
+        { provide: LayoutService, useValue: mockLayoutService },
         provideNativeDateAdapter()
       ]
     }).compileComponents();
@@ -75,26 +84,45 @@ describe('ClientComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/', 'app', 'home']); // Verifica que se llame a navigate con la ruta esperada
   });
 
-  it('should call clientService.user_token and return the correct data', () => {
+  it('should call clientService.user_token and return undefined', () => {
     // Espiar el método user_token del servicio y simular un valor de retorno
-    const mockTokenData = { data: { id: 'agent1' } };
-    const userTokenSpy = spyOn(mockClientService, 'user_token').and.returnValue(of(mockTokenData));
-
+    const mockUserClient = undefined;
+    const userTokenSpy = spyOn(mockClientService, 'user_token').and.callFake(() => {
+      // Establecer userData como en el mock
+      return of(component.userData); // Devuelve el observable simulado
+    });
     // Llamar al método getUserData
-    const result$ = component.getUserData();
+    component.getUserData();
 
     // Verificar que user_token fue llamado
     expect(userTokenSpy).toHaveBeenCalled();
 
-    // Suscribirse al resultado y verificar los datos retornados
-    result$.subscribe((data) => {
-      expect(data).toEqual(mockTokenData); // Verifica que los datos retornados sean los esperados
-    });
+    expect(component.userData).toEqual(mockUserClient);
+    expect(component.hasClientAssigned).toBeFalse();
+  });
+
+  it('should set hasClientAssigned to true when client_id is not null', () => {
+    // Simular una respuesta donde client_id no sea null
+    const mockTokenData = { data: { id: 'agent1', client_id: '12345' } };
+
+    // Espiar el método user_token y devolver el mock
+    const userTokenSpy = spyOn(mockClientService, 'user_token').and.returnValue(of(mockTokenData));
+
+    // Llamar al método getUserData
+    component.getUserData();
+
+    // Verificar que user_token fue llamado
+    expect(userTokenSpy).toHaveBeenCalled();
+
+    // Verificar que userData se establece correctamente
+    expect(component.userData).toEqual(mockTokenData.data);
+
+    // Verificar que hasClientAssigned se establece en true
+    expect(component.hasClientAssigned).toBeTrue();
   });
 
   it('should save the client successfully', () => {
     // Datos de usuario simulados
-    const mockUserData = { data: { id: 'agent1' } };
     const mockClient = {
       name: 'Mock Client',
       nit: '908654321',
@@ -105,21 +133,29 @@ describe('ClientComponent', () => {
       address: 'Calle 19 No 11 33'
     };
 
-    // Espiar getUserData y post del servicio
-    spyOn(component, 'getUserData').and.returnValue(of(mockUserData)); // Retorna datos de usuario simulados
-    const postSpy = spyOn(mockClientService, 'post').and.returnValue(of({})); // Simula la respuesta exitosa del post
+    // Simular la respuesta exitosa del post con un id
+    const postResponse = { id: 'newClientId' };
+    const postSpy = spyOn(mockClientService, 'post').and.returnValue(of(postResponse));
+
+    // Simular la respuesta del método assignedClient
+    const assignedClientSpy = spyOn(mockClientService, 'assignedClient').and.returnValue(of({}));
 
     // Simular el valor del formulario
     component.clientForm.setValue(mockClient);
 
+    // Establecer userData para que la llamada a save funcione
+    component.userData = { client_id: null }; // o lo que se necesite para simular el estado inicial
+
     // Ejecutar el método save
     component.save();
 
-    // Verificar que loading está activo al inicio
-    //expect(component.loading).toBeTrue();
-
-    // Verificar que el post ha sido llamado con los datos correctos
+    // Verificar que post ha sido llamado con los datos correctos
     expect(postSpy).toHaveBeenCalledWith({...mockClient } as Client);
+
+    // Verificar que assignedClient fue llamado con el usuario correcto
+    expect(assignedClientSpy).toHaveBeenCalledWith(jasmine.objectContaining({
+      client_id: postResponse.id // verificar que se haya pasado el id correcto
+    }));
 
     // Verificar que loading se establece en false y done en true después del guardado
     expect(component.loading).toBeFalse();
