@@ -16,7 +16,7 @@ export class IncidentService {
       `${this.incidentUrl}/incident`
     );
   }
-  getByRole(userId: number | null | undefined,role: number): Observable<Incident[]> {
+  getByRole(userId: number | null | undefined, role: number): Observable<Incident[]> {
     return this.http.get<Incident[]>(
       `${this.incidentUrl}/incident-role/${userId}/${role}`
     );

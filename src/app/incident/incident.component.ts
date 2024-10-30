@@ -20,7 +20,7 @@ import { Role } from '../models/role';
 })
 export class IncidentComponent implements OnInit {
   public incidents: Incident[] = [];
-  user: User;
+  user: User | undefined;
   displayedColumns: string[] = [
     'id_number',
     'title',
@@ -40,12 +40,17 @@ export class IncidentComponent implements OnInit {
     private router: Router,
     private layoutService: LayoutService
   ) {
-    this.user = layoutService.getUser();
+    this.getUser()
+  }
+
+  getUser() {
+    this.user = this.layoutService.getUser();
   }
 
   ngOnInit() {
     this.getIncidents();
   }
+
 
   applyFilterByIdAndTitle(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
@@ -54,6 +59,7 @@ export class IncidentComponent implements OnInit {
     };
     this.dataSource.filter = filterValue;
     this.updateErrorMessage();
+
 
   }
 
@@ -74,16 +80,16 @@ export class IncidentComponent implements OnInit {
   }
 
   getIncidents(): void {
-    switch (this.user.type) {
+    switch (this.user?.type) {
       case Role.Admin:
       case Role.Agent:
         this.fetchIncidents(this.incidentService.getAll());
         break;
       case Role.Client:
-        this.fetchIncidents(this.incidentService.getByRole(this.user.id, Role.Client));
+        this.fetchIncidents(this.incidentService.getByRole(this.user?.id, Role.Client));
         break;
       case Role.User:
-        this.fetchIncidents(this.incidentService.getByRole(Number(this.user.id_number), Role.User));
+        this.fetchIncidents(this.incidentService.getByRole(Number(this.user?.id_number), Role.User));
         break;
     }
   }

@@ -50,6 +50,18 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should validate token', () => {
+    sessionStorage.setItem('access_token', 'test');
+    const result = component.validateToken();
+    expect(result).toBeFalsy();
+  });
+
+  it('should validate undefined token', () => {
+    sessionStorage.clear();
+    const result = component.validateToken();
+    expect(result).toBeTruthy();
+  });
+
   it('should have a form with username and password fields', () => {
     const username = component.loginForm.get('username');
     const password = component.loginForm.get('password');

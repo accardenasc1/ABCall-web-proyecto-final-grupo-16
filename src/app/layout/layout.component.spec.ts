@@ -6,9 +6,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { LayoutService } from './layout.service';
+import { Router, RouterModule } from '@angular/router';
+
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -23,10 +24,14 @@ describe('LayoutComponent', () => {
         MatIconModule,
         MatButtonModule,
         BrowserAnimationsModule,
-        RouterTestingModule
+        RouterModule.forRoot(
+          []
+        )
       ],
       declarations: [LayoutComponent],
-      providers: [{provide: LayoutService, useValue: mockLayoutService}]
+      providers: [
+        { provide: LayoutService, useValue: mockLayoutService },
+      ]
     }).compileComponents();
   });
 
@@ -53,12 +58,19 @@ describe('LayoutComponent', () => {
     fixture.detectChanges();
     const sidenav = compiled.querySelector('mat-sidenav');
     expect(sidenav.classList).not.toContain('mat-drawer-opened');
-  });  
+  });
 
   it('should have a sidenav with menu items', () => {
     fixture.detectChanges(); // Asegúrate de que los cambios se detecten
     const compiled = fixture.nativeElement;
     const menuItems = compiled.querySelectorAll('mat-nav-list mat-list-item');
     expect(menuItems.length).toBeGreaterThan(0);
+  });
+
+  it('should logout', () => {
+    const service = fixture.debugElement.injector.get(Router);
+    const serviceSpy = spyOn(service, 'navigate');
+    component.logout();
+    expect(serviceSpy).toHaveBeenCalledWith(['/login']);
   });
 });
