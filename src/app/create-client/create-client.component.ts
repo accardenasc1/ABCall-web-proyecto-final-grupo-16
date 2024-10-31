@@ -51,9 +51,9 @@ export class CreateClientComponent {
     this.clientServise.user_token().subscribe(
       (response: any) => {
           this.userData = response.data;
-          if(this.userData?.client_id == null) {
+          if (this.userData?.client_id == null || this.userData?.client_id == "") {
             this.hasClientAssigned = false
-          }else{
+          } else {
             this.hasClientAssigned = true
           }
       }
