@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxLoadingModule } from '@dchtools/ngx-loading-v18';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,6 +32,7 @@ describe('IncidentComponent', () => {
 
   const mockIncidentService = {
     getAllUsers: () => of([{ id_number: '123', username: 'user1' }, { id_number: '456', username: 'user2' }]),
+    getAllClients: () => of([{ id: '456', name: 'client1' }, { id: '890', name: 'client2' }]),
     post: (data: any) => of(data),
     user_token: () => of({ data: { id: 'agent1' } })
   };
@@ -96,7 +97,7 @@ describe('IncidentComponent', () => {
   it('should save the incident successfully', () => {
     // Datos de usuario simulados
     const mockUserData = { data: { id: 'agent1' } };
-    const mockIncident = { title: 'Test Incident', description: 'Test Description', clientid: '123', iduser: 456, type: Type.Other };
+    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456 };
 
     // Espiar getUserData y post del servicio
     spyOn(component, 'getUserData').and.returnValue(of(mockUserData)); // Retorna datos de usuario simulados
@@ -112,7 +113,7 @@ describe('IncidentComponent', () => {
     // Verificar que loading está activo al inicio
     //expect(component.loading).toBeTrue();
     const expectedIncident = { ...mockIncident, serviceid: '1', userid: 123, agentid: 'agent1', state: 0, type: Type.Other } as Incident;
-    // Verificar que el post ha sido llamado con los datos correctos 
+    // Verificar que el post ha sido llamado con los datos correctos
     expect(postSpy).toHaveBeenCalledWith(expectedIncident);
 
     // Verificar que loading se establece en false y done en true después del guardado
@@ -167,7 +168,7 @@ describe('IncidentComponent', () => {
   });
 
   it('should return formatted string when a valid user is provided', () => {
-    const mockUser = { id_number: '12345', username: 'JohnDoe' };
+    const mockUser = { id_number: 12345, username: 'JohnDoe' };
 
     // Llamar a displayUser con un usuario válido
     const result = component.displayUser(mockUser);
@@ -251,6 +252,111 @@ describe('IncidentComponent', () => {
     component.isMailEnabled = true;
     component.updateToggleStates();
     expect(component.isSmartphoneEnabled).toBe(false);
+  });
+
+  it('should fetch and set users correctly in getUsers()', () => {
+
+    const mockAllUser = [{ id_number: '123', username: 'user1' }, { id_number: '456', username: 'user2' }]
+    const allUserSpy = spyOn(mockIncidentService, 'getAllUsers').and.returnValue(of(mockAllUser));
+
+    component.getUsers();
+
+    expect(allUserSpy).toHaveBeenCalled();
+
+    expect(component.allUsers).toEqual(mockAllUser);
+    expect(component.filteredUsers).toEqual(mockAllUser);
+  });
+
+  it('should fetch and set users correctly in getClients()', () => {
+
+    const mockAllClient = [{ id: '456', name: 'client1' }, { id: '890', name: 'client2' }]
+    const allClientSpy = spyOn(mockIncidentService, 'getAllClients').and.returnValue(of(mockAllClient));
+
+    component.getClients();
+
+    expect(allClientSpy).toHaveBeenCalled();
+
+    expect(component.allClients).toEqual(mockAllClient);
+    expect(component.filteredClients).toEqual(mockAllClient);
+  });
+
+  it('should clear the required validator for clientid when user type is 3', () => {
+    component.user = { type: 3 }; // Tipo de usuario 3
+    const clientidControl = component.incidentForm.get('clientid');
+    clientidControl?.setValidators(Validators.required); // Añadir validator para probar que se remueva
+
+    component.setClientValidator();
+
+    expect(clientidControl?.hasValidator(Validators.required)).toBeFalse();
+  });
+
+  it('should clear the required validator for iduser when user type is 1', () => {
+    component.user = { type: 1 }; // Tipo de usuario 1
+    const clientidControl = component.incidentForm.get('iduser');
+    clientidControl?.setValidators(Validators.required); // Añadir validator para probar que se remueva
+
+    component.setUserValidator();
+
+    expect(clientidControl?.hasValidator(Validators.required)).toBeFalse();
+  });
+
+  it('should clear the required validator for iduser when user type is 1', () => {
+    // Asigna un tipo de usuario 1 para que se ejecute el bloque else
+    component.user = { type: 1 };
+
+    // Configura el validador 'required' inicialmente
+    const clientidControl = component.incidentForm.get('iduser');
+    clientidControl?.setValidators(Validators.required);
+    clientidControl?.updateValueAndValidity();
+
+    // Llama a setUserValidator para activar la lógica del else
+    component.setUserValidator();
+
+    // Verifica que el validador requerido se haya eliminado
+    expect(clientidControl?.hasValidator(Validators.required)).toBeFalse();
+  });
+
+  it('should clear the required validator for clientid when user type is 3', () => {
+    // Asigna un tipo de usuario 3 para que se ejecute el bloque else
+    component.user = { type: 3 };
+
+    // Configura el validador 'required' inicialmente
+    const clientidControl = component.incidentForm.get('clientid');
+    clientidControl?.setValidators(Validators.required);
+    clientidControl?.updateValueAndValidity();
+
+    // Llama a setClientValidator para activar la lógica del else
+    component.setClientValidator();
+
+    // Verifica que el validador requerido se haya eliminado
+    expect(clientidControl?.hasValidator(Validators.required)).toBeFalse();
+  });
+
+  it('should save the incident successfully userid null', () => {
+    // Datos de usuario simulados
+    const mockUserData = { data: { id: 'agent1' } };
+    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456 };
+
+    // Espiar getUserData y post del servicio
+    spyOn(component, 'getUserData').and.returnValue(of(mockUserData)); // Retorna datos de usuario simulados
+    const postSpy = spyOn(mockIncidentService, 'post').and.returnValue(of({})); // Simula la respuesta exitosa del post
+
+    // Simular el valor del formulario
+    component.incidentForm.setValue(mockIncident);
+    component.serviceId = '1';
+    component.userid = null;
+    // Ejecutar el método save
+    component.save();
+
+    // Verificar que loading está activo al inicio
+    //expect(component.loading).toBeTrue();
+    const expectedIncident = { ...mockIncident, serviceid: '1', userid: 1, agentid: 'agent1', state: 0, type: Type.Other } as Incident;
+    // Verificar que el post ha sido llamado con los datos correctos
+    expect(postSpy).toHaveBeenCalledWith(expectedIncident);
+
+    // Verificar que loading se establece en false y done en true después del guardado
+    expect(component.loading).toBeFalse();
+    expect(component.done).toBeTrue();
   });
 
 });

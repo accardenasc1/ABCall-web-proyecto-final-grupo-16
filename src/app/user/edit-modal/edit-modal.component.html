@@ -28,8 +28,8 @@
         matNativeControl
         formControlName="client_id"
       >
-        @for (item of data.clients; track item) {
         <option [value]="null"></option>
+        @for (item of data.clients; track item) {
         <option [value]="item.id">
           {{ item.name }}
         </option>
