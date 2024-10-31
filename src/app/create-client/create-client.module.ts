@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { CreateIncidentComponent } from './create-incident.component';
+import { CreateClientComponent } from './create-client.component';
 import { provideHttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -19,7 +19,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 const routes: Routes = [
   {
     path: '',
-    component: CreateIncidentComponent
+    component: CreateClientComponent
   }
 ];
 @NgModule({
@@ -40,8 +40,9 @@ const routes: Routes = [
     RouterModule.forChild(routes)
 
   ],
-  declarations: [CreateIncidentComponent],
-  exports: [CreateIncidentComponent, RouterModule],
+  declarations: [CreateClientComponent],
+  exports: [CreateClientComponent, RouterModule],
   providers: [provideHttpClient(), provideNativeDateAdapter()],
 })
-export class CreateIncidentModule {}
+export class CreateClientModule {}
+

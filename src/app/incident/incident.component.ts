@@ -51,6 +51,7 @@ export class IncidentComponent implements OnInit {
     this.getIncidents();
   }
 
+
   applyFilterByIdAndTitle(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     this.dataSource.filterPredicate = (data: Incident, filter: string) => {
@@ -58,6 +59,7 @@ export class IncidentComponent implements OnInit {
     };
     this.dataSource.filter = filterValue;
     this.updateErrorMessage();
+
 
   }
 
@@ -79,7 +81,8 @@ export class IncidentComponent implements OnInit {
 
   getIncidents(): void {
     switch (this.user?.type) {
-      case Role.Admin || Role.Agent:
+      case Role.Admin:
+      case Role.Agent:
         this.fetchIncidents(this.incidentService.getAll());
         break;
       case Role.Client:
