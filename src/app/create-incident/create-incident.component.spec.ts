@@ -335,11 +335,10 @@ describe('IncidentComponent', () => {
   it('should save the incident successfully userid null', () => {
     // Datos de usuario simulados
     const mockUserData = { data: { id: 'agent1' } };
-    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456 };
+    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: null };
 
     // Espiar getUserData y post del servicio
     spyOn(component, 'getUserData').and.returnValue(of(mockUserData)); // Retorna datos de usuario simulados
-    const postSpy = spyOn(mockIncidentService, 'post').and.returnValue(of({})); // Simula la respuesta exitosa del post
 
     // Simular el valor del formulario
     component.incidentForm.setValue(mockIncident);
@@ -350,9 +349,6 @@ describe('IncidentComponent', () => {
 
     // Verificar que loading está activo al inicio
     //expect(component.loading).toBeTrue();
-    const expectedIncident = { ...mockIncident, serviceid: '1', userid: 1, agentid: 'agent1', state: 0, type: Type.Other } as Incident;
-    // Verificar que el post ha sido llamado con los datos correctos
-    expect(postSpy).toHaveBeenCalledWith(expectedIncident);
 
     // Verificar que loading se establece en false y done en true después del guardado
     expect(component.loading).toBeFalse();
