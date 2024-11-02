@@ -85,8 +85,8 @@ export class IncidentComponent implements OnInit {
       case Role.Agent:
         this.fetchIncidents(this.incidentService.getAll());
         break;
-      case Role.Client:
-        this.fetchIncidents(this.incidentService.getByRole(this.user?.id, Role.Client));
+      case Role.Client:        
+        this.fetchIncidents(this.incidentService.getByRole(Number(this.user?.client_id), Role.Client));
         break;
       case Role.User:
         this.fetchIncidents(this.incidentService.getByRole(Number(this.user?.id_number), Role.User));

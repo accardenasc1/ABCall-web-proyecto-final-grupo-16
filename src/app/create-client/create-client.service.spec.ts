@@ -99,7 +99,7 @@ describe('ClientService', () => {
     });
 
     // Expect a request to be made
-    const req = httpMock.expectOne(`${environment.usersURL}/client`);
+    const req = httpMock.expectOne(`${environment.usersURL}/user`);
     expect(req.request.method).toBe('PUT');
     expect(req.request.body).toEqual(mockUser); // Verifica que el cuerpo de la solicitud sea el correcto
 

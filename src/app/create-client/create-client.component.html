@@ -72,14 +72,14 @@
         </div>
       </form>
     </ng-container>
-    <ng-container *ngIf="done">
+    <!-- <ng-container *ngIf="done">
       <div class="done">
         <p>Empresa registrada correctamente.</p>
         <button class="back" mat-flat-button (click)="goBack()">
           Volver al home
         </button>
       </div>
-    </ng-container>
+    </ng-container> -->
   </ng-container>
   <ng-container *ngIf="hasClientAssigned">
     <div class="assigned-message">
@@ -89,17 +89,6 @@
       </button>
     </div>
   </ng-container>
+  <router-outlet  *ngIf="!hasClientAssigned"></router-outlet>
+ 
 </div>
-
-<ng-template #customLoadingTemplate>
-  <div class="custom-class">
-    <h3>Loading...</h3>
-  </div>
-</ng-template>
-
-<ngx-loading
-  [show]="loading"
-  [config]="{ backdropBorderRadius: '3px' }"
-  [template]="customLoadingTemplate"
-></ngx-loading>
-
