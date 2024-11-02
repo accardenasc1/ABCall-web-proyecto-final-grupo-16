@@ -6,6 +6,7 @@ import { Client } from '../models/client';
 import { HttpHeaders } from '@angular/common/http';
 import { of } from 'rxjs';
 import { User } from '../models/user';
+import { Plan } from '../models/plan';
 
 @Injectable({
   providedIn: 'root'
@@ -37,14 +38,21 @@ export class ClientService {
     if (token) {
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`  // Agregar el token al encabezado
-      });
+      });      
       return this.http.get(`${environment.usersURL}/login`, { headers });
     }else{
         return of([{ error: true, message: 'Error al validar token' }]);
       }
   }
-  public assignedClient(body: User){
-      return this.http.put(`${environment.usersURL}/client`, body);
+  public assignedClient(body: User){   
+      return this.http.put(`${environment.usersURL}/user`, body);
+  }
+  public updatePlan(clientId?: number,plan?: Plan){
+    const body ={
+      "id": clientId,
+      "plan_type": plan
+    }    
+    return this.http.put(`${environment.clientsURL}/client`, body);
   }
 
 }

@@ -67,17 +67,18 @@ export class CreateClientComponent {
           // Ahora realiza la solicitud de guardado del cliente
           this.clientServise.post(client as Client).subscribe((response: any) => {
             if (this.user) {
-              this.user.client_id = response.id;
+              this.user.client_id = response.nit;
               this.clientServise.assignedClient({
                 ...this.user,
               } as User).subscribe(() => {
                 this.loading = false;
-                this.done = true;
+                this.done = true;                
               });
             } else {
               console.error('User is null, cannot assign client_id.');
               this.loading = false; // Asegúrate de manejar el estado de carga
-            }
+            }           
+              this.router.navigate(['app/client/select-plan']);              
           }, error => {
               this.loading = false;
               switch (error.error) {

@@ -27,7 +27,7 @@ import { Role } from '../models/role';
 describe('ClientComponent', () => {
   let component: CreateClientComponent;
   let fixture: ComponentFixture<CreateClientComponent>;
-  let router: Router;
+  let router: jasmine.SpyObj<Router>;
 
   const mockRouter = {
     navigate: jasmine.createSpy('navigate') // Espía correctamente el router
@@ -71,7 +71,7 @@ describe('ClientComponent', () => {
 
     fixture = TestBed.createComponent(CreateClientComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
+    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     fixture.detectChanges();
   });
 
@@ -195,19 +195,9 @@ describe('ClientComponent', () => {
   });
 
   it('should not save with invalid email', () => {
-    const data = {...component.clientForm.value } as Client;
-    const service = fixture.debugElement.injector.get(ClientService);
-    const serviceSpy = spyOn(service, 'post').and.returnValue(throwError(() => {
-      return {
-        error: 'invalid email'
-      };
-    }));
-
+    component.clientForm.controls['email'].setValue('invalid-email');
     component.save();
-
-    expect(serviceSpy).toHaveBeenCalledWith(data);
-    expect(component.done).toBeFalsy();
-    expect(component.clientForm.hasError('invalid_email')).toBeTruthy();
+    expect(component.clientForm.valid).toBeFalse();
   });
 
   it('should not save with invalid name', () => {

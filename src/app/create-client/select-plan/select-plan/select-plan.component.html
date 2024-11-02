@@ -1,0 +1,14 @@
+<div class="page">
+  <form [formGroup]="selectPlanForm">
+    <div class="plan-card" *ngFor="let plan of plans">
+      <h3>{{ plan.title }}</h3>
+      <p class="benefits">{{ plan.benefits }}</p>
+      <p>{{ plan.description }}</p>
+      <button class="select-button" (click)="selectPlan(plan.plan)" mat-flat-button  [ngClass]="{'disabled':!plan.selectable}">Seleccionar</button>
+    </div>
+    <button class="cancel" mat-stroked-button (click)="goBack()">
+      CANCELAR
+    </button>  
+  </form>
+    
+</div>
