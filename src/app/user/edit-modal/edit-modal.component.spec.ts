@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { User } from '../../models/user';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { UserService } from '../user.service';
 
 describe('EditModalComponent', () => {
@@ -55,7 +55,7 @@ describe('EditModalComponent', () => {
 
   const mockData = {
     user: {
-      id: "d7515355-8e35-11ef-a172-38dead9029f4",
+      id: 1,
       username: "prueba",
       id_number: '825634951',
       email: "prueba@example.com",
@@ -67,8 +67,21 @@ describe('EditModalComponent', () => {
       client_id: null,
       birthday: "1990-05-15"
     },
+    userClient: {
+      id: 1,
+      username: "prueba",
+      id_number: '825634951',
+      email: "prueba@example.com",
+      password: "c893bad68927b457dbed39460e6afd62",
+      phone: "+57 321 9876543",
+      department: "Cundinamarca",
+      city: "Bogotá",
+      type: 3,
+      client_id: "client_id",
+      birthday: "1990-05-15"
+    },
     clients: [{
-      id: "a8d601c6-8e65-11ef-bb9d-38dead9029f4",
+      id: 2,
       name: "Amazon",
       nit: '1234567890',
       email: "prueba@example.com",
@@ -127,18 +140,17 @@ describe('EditModalComponent', () => {
     expect(serviceSpy).toHaveBeenCalledWith(data);
   });
 
-  it('should not save with invalid client', () => {
-    const data = mockData.user;
+  it('should save type client', () => {
+    const data = mockData.userClient;
+    component.userForm.setValue({
+      id: data.id,
+      username: data.username,
+      type: data.type,
+      client_id: data.client_id
+    })
     const service = fixture.debugElement.injector.get(UserService);
-    const serviceSpy = spyOn(service, 'put').and.returnValue(throwError(() => {
-      return {
-        error: 'invalid client'
-      };
-    }));
-
+    const serviceSpy = spyOn(service, 'put').and.returnValue(of(data));
     component.onSave();
-
     expect(serviceSpy).toHaveBeenCalledWith(data);
-    expect(component.userForm.hasError('invalid_client')).toBeTruthy();
   });
 });

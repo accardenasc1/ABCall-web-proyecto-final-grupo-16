@@ -7,7 +7,7 @@ import { Client } from '../../models/client';
 
 
 interface FormData {
-  id: FormControl<string | null | undefined>;
+  id: FormControl<number | null | undefined>;
   username: FormControl<string | null | undefined>;
   type: FormControl<number | null | undefined>;
   client_id: FormControl<string | null | undefined>;
@@ -21,7 +21,7 @@ interface FormData {
 export class EditModalComponent {
   readonly dialogRef = inject(MatDialogRef<EditModalComponent>);
   userForm = new FormGroup<FormData>({
-    id: new FormControl(''),
+    id: new FormControl(),
     username: new FormControl(''),
     type: new FormControl(1),
     client_id: new FormControl(''),
@@ -45,11 +45,6 @@ export class EditModalComponent {
       client_id: user.type?.toString() === '3' ? user.client_id : null
     } as User).subscribe(() => {
       this.dialogRef.close();
-    }, error => {
-      if (error.error === 'invalid client')
-      this.userForm.setErrors({
-        invalid_client: true
-      })
     });
   }
 }

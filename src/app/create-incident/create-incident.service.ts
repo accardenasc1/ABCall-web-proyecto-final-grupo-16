@@ -70,4 +70,19 @@ export class IncidentService {
     }
   }
 
+  public getAllClients(): Observable<any[]> {
+    const token = this.getToken();
+    if (token) {
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`  // Agregar el token al encabezado
+        });
+        return this.http.get<any[]>(`${environment.clientsURL}/client`, { headers });
+    } else {
+        console.error('Error: No se pudo realizar la solicitud porque no hay token.');
+        // Lanzar un error controlado
+        //return throwError(new Error('No hay token disponible para realizar la solicitud.'));
+        return of([{ error: true, message: 'Error: No se pudo realizar la solicitud porque no hay token.' }]);
+    }
+  }
+
 }

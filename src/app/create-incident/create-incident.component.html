@@ -36,17 +36,24 @@
           </mat-error>
           <input formControlName="title" matInput />
         </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Cliente</mat-label>
-          <select matNativeControl formControlName="clientid">
-            <option [value]="1">Cliente 1</option>
-            <option [value]="2">Cliente 2</option>
-          </select>
-          <mat-error *ngIf="incidentForm.get('clientid')?.hasError('required')">
-            Este campo es obligatorio
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" *ngIf="this.user?.type !== 3">
+            <mat-label>Cliente</mat-label>
+            <select
+              matNativeControl
+              formControlName="clientid"
+            >
+              <option [value]="null"></option>
+              @for (item of filteredClients; track item) {
+              <option [value]="item.nit">
+                {{ item.name }}
+              </option>
+              }
+            </select>
+            <mat-error *ngIf="incidentForm.get('clientid')?.hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+          </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="this.user?.type !== 1">
           <mat-label>Usuario</mat-label>
           <input
             matInput
@@ -76,10 +83,11 @@
         <mat-form-field appearance="outline">
           <mat-label>Tipo PQR</mat-label>
           <select matNativeControl formControlName="type">
-            <option [value]="1">Técnico</option>
-            <option [value]="2">Usuarios</option>
-            <option [value]="3">Software</option>
-            <option [value]="4">Hardware</option>
+            <option [value]="IncidentType.Other">Otro</option>
+            <option [value]="IncidentType.Techincal">Técnico</option>
+            <option [value]="IncidentType.Users">Usuarios</option>
+            <option [value]="IncidentType.Software">Software</option>
+            <option [value]="IncidentType.Hardaware">Hardware</option>
           </select>
           <mat-error *ngIf="incidentForm.get('type')?.hasError('required')">
             Este campo es obligatorio

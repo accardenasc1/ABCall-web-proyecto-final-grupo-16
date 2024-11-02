@@ -57,7 +57,7 @@ describe('LoginService', () => {
   it('should save user in sessionStorage', () => {
     const user: User = {
       username: 'prueba',
-      id: '12345',
+      id: 1,
       type: 1
     };
     service.saveUser(user);

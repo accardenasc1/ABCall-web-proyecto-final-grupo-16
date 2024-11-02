@@ -24,13 +24,11 @@
     </mat-form-field>
     <mat-form-field appearance="outline" *ngIf="userForm.get('type')?.value == 3">
       <mat-label>Cliente</mat-label>
-      <mat-hint *ngIf="userForm.hasError('invalid_client')" class="error"
-        >Cliente es requerido!</mat-hint
-      >
       <select
         matNativeControl
         formControlName="client_id"
       >
+        <option [value]=""></option>
         @for (item of data.clients; track item) {
         <option [value]="item.id">
           {{ item.name }}

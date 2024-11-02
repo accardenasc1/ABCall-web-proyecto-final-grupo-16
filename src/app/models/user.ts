@@ -1,5 +1,7 @@
+import { Role } from "./role";
+
 export interface User {
-  id?: string | null;
+  id?: number | null;
   first_name?: string | null;
   last_name?: string | null;
   username?: string | null;
@@ -13,6 +15,6 @@ export interface User {
   address?: string | null;
   birthday?: string | null;
   dataCheck?: boolean | null;
-  type?: number | null;
+  type?: Role | null;
   client_id?: string | null;
 }

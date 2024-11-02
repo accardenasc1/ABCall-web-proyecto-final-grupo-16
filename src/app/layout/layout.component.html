@@ -13,11 +13,11 @@
         <div class="item">
           <mat-icon matListIcon>face</mat-icon>
           <div class="username">
-            <span matLine i18n>{{user.username}}</span>
-            <span *ngIf="user.type === 0" class="rol" matLine i18n>Administrador</span>
-            <span *ngIf="user.type === 1" class="rol" matLine i18n>Usuario</span>
-            <span *ngIf="user.type === 2" class="rol" matLine i18n>Agente</span>
-            <span *ngIf="user.type === 3" class="rol" matLine i18n>Cliente</span>
+            <span matLine i18n>{{user?.username}}</span>
+            <span *ngIf="user?.type === 0" class="rol" matLine i18n>Administrador</span>
+            <span *ngIf="user?.type === 1" class="rol" matLine i18n>Usuario</span>
+            <span *ngIf="user?.type === 2" class="rol" matLine i18n>Agente</span>
+            <span *ngIf="user?.type === 3" class="rol" matLine i18n>Cliente</span>
           </div>
         </div>
       </mat-list-item>
@@ -33,19 +33,19 @@
         <span matLine i18n>Incidentes</span>
         </div>
       </mat-list-item>
-      <mat-list-item routerLink="/app/client" [class.active]="isActive('/app/client')" *ngIf="user.type?.toString() === '0' || user.type?.toString() === '2'">
+      <mat-list-item routerLink="/app/client" [class.active]="isActive('/app/client')" *ngIf="user?.type?.toString() === '3'">
         <div class="item">
           <mat-icon matListIcon>add</mat-icon>
-        <span matLine i18n>Clientes</span>
+        <span matLine i18n>Cliente</span>
         </div>
       </mat-list-item>
-      <mat-list-item routerLink="/app/user" [class.active]="isActive('/app/user')" *ngIf="user.type?.toString() === '0'">
+      <mat-list-item routerLink="/app/user" [class.active]="isActive('/app/user')" *ngIf="user?.type?.toString() === '0'">
         <div class="item">
           <mat-icon matListIcon>add</mat-icon>
         <span matLine i18n>Usuarios y Roles</span>
         </div>
       </mat-list-item>
-      <mat-list-item (click)="logout()">
+      <mat-list-item class="logout" (click)="logout()">
         <div class="item">
           <mat-icon matListIcon>exit_to_app</mat-icon>
         <span matLine i18n>Cerrar sesión</span>

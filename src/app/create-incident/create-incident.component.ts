@@ -4,6 +4,10 @@ import { IncidentService } from './create-incident.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Incident } from '../models/incident';
+import { State } from '../models/state';
+import { Type } from '../models/type';
+import { User } from '../models/user';
+import { LayoutService } from '../layout/layout.service';
 
 @Component({
   selector: 'app-incident',
@@ -12,9 +16,10 @@ import { Incident } from '../models/incident';
 })
 export class CreateIncidentComponent implements OnInit {
   state = 'Create';
+  IncidentType = Type;
   incidentForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    type: new FormControl<number | null>(null, [Validators.required]),
+    type: new FormControl<Type | null>(0, [Validators.required]),
     description: new FormControl('', [Validators.required]),
     clientid: new FormControl('', [Validators.required]),
     iduser: new FormControl<number | null>(null, [Validators.required]),
@@ -28,13 +33,20 @@ export class CreateIncidentComponent implements OnInit {
   selectedFile: File | null = null;
   filteredUsers: any[] = [];
   allUsers: any[] = [];
-  userid: string | null = null;
+  userid: number | null = null;
+  filteredClients: any[] = [];
+  allClients: any[] = [];
+  user: User | undefined = undefined;
 
-  constructor(private router: Router, private incidentService: IncidentService) {
-
+  constructor(private router: Router, private incidentService: IncidentService,
+    private layoutService: LayoutService ) {
+    this.user = layoutService.getUser();
+    this.setClientValidator();
+    this.setUserValidator();
   }
   ngOnInit(): void {
     this.getUsers();
+    this.getClients();
 
     this.incidentForm.get('iduser')?.valueChanges.subscribe(value => {
       this.onSearch(value ?? '');
@@ -55,12 +67,20 @@ export class CreateIncidentComponent implements OnInit {
     const incident = this.incidentForm.value;
     // Obtener los datos del usuario
     const userData$ = this.getUserData();
-
+    incident.type = Number(incident.type);
+    if (this.userid == null)
+    {
+      this.userid = this.user?.id ?? null;
+    }
     if (userData$) {
       userData$.subscribe({
         next: (response: any) => {
           // Ahora realiza la solicitud de guardado del incidente
-          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: ''} as Incident).subscribe(() => {
+          if (incident.clientid == '')
+          {
+            incident.clientid = response.data.client_id;
+          }
+          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: State.Open} as Incident).subscribe(() => {
             this.loading = false;
             this.done = true;
           });
@@ -127,6 +147,13 @@ export class CreateIncidentComponent implements OnInit {
     });
   }
 
+  getClients(): void {
+    this.incidentService.getAllClients().subscribe((clients) => {
+      this.allClients = clients;  // Guardamos todos los usuarios
+      this.filteredClients = clients;  // Inicialmente mostramos todos
+    });
+  }
+
   onSearch(searchTerm: any): void {
     if (typeof searchTerm === 'string' && searchTerm) {
       // Filtrar usuarios por id_number o cualquier otro criterio
@@ -141,6 +168,32 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   onUserSelected(event: any): void {
-    this.userid = event.option.value.id;
+    this.userid = event.option.value.id_number;
+  }
+
+  setClientValidator() {
+    const clientidControl = this.incidentForm.get('clientid');
+
+    if (this.user?.type !== 3) {
+      clientidControl?.setValidators(Validators.required);
+    } else {
+      clientidControl?.clearValidators();
+    }
+
+    // Asegúrate de que Angular vuelva a validar este campo
+    clientidControl?.updateValueAndValidity();
+  }
+
+  setUserValidator() {
+    const useridControl = this.incidentForm.get('iduser');
+
+    if (this.user?.type !== 1) {
+      useridControl?.setValidators(Validators.required);
+    } else {
+      useridControl?.clearValidators();
+    }
+
+    // Asegúrate de que Angular vuelva a validar este campo
+    useridControl?.updateValueAndValidity();
   }
 }

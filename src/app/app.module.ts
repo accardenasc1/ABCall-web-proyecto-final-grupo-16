@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { UserModule } from './user/user.module';
 import { IncidentModule } from './incident/incident.module';
+import { CreateClientModule } from './create-client/create-client.module';
 
 @NgModule({
   declarations: [
@@ -27,12 +28,14 @@ import { IncidentModule } from './incident/incident.module';
     UserSignUpModule,
     LoginModule,
     UserModule,
-    IncidentModule
+    IncidentModule,
+    CreateClientModule
   ],
   providers: [
     provideHttpClient(withInterceptors([AuthInterceptor])),
     provideAnimationsAsync(),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

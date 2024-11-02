@@ -12,12 +12,13 @@ describe('IncidentService', () => {
   let httpMock: HttpTestingController;
 
   const mockIncident: Incident = {
+    id_number: 1,
     title: 'Mock Incident',
     type: 1,
     description: 'Test description',
     clientid: 'Client1',
-    iduser: 1,
-    state: '',
+    userid: 1,
+    state: 0,
     agentid: '',
     serviceid: ''
   };
@@ -116,5 +117,30 @@ describe('IncidentService', () => {
     });
   });
 
+  it('getAllClients should return users when token is available', () => {
+    const mockToken = 'mockToken';
+    const mockClients = [{ id: '1', name: 'User 1' }, { id: '2', name: 'User 2' }];
+
+    spyOn(service, 'getToken').and.returnValue(mockToken); // Simula el método getToken para que devuelva un token
+
+    service.getAllClients().subscribe((response) => {
+      expect(response).toEqual(mockClients); // Verifica que la respuesta sea igual a la simulación
+    });
+
+    const req = httpMock.expectOne(`${environment.clientsURL}/client`); // Verifica que se realizó una solicitud a la URL esperada
+    expect(req.request.headers.get('Authorization')).toBe('Bearer mockToken'); // Verifica que se envíe el token en los encabezados
+    req.flush(mockClients); // Simula una respuesta exitosa de la API
+  });
+
+  it('getAllClients should return error when no token is available', () => {
+    spyOn(service, 'getToken').and.returnValue(null); // Simula la ausencia de un token
+
+    service.getAllClients().subscribe((response: any) => {
+      // Aquí verificamos la respuesta que se espera en caso de error
+      expect(response.length).toBe(1);  // Esperamos un array con un solo objeto
+      expect(response[0].error).toBeTrue();  // Verificamos que error sea true
+      expect(response[0].message).toBe('Error: No se pudo realizar la solicitud porque no hay token.');  // Mensaje de error
+    });
+  });
 
 });
