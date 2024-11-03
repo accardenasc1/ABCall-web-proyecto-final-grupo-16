@@ -42,15 +42,15 @@ describe('User', () => {
     cy.visit('/');
   });
 
-  // it('Registro de usuario y autenticación (caso positivo)', () => {
-  //   // Generar datos aleatorios del nuevo usuario:
-  //   const username = faker.internet.username();
-  //   const password = 'Qwerty123*#';
+  it('Registro de usuario y autenticación (caso positivo)', () => {
+    // Generar datos aleatorios del nuevo usuario:
+    const username = faker.internet.username();
+    const password = 'Qwerty123*#';
 
-  //   // Login test
-  //   login(username, password);
+    // Login test
+    login(username, password);
 
-  //   // Logout test
-  //   logout();
-  // });
+    // Logout test
+    logout();
+  });
 });
