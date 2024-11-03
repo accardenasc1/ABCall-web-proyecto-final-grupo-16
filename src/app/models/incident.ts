@@ -8,7 +8,7 @@ export interface Incident {
   state: State | null;
   agentid: string | null;
   serviceid: string | null;
-  userid: number | null;
+  userid: string | null;
   type: Type | null;
   username?: string | null;
   id_number?: number | null;

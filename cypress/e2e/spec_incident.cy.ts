@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { login } from './spec_user.cy';
+import { login, logout } from './spec_user.cy';
 
 describe('Incident', () => {
   beforeEach(() => {
@@ -36,7 +36,10 @@ describe('Incident', () => {
     // Volver a la lista
     cy.get('button.back').click();
 
+    // Validar que el incident esta en lista
+    cy.get('tbody tr td:nth-child(2)').contains(title);
+
     // Logout test
-    // logout();
+    logout();
   });
 });

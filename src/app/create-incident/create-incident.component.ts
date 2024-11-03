@@ -33,7 +33,7 @@ export class CreateIncidentComponent implements OnInit {
   selectedFile: File | null = null;
   filteredUsers: any[] = [];
   allUsers: any[] = [];
-  userid: number | null = null;
+  userid: string | null = null;
   filteredClients: any[] = [];
   allClients: any[] = [];
   user: User | undefined = undefined;
@@ -70,7 +70,7 @@ export class CreateIncidentComponent implements OnInit {
     incident.type = Number(incident.type);
     if (this.userid == null)
     {
-      this.userid = this.user?.id ?? null;
+      this.userid = this.user?.id_number ?? null;
     }
     if (userData$) {
       userData$.subscribe({

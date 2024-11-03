@@ -106,13 +106,13 @@ describe('IncidentComponent', () => {
     // Simular el valor del formulario
     component.incidentForm.setValue(mockIncident);
     component.serviceId = '1';
-    component.userid = 123;
+    component.userid = '123';
     // Ejecutar el método save
     component.save();
 
     // Verificar que loading está activo al inicio
     //expect(component.loading).toBeTrue();
-    const expectedIncident = { ...mockIncident, serviceid: '1', userid: 123, agentid: 'agent1', state: 0, type: Type.Other } as Incident;
+    const expectedIncident = { ...mockIncident, serviceid: '1', userid: '123', agentid: 'agent1', state: 0, type: Type.Other } as Incident;
     // Verificar que el post ha sido llamado con los datos correctos
     expect(postSpy).toHaveBeenCalledWith(expectedIncident);
 
@@ -157,14 +157,14 @@ describe('IncidentComponent', () => {
     const mockEvent = {
       option: {
         value: {
-          id_number: 12345  // Valor simulado del id de usuario
+          id_number: '12345'  // Valor simulado del id de usuario
         }
       }
     };
     // Llamar a la función con el evento simulado
     component.onUserSelected(mockEvent);
     // Verificar que el valor de userid se haya actualizado correctamente
-    expect(component.userid).toBe(12345);
+    expect(component.userid).toBe('12345');
   });
 
   it('should return formatted string when a valid user is provided', () => {
