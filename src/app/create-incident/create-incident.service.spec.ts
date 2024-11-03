@@ -17,7 +17,7 @@ describe('IncidentService', () => {
     type: 1,
     description: 'Test description',
     clientid: 'Client1',
-    userid: 1,
+    userid: '1',
     state: 0,
     agentid: '',
     serviceid: ''
