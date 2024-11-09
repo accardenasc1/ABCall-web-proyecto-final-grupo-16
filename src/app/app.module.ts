@@ -14,6 +14,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { UserModule } from './user/user.module';
 import { IncidentModule } from './incident/incident.module';
 import { CreateClientModule } from './create-client/create-client.module';
+import { ResetPasswordModule } from './reset-password/reset-password.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CreateClientModule } from './create-client/create-client.module';
     LoginModule,
     UserModule,
     IncidentModule,
-    CreateClientModule
+    CreateClientModule,
+    ResetPasswordModule
   ],
   providers: [
     provideHttpClient(withInterceptors([AuthInterceptor])),
