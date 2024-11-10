@@ -22,6 +22,7 @@ const routes: Routes = [
       { path: 'home',  loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate: [AuthGuard] },
       { path: 'incident', loadChildren: () => import('./incident/incident.module').then(m => m.IncidentModule), canActivate: [AuthGuard]},
       { path: 'create-incident', loadChildren: () => import('./create-incident/create-incident.module').then(m => m.CreateIncidentModule) , canActivate: [AuthGuard]},
+      //{ path: 'detail-incident/:id', loadChildren: () => import('./detail-incident/detail-incident.module').then(m => m.DetailIncidentModule) , canActivate: [AuthGuard]},
       {
         path: 'client',
         component: CreateClientComponent,
