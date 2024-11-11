@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { CreateClientComponent } from './create-client/create-client.component';
 import { SelectPlanComponent } from './create-client/select-plan/select-plan/select-plan.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'user-sign-up', component: UserSignUpComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   {
     path: 'app',
     component: LayoutComponent,
