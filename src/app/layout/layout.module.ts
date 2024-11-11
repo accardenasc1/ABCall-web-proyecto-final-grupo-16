@@ -7,6 +7,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { MatRippleModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,9 +21,14 @@ import { RouterModule } from '@angular/router';
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    MatRippleModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
-  declarations: [LayoutComponent],
+  declarations: [LayoutComponent, ChatbotComponent],
   exports: [LayoutComponent]
 })
 export class LayoutModule { }
