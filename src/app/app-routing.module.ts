@@ -21,6 +21,7 @@ const routes: Routes = [
     children: [
       { path: 'home',  loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate: [AuthGuard] },
       { path: 'incident', loadChildren: () => import('./incident/incident.module').then(m => m.IncidentModule), canActivate: [AuthGuard]},
+      { path: 'control-board', loadChildren: () => import('./control-board/control-board.module').then(m => m.ControlBoardModule) , canActivate: [AuthGuard]},
       { path: 'create-incident', loadChildren: () => import('./create-incident/create-incident.module').then(m => m.CreateIncidentModule) , canActivate: [AuthGuard]},
       {
         path: 'client',

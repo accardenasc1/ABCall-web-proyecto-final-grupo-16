@@ -20,6 +20,7 @@ import { State } from '../models/state';
 import { Type } from '../models/type';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { Channel } from '../models/channel';
 
 describe('IncidentComponent', () => {
   let component: IncidentComponent;
@@ -87,7 +88,7 @@ describe('IncidentComponent', () => {
 
   it('should fetch all incidents for admin', () => {
     component.incidents = [
-      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: '1', type: Type.Other }
+      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: '1', type: Type.Other, channel: Channel.Web,createat: new Date() }
     ];
     console.log("inci",component.incidents);
     expect(component.incidents.length).toBe(1);
@@ -96,7 +97,7 @@ describe('IncidentComponent', () => {
 
   it('should fetch incidents for agent', () => {
     component.incidents = [
-      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: '1', type: Type.Other }
+      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: '1', type: Type.Other,channel: Channel.Web,createat: new Date() }
     ];
     mockLayoutService.getUser = () => ({ id: 1, type: Role.Agent } as User);
     component.getIncidents();
@@ -106,7 +107,7 @@ describe('IncidentComponent', () => {
 
   it('should fetch incidents for user', () => {
     component.incidents = [
-      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: '1', type: Type.Other }
+      { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: '1', type: Type.Other,channel: Channel.Web,createat: new Date() }
     ];
     mockLayoutService.getUser = () => ({ id: 1, type: Role.User } as User);
     component.getIncidents();
@@ -121,8 +122,8 @@ describe('IncidentComponent', () => {
 
   it('should filter incidents by id and title', () => {
     component.dataSource.data = [
-      { id_number: 1, title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: '1', type: Type.Other, username: 'User 1' },
-      { id_number: 2, title: 'Incident 2', description: 'Description 2', clientid: '2', state: State.Closed, agentid: 'agent2', serviceid: 'service2', userid: '2', type: Type.Other, username: 'User 2' }
+      { id_number: 1, title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: '1', type: Type.Other, username: 'User 1' ,channel: Channel.Web,createat: new Date()},
+      { id_number: 2, title: 'Incident 2', description: 'Description 2', clientid: '2', state: State.Closed, agentid: 'agent2', serviceid: 'service2', userid: '2', type: Type.Other, username: 'User 2',channel: Channel.Web,createat: new Date() }
     ];
     const event = new Event('input', { bubbles: true, cancelable: true });
     Object.defineProperty(event, 'target', { value: { value: '1' }, writable: true });
@@ -133,8 +134,8 @@ describe('IncidentComponent', () => {
 
   it('should filter incidents by user', () => {
     component.dataSource.data = [
-      { id_number: 1, title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: '1', type: Type.Other, username: 'User 1' },
-      { id_number: 2, title: 'Incident 2', description: 'Description 2', clientid: '2', state: State.Closed, agentid: 'agent2', serviceid: 'service2', userid: '2', type: Type.Other, username: 'User 2' }
+      { id_number: 1, title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: '1', type: Type.Other, username: 'User 1' ,channel: Channel.Web,createat: new Date()},
+      { id_number: 2, title: 'Incident 2', description: 'Description 2', clientid: '2', state: State.Closed, agentid: 'agent2', serviceid: 'service2', userid: '2', type: Type.Other, username: 'User 2' ,channel: Channel.Web,createat: new Date()}
     ];
     const event = new Event('input', { bubbles: true, cancelable: true });
     Object.defineProperty(event, 'target', { value: { value: 'User 1' }, writable: true });
@@ -150,7 +151,7 @@ describe('IncidentComponent', () => {
 
   it('should clear error message when incidents are found', () => {
     component.dataSource.data = [
-      { id_number: 1, title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: '1', type: Type.Other, username: 'User 1' }
+      { id_number: 1, title: 'Incident 1', description: 'Description 1', clientid: '1', state: State.Open, agentid: 'agent1', serviceid: 'service1', userid: '1', type: Type.Other, username: 'User 1',channel: Channel.Web,createat: new Date() }
     ];
     component.updateErrorMessage();
     expect(component.errorMessage).toBe('');

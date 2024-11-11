@@ -8,6 +8,7 @@ import { State } from '../models/state';
 import { Type } from '../models/type';
 import { User } from '../models/user';
 import { LayoutService } from '../layout/layout.service';
+import { Channel } from '../models/channel';
 
 @Component({
   selector: 'app-incident',
@@ -80,7 +81,8 @@ export class CreateIncidentComponent implements OnInit {
           {
             incident.clientid = response.data.client_id;
           }
-          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: State.Open} as Incident).subscribe(() => {
+          
+          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: State.Open,channel: Channel.Web} as Incident).subscribe(() => {
             this.loading = false;
             this.done = true;
           });

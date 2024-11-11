@@ -20,6 +20,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { Incident } from '../models/incident';
 import { Type } from '../models/type';
+import { Channel } from '../models/channel';
 
 describe('IncidentComponent', () => {
   let component: CreateIncidentComponent;
@@ -112,7 +113,7 @@ describe('IncidentComponent', () => {
 
     // Verificar que loading está activo al inicio
     //expect(component.loading).toBeTrue();
-    const expectedIncident = { ...mockIncident, serviceid: '1', userid: '123', agentid: 'agent1', state: 0, type: Type.Other } as Incident;
+    const expectedIncident = { ...mockIncident, serviceid: '1', userid: '123', agentid: 'agent1', state: 0, type: Type.Other ,channel: Channel.Web} as Incident;
     // Verificar que el post ha sido llamado con los datos correctos
     expect(postSpy).toHaveBeenCalledWith(expectedIncident);
 
