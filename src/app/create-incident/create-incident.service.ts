@@ -18,8 +18,7 @@ export class IncidentService {
   }
 
   public post(body: Incident) {
-    const token = this.getToken();
-    debugger;
+    const token = this.getToken();    
     if (token) {
         const headers = new HttpHeaders({
             'Authorization': `Bearer ${token}`  // Agregar el token al encabezado
