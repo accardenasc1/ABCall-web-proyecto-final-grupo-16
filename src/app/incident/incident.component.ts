@@ -85,7 +85,7 @@ export class IncidentComponent implements OnInit {
       case Role.Agent:
         this.fetchIncidents(this.incidentService.getAll());
         break;
-      case Role.Client:        
+      case Role.Client:
         this.fetchIncidents(this.incidentService.getByRole(Number(this.user?.client_id), Role.Client));
         break;
       case Role.User:
@@ -129,5 +129,8 @@ export class IncidentComponent implements OnInit {
   getTypeString(type: Type | null): string {
     if (type === null) return '';
     return Type[type];
+  }
+  goToDetail(id: number): void {
+    this.router.navigate(['/app/detail-incident', id]);
   }
 }
