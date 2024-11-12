@@ -25,7 +25,7 @@ describe('ControlBoardComponent', () => {
     getByRole: () => of([
       { state: State.Open, createdAt: '2023-01-01T00:00:00', type: Type.Other, channel: Channel.Web },
       { state: State.Closed, createdAt: '2023-02-01T00:00:00', type: Type.Techincal, channel: Channel.Email },
-      { state: State.InProgress, createdAt: '2023-03-01T00:00:00', type: Type.Users, channel: Channel.Movil },
+      { state: State.InProgress, createdAt: '2023-03-01T00:00:00', type: Type.Users, channel: Channel.Mobile },
       { state: State.Canceled, createdAt: '2023-04-01T00:00:00', type: Type.Software, channel: Channel.Web }
     ])
   };

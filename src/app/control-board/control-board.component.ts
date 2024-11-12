@@ -122,7 +122,7 @@ export class ControlBoardComponent implements OnInit {
         case Channel.Web:
           webValue++;
           break;
-        case Channel.Movil:
+        case Channel.Mobile:
           movilValue++;
           break;
         case Channel.Email:

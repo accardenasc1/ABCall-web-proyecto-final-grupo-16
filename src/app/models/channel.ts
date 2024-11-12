@@ -1,5 +1,5 @@
 export enum Channel{
     Web = 0,
-    Movil = 1,
+    Mobile = 1,
     Email = 2,  
 }
