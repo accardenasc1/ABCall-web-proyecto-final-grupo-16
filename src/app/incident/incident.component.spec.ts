@@ -86,6 +86,7 @@ describe('IncidentComponent', () => {
     expect(component).toBeTruthy();
   });
 
+
   it('should fetch all incidents for admin', () => {
     component.incidents = [
       { title: 'Test 1', description: 'Test 1', clientid: '1', state: State.Open, agentid: '1', serviceid: '1', userid: '1', type: Type.Other, channel: Channel.Web,createat: new Date() }
@@ -156,4 +157,12 @@ describe('IncidentComponent', () => {
     component.updateErrorMessage();
     expect(component.errorMessage).toBe('');
   });
+  it('should navigate to detail page when goToDetail is called', () => {
+    // Llama al método goToDetail con el ID que quieres probar
+    component.goToDetail(1);
+
+    // Verifica que el router fue llamado con la ruta esperada
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/app/detail-incident', 1]);
+  });
+
 });

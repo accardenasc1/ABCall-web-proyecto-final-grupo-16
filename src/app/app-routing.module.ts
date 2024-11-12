@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { CreateClientComponent } from './create-client/create-client.component';
 import { SelectPlanComponent } from './create-client/select-plan/select-plan/select-plan.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'user-sign-up', component: UserSignUpComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   {
     path: 'app',
     component: LayoutComponent,
@@ -23,6 +25,7 @@ const routes: Routes = [
       { path: 'incident', loadChildren: () => import('./incident/incident.module').then(m => m.IncidentModule), canActivate: [AuthGuard]},
       { path: 'control-board', loadChildren: () => import('./control-board/control-board.module').then(m => m.ControlBoardModule) , canActivate: [AuthGuard]},
       { path: 'create-incident', loadChildren: () => import('./create-incident/create-incident.module').then(m => m.CreateIncidentModule) , canActivate: [AuthGuard]},
+      { path: 'detail-incident/:id', loadChildren: () => import('./detail-incident/detail-incident.module').then(m => m.DetailIncidentModule) , canActivate: [AuthGuard]},
       {
         path: 'client',
         component: CreateClientComponent,
