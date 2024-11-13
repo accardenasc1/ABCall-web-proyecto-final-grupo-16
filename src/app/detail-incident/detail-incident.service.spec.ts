@@ -20,7 +20,8 @@ describe('IncidentDetailService', () => {
     userid: '1',
     state: 0,
     agentid: '',
-    serviceid: ''
+    serviceid: '',
+    channel: 0,
   };
 
   beforeEach(() => {

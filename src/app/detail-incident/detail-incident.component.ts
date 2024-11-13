@@ -8,6 +8,7 @@ import { User } from '../models/user';
 import { Incident } from '../models/incident';
 import { LayoutService } from '../layout/layout.service';
 import { State } from '../models/state';
+import { Channel } from '../models/channel';
 
 @Component({
   selector: 'app-incident',
@@ -83,17 +84,17 @@ export class DetailIncidentComponent implements OnInit {
     this.incidentService.getById(id).subscribe(
       (data) => {
         this.incidentDetail = data;
-        if( Number(this.incidentDetail?.serviceid) === 1 ){
+        if( Number(this.incidentDetail?.channel) === Channel.Mobile ){
           this.isPhoneEnabled = true;
           this.isMailEnabled = false;
           this.isSmartphoneEnabled = false;
         }
-        if( Number(this.incidentDetail?.serviceid) === 2 ){
+        if( Number(this.incidentDetail?.serviceid) === Channel.Email ){
           this.isPhoneEnabled = false;
           this.isMailEnabled = true;
           this.isSmartphoneEnabled = false;
         }
-        if( Number(this.incidentDetail?.serviceid) === 3 ){
+        if( Number(this.incidentDetail?.serviceid) === Channel.Web ){
           this.isPhoneEnabled = false;
           this.isMailEnabled = false;
           this.isSmartphoneEnabled = true;

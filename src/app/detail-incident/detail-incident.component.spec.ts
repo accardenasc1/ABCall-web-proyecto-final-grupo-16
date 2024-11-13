@@ -19,6 +19,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { Type } from '../models/type';
 import { of } from 'rxjs';
+import { Channel } from '../models/channel';
 
 describe('IncidentDetailComponent', () => {
   let component: DetailIncidentComponent;
@@ -41,7 +42,7 @@ describe('IncidentDetailComponent', () => {
 
   beforeEach(async () => {
     mockDetailIncidentService = jasmine.createSpyObj('IncidentService', ['getById', 'getAllClients', 'getAllUsers']);
-    mockDetailIncidentService.getById.and.returnValue(of({ title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456, state: 1, agentid: '1', serviceid: '1', userid: '1' }));
+    mockDetailIncidentService.getById.and.returnValue(of({ title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456, state: 1, agentid: '1', serviceid: '1', userid: '1',channel: Channel.Web }));
     mockDetailIncidentService.getAllClients.and.returnValue(of([{ id: '456', name: 'client1' }, { id: '890', name: 'client2' }]));
     mockDetailIncidentService.getAllUsers.and.returnValue(of([{ id_number: '123', username: 'user1' }, { id_number: '456', username: 'user2' }]));
 
@@ -293,7 +294,7 @@ describe('IncidentDetailComponent', () => {
 
   it('should call getById with the correct id', () => {
     const mockId = '123';
-    const mockData = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456, state: 1, agentid: '1', serviceid: '1', userid: '1' };
+    const mockData = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456, state: 1, agentid: '1', serviceid: '1', userid: '1',channel: Channel.Web  };
     mockDetailIncidentService.getById.and.returnValue(of(mockData));
 
     component.getIncidentDetail(mockId);

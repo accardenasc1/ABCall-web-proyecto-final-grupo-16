@@ -14,6 +14,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { UserModule } from './user/user.module';
 import { IncidentModule } from './incident/incident.module';
 import { CreateClientModule } from './create-client/create-client.module';
+import { ControlBoardModule } from './control-board/control-board.module';
 import { ResetPasswordModule } from './reset-password/reset-password.module';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ResetPasswordModule } from './reset-password/reset-password.module';
     UserModule,
     IncidentModule,
     CreateClientModule,
+    ControlBoardModule,
     ResetPasswordModule
   ],
   providers: [
