@@ -11,6 +11,6 @@ export class ChatbotService {
   constructor(private http: HttpClient) { }
 
   public post(body: ChatMessage): Observable<ChatMessage> {
-    return this.http.post<ChatMessage>(`${environment.usersURL}/chat`, body);
+    return this.http.post<ChatMessage>(`${environment.usersURL}/chatbot`, body);
   }
 }

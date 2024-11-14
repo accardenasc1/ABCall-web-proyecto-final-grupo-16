@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ChatMessage } from '../../models/chat-message';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ChatbotService } from './chatbot.service';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-chatbot',
@@ -14,7 +15,6 @@ export class ChatbotComponent {
     message: new FormControl('')
   });
   messages: ChatMessage[] = []
-  loading = true;
 
   constructor(private chatbotService: ChatbotService) {
 
@@ -32,11 +32,10 @@ export class ChatbotComponent {
 
     this.messages.push({ text: value, fromUser: true });
     this.chatForm.get('message')?.setValue('');
+    this.messages.push({ text: '', fromUser: false });
 
-    this.loading = true;
-    this.chatbotService.post({ text: value, fromUser: true }).subscribe(res => {
-      this.loading = false;
-      this.messages.push(res);
+    this.chatbotService.post({ text: value, fromUser: true }).pipe(delay(2000)).subscribe(res => {
+      this.messages[this.messages.length  -1].text = res.text;
     });
   }
 }

@@ -51,12 +51,8 @@
   font-size: 12px;
   padding-left: 5px;
   padding-right: 5px;
+  margin-bottom: 5px;
   color: var(--on-tertiary);
-}
-
-.chat-content .loader-container {
-  width: 60px;
-  padding: 5px 0;
 }
 
 .chat-content .bot {

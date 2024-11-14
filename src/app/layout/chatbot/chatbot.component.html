@@ -8,14 +8,13 @@
   </mat-card-header>
   <mat-card-content class="chat-content">
     @for (message of messages; track message.text) {
-      <div class="message {{ message.fromUser ? 'user' : 'bot' }}">
+      <div *ngIf="message.text" class="message {{ message.fromUser ? 'user' : 'bot' }}">
         {{message.text}}
       </div>
+      <div *ngIf="!message.text" class="message bot" style="width: 60px; padding: 5px;">
+        <div class="loader"></div>
+      </div>
     }
-    <div class="message loader-container" *ngIf="loading">
-      <div class="loader"></div>
-    </div>
-
   </mat-card-content>
   <mat-card-actions>
     <form [formGroup]="chatForm">
