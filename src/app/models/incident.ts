@@ -1,3 +1,4 @@
+import { Channel } from "./channel";
 import { State } from "./state";
 import { Type } from "./type";
 
@@ -12,4 +13,6 @@ export interface Incident {
   type: Type | null;
   username?: string | null;
   id_number?: number | null;
+  channel: Channel | null;
+  createat?: Date | null;
 }
