@@ -21,7 +21,7 @@
       <div class="field">
         <input formControlName="message" type="text" matInput>
       </div>
-      <button mat-button (click)="send()" [disabled]="!chatForm.get('message')?.value"><mat-icon>send</mat-icon></button>
+      <button class="chat-send" mat-button (click)="send()" [disabled]="!chatForm.get('message')?.value"><mat-icon>send</mat-icon></button>
     </form>
     </mat-card-actions>
 </mat-card>
