@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CreateIncidentComponent } from './create-incident.component';
-import { IncidentService } from './create-incident.service';
-import { of } from 'rxjs';
-import { Router } from '@angular/router';
+import { DetailIncidentComponent } from './detail-incident.component';
+import { IncidentDetailService } from './detail-incident.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,29 +17,37 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { Incident } from '../models/incident';
 import { Type } from '../models/type';
+import { of } from 'rxjs';
 import { Channel } from '../models/channel';
 
-describe('IncidentComponent', () => {
-  let component: CreateIncidentComponent;
-  let fixture: ComponentFixture<CreateIncidentComponent>;
+describe('IncidentDetailComponent', () => {
+  let component: DetailIncidentComponent;
+  let fixture: ComponentFixture<DetailIncidentComponent>;
+  let mockDetailIncidentService: jasmine.SpyObj<IncidentDetailService>;
   let router: Router;
 
   const mockRouter = {
     navigate: jasmine.createSpy('navigate') // Espía correctamente el router
   };
 
-  const mockIncidentService = {
-    getAllUsers: () => of([{ id_number: '123', username: 'user1' }, { id_number: '456', username: 'user2' }]),
-    getAllClients: () => of([{ id: '456', name: 'client1' }, { id: '890', name: 'client2' }]),
-    post: (data: any) => of(data),
-    user_token: () => of({ data: { id: 'agent1' } })
+
+  const mockActivatedRoute = {
+    snapshot: {
+      paramMap: {
+        get: (key: string) => key === 'id' ? '1' : null  // Simula que devuelve "1" para "id"
+      }
+    }
   };
 
   beforeEach(async () => {
+    mockDetailIncidentService = jasmine.createSpyObj('IncidentService', ['getById', 'getAllClients', 'getAllUsers']);
+    mockDetailIncidentService.getById.and.returnValue(of({ title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456, state: 1, agentid: '1', serviceid: '1', userid: '1',channel: Channel.Web }));
+    mockDetailIncidentService.getAllClients.and.returnValue(of([{ id: '456', name: 'client1' }, { id: '890', name: 'client2' }]));
+    mockDetailIncidentService.getAllUsers.and.returnValue(of([{ id_number: '123', username: 'user1' }, { id_number: '456', username: 'user2' }]));
+
     await TestBed.configureTestingModule({
-      declarations: [CreateIncidentComponent],
+      declarations: [DetailIncidentComponent],
       imports: [
         CommonModule,
         MatCardModule,
@@ -57,13 +64,16 @@ describe('IncidentComponent', () => {
         MatSlideToggleModule,
       ],
       providers: [
-        { provide: IncidentService, useValue: mockIncidentService }, // Solo un proveedor para IncidentService
+        { provide: IncidentDetailService, useValue: mockDetailIncidentService }, // Solo un proveedor para IncidentService
         { provide: Router, useValue: mockRouter }, // Espía para el router
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
         provideNativeDateAdapter()
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateIncidentComponent);
+
+
+    fixture = TestBed.createComponent(DetailIncidentComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     fixture.detectChanges();
@@ -73,69 +83,23 @@ describe('IncidentComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should get the incidentId from route parameters', () => {
+    expect(component.incidentId).toBe('1');
+  });
+
   it('should navigate to login', () => {
     component.goBack(); // Llama al método que se va a probar
     expect(router.navigate).toHaveBeenCalledWith(['/', 'app', 'incident']); // Verifica que se llame a navigate con la ruta esperada
   });
 
-  it('should call incidentService.user_token and return the correct data', () => {
-    // Espiar el método user_token del servicio y simular un valor de retorno
-    const mockTokenData = { data: { id: 'agent1' } };
-    const userTokenSpy = spyOn(mockIncidentService, 'user_token').and.returnValue(of(mockTokenData));
-
-    // Llamar al método getUserData
-    const result$ = component.getUserData();
-
-    // Verificar que user_token fue llamado
-    expect(userTokenSpy).toHaveBeenCalled();
-
-    // Suscribirse al resultado y verificar los datos retornados
-    result$.subscribe((data) => {
-      expect(data).toEqual(mockTokenData); // Verifica que los datos retornados sean los esperados
-    });
-  });
-
-  it('should save the incident successfully', () => {
-    // Datos de usuario simulados
-    const mockUserData = { data: { id: 'agent1' } };
-    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456 };
-
-    // Espiar getUserData y post del servicio
-    spyOn(component, 'getUserData').and.returnValue(of(mockUserData)); // Retorna datos de usuario simulados
-    const postSpy = spyOn(mockIncidentService, 'post').and.returnValue(of({})); // Simula la respuesta exitosa del post
-
-    // Simular el valor del formulario
-    component.incidentForm.setValue(mockIncident);
-    component.serviceId = '1';
-    component.userid = '123';
-    // Ejecutar el método save
-    component.save();
-
-    // Verificar que loading está activo al inicio
-    //expect(component.loading).toBeTrue();
-    const expectedIncident = { ...mockIncident, serviceid: '1', userid: '123', agentid: 'agent1', state: 0, type: Type.Other ,channel: Channel.Web} as Incident;
-    // Verificar que el post ha sido llamado con los datos correctos
-    expect(postSpy).toHaveBeenCalledWith(expectedIncident);
-
-    // Verificar que loading se establece en false y done en true después del guardado
-    expect(component.loading).toBeFalse();
-    expect(component.done).toBeTrue();
-  });
-
-  it('should have an invalid form when required fields are empty', () => {
-    component.incidentForm.controls['title'].setValue('');
-    component.incidentForm.controls['type'].setValue(1);
-    expect(component.incidentForm.valid).toBeFalse();  // El formulario debe ser inválido
-  });
-
   it('should have a valid form when fields are filled correctly', () => {
-    component.incidentForm.controls['title'].setValue('Incidente de prueba');
-    component.incidentForm.controls['type'].setValue(1);
-    component.incidentForm.controls['description'].setValue('Descripción del incidente');
-    component.incidentForm.controls['clientid'].setValue('Cliente1');
-    component.incidentForm.controls['iduser'].setValue(1);
+    component.incidentDetailForm.controls['title'].setValue('Incidente de prueba');
+    component.incidentDetailForm.controls['type'].setValue(1);
+    component.incidentDetailForm.controls['description'].setValue('Descripción del incidente');
+    component.incidentDetailForm.controls['clientid'].setValue('Cliente1');
+    component.incidentDetailForm.controls['iduser'].setValue('1');
 
-    expect(component.incidentForm.valid).toBeTrue();  // El formulario debe ser válido
+    expect(component.incidentDetailForm.valid).toBeTrue();  // El formulario debe ser válido
   });
 
   it('should filter users by id_number or username', () => {
@@ -255,45 +219,9 @@ describe('IncidentComponent', () => {
     expect(component.isSmartphoneEnabled).toBe(false);
   });
 
-  it('should fetch and set users correctly in getUsers()', () => {
-
-    const mockAllUser = [{ id_number: '123', username: 'user1' }, { id_number: '456', username: 'user2' }]
-    const allUserSpy = spyOn(mockIncidentService, 'getAllUsers').and.returnValue(of(mockAllUser));
-
-    component.getUsers();
-
-    expect(allUserSpy).toHaveBeenCalled();
-
-    expect(component.allUsers).toEqual(mockAllUser);
-    expect(component.filteredUsers).toEqual(mockAllUser);
-  });
-
-  it('should fetch and set users correctly in getClients()', () => {
-
-    const mockAllClient = [{ id: '456', name: 'client1' }, { id: '890', name: 'client2' }]
-    const allClientSpy = spyOn(mockIncidentService, 'getAllClients').and.returnValue(of(mockAllClient));
-
-    component.getClients();
-
-    expect(allClientSpy).toHaveBeenCalled();
-
-    expect(component.allClients).toEqual(mockAllClient);
-    expect(component.filteredClients).toEqual(mockAllClient);
-  });
-
-  it('should clear the required validator for clientid when user type is 3', () => {
-    component.user = { type: 3 }; // Tipo de usuario 3
-    const clientidControl = component.incidentForm.get('clientid');
-    clientidControl?.setValidators(Validators.required); // Añadir validator para probar que se remueva
-
-    component.setClientValidator();
-
-    expect(clientidControl?.hasValidator(Validators.required)).toBeFalse();
-  });
-
   it('should clear the required validator for iduser when user type is 1', () => {
     component.user = { type: 1 }; // Tipo de usuario 1
-    const clientidControl = component.incidentForm.get('iduser');
+    const clientidControl = component.incidentDetailForm.get('iduser');
     clientidControl?.setValidators(Validators.required); // Añadir validator para probar que se remueva
 
     component.setUserValidator();
@@ -306,7 +234,7 @@ describe('IncidentComponent', () => {
     component.user = { type: 1 };
 
     // Configura el validador 'required' inicialmente
-    const clientidControl = component.incidentForm.get('iduser');
+    const clientidControl = component.incidentDetailForm.get('iduser');
     clientidControl?.setValidators(Validators.required);
     clientidControl?.updateValueAndValidity();
 
@@ -316,13 +244,12 @@ describe('IncidentComponent', () => {
     // Verifica que el validador requerido se haya eliminado
     expect(clientidControl?.hasValidator(Validators.required)).toBeFalse();
   });
-
   it('should clear the required validator for clientid when user type is 3', () => {
     // Asigna un tipo de usuario 3 para que se ejecute el bloque else
     component.user = { type: 3 };
 
     // Configura el validador 'required' inicialmente
-    const clientidControl = component.incidentForm.get('clientid');
+    const clientidControl = component.incidentDetailForm.get('clientid');
     clientidControl?.setValidators(Validators.required);
     clientidControl?.updateValueAndValidity();
 
@@ -333,27 +260,50 @@ describe('IncidentComponent', () => {
     expect(clientidControl?.hasValidator(Validators.required)).toBeFalse();
   });
 
-  it('should save the incident successfully userid null', () => {
-    // Datos de usuario simulados
-    const mockUserData = { data: { id: 'agent1' } };
-    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: null };
+  it('should clear the required validator for clientid when user type is 3', () => {
+    component.user = { type: 3 }; // Tipo de usuario 3
+    const clientidControl = component.incidentDetailForm.get('clientid');
+    clientidControl?.setValidators(Validators.required); // Añadir validator para probar que se remueva
 
-    // Espiar getUserData y post del servicio
-    spyOn(component, 'getUserData').and.returnValue(of(mockUserData)); // Retorna datos de usuario simulados
+    component.setClientValidator();
 
-    // Simular el valor del formulario
-    component.incidentForm.setValue(mockIncident);
-    component.serviceId = '1';
-    component.userid = null;
-    // Ejecutar el método save
-    component.save();
+    expect(clientidControl?.hasValidator(Validators.required)).toBeFalse();
+  });
 
-    // Verificar que loading está activo al inicio
-    //expect(component.loading).toBeTrue();
+  it('should fetch and set users correctly in getClients()', () => {
+    const mockAllClient = [{ id: '456', name: 'client1' }, { id: '890', name: 'client2' }];
+    mockDetailIncidentService.getAllClients.and.returnValue(of(mockAllClient));
 
-    // Verificar que loading se establece en false y done en true después del guardado
-    expect(component.loading).toBeFalse();
-    expect(component.done).toBeTrue();
+    component.getClients();
+
+    expect(mockDetailIncidentService.getAllClients).toHaveBeenCalled();
+    expect(component.allClients).toEqual(mockAllClient);
+    expect(component.filteredClients).toEqual(mockAllClient);
+  });
+
+  it('should fetch and set users correctly in getusers()', () => {
+    const mockAllUser = [{ id_number: '123', username: 'user1' }, { id_number: '456', username: 'user2' }];
+    mockDetailIncidentService.getAllUsers.and.returnValue(of(mockAllUser));
+
+    component.getUsers();
+
+    expect(mockDetailIncidentService.getAllClients).toHaveBeenCalled();
+    expect(component.allUsers).toEqual(mockAllUser);
+    expect(component.filteredUsers).toEqual(mockAllUser);
+  });
+
+  it('should call getById with the correct id', () => {
+    const mockId = '123';
+    const mockData = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456, state: 1, agentid: '1', serviceid: '1', userid: '1',channel: Channel.Web  };
+    mockDetailIncidentService.getById.and.returnValue(of(mockData));
+
+    component.getIncidentDetail(mockId);
+
+    expect(mockDetailIncidentService.getById).toHaveBeenCalledWith(mockId);
+    expect(component.isPhoneEnabled).toBe(true);
+    expect(component.isMailEnabled).toBe(false);
+    expect(component.isSmartphoneEnabled).toBe(false);
+    expect(component.incidentDetailForm.value.clientid).toEqual(mockData.clientid);
   });
 
 });

@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TestBed } from '@angular/core/testing';
 
-import { IncidentService } from './create-incident.service';
+import { IncidentDetailService } from './detail-incident.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { Incident } from '../models/incident';
 import { environment } from '../../environments/environment';
 
-describe('IncidentService', () => {
-  let service: IncidentService;
+describe('IncidentDetailService', () => {
+  let service: IncidentDetailService;
   let httpMock: HttpTestingController;
 
   const mockIncident: Incident = {
@@ -22,7 +22,6 @@ describe('IncidentService', () => {
     agentid: '',
     serviceid: '',
     channel: 0,
-    createat: new Date(),
   };
 
   beforeEach(() => {
@@ -33,7 +32,7 @@ describe('IncidentService', () => {
         provideHttpClientTesting()
       ],
     });
-    service = TestBed.inject(IncidentService);
+    service = TestBed.inject(IncidentDetailService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
@@ -45,18 +44,6 @@ describe('IncidentService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should make a POST request with the correct headers when token is available', () => {
-    // Simular un token en sessionStorage
-    spyOn(sessionStorage, 'getItem').and.returnValue('mocked_token');
-
-    service.post(mockIncident).subscribe();
-
-    // Verificar que se hizo la solicitud correcta con los headers esperados
-    const req = httpMock.expectOne(`${environment.incidentURL}/incident`);
-    expect(req.request.method).toBe('POST');
-    expect(req.request.headers.get('Authorization')).toBe('Bearer mocked_token');
-    req.flush(mockIncident);  // Simular respuesta de la API
-  });
 
   it('should return null when no token is available in sessionStorage', () => {
     // Simular que no hay token en sessionStorage
@@ -67,6 +54,22 @@ describe('IncidentService', () => {
     // Verificar que la función devuelve null cuando no hay token
     expect(token).toBeNull();
     expect(sessionStorage.getItem).toHaveBeenCalledWith('access_token');
+  });
+
+  it('should retrieve incident details by id', () => {
+    const incidentId = '1';  // ID del incidente que quieres probar
+
+    service.getById(incidentId).subscribe((incident) => {
+      expect(incident).toEqual(mockIncident);
+    });
+
+    // Simulamos la respuesta HTTP del servicio
+    const req = httpMock.expectOne(`${environment.incidentURL}/incident-detail/${incidentId}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockIncident);  // Enviamos el mockIncident como respuesta
+
+    // Verificamos que no haya solicitudes pendientes
+    httpMock.verify();
   });
 
   it('should return token assigned to user', () => {

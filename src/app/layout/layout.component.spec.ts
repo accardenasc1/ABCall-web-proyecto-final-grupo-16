@@ -9,12 +9,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { LayoutService } from './layout.service';
 import { Router, RouterModule } from '@angular/router';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { ChatbotService } from './chatbot/chatbot.service';
+import { ChatMessage } from '../models/chat-message';
 
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
   let fixture: ComponentFixture<LayoutComponent>;
   const mockLayoutService = {getUser: () => of({userName: 'Test User', type: 0})};
+  const mockChatbotService = {
+    post: (data: ChatMessage) => {
+      return of(data);
+    }
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -28,9 +36,10 @@ describe('LayoutComponent', () => {
           []
         )
       ],
-      declarations: [LayoutComponent],
+      declarations: [LayoutComponent, ChatbotComponent],
       providers: [
         { provide: LayoutService, useValue: mockLayoutService },
+        { provide: ChatbotService, useValue: mockChatbotService },
       ]
     }).compileComponents();
   });

@@ -1,29 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit  } from '@angular/core';
-import { IncidentService } from './create-incident.service';
+import { IncidentDetailService } from './detail-incident.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Incident } from '../models/incident';
-import { State } from '../models/state';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Type } from '../models/type';
 import { User } from '../models/user';
+import { Incident } from '../models/incident';
 import { LayoutService } from '../layout/layout.service';
+import { State } from '../models/state';
 import { Channel } from '../models/channel';
 
 @Component({
   selector: 'app-incident',
-  templateUrl: './create-incident.component.html',
-  styleUrl: './create-incident.component.css'
+  templateUrl: './detail-incident.component.html',
+  styleUrl: './detail-incident.component.css'
 })
-export class CreateIncidentComponent implements OnInit {
-  state = 'Create';
+export class DetailIncidentComponent implements OnInit {
+  state = 'Detail';
   IncidentType = Type;
-  incidentForm = new FormGroup({
-    title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    type: new FormControl<Type | null>(0, [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+  incidentDetailForm = new FormGroup({
+    title: new FormControl('', [ Validators.maxLength(50)]),
+    type: new FormControl<Type | null>(0),
+    description: new FormControl(''),
     clientid: new FormControl('', [Validators.required]),
-    iduser: new FormControl<number | null>(null, [Validators.required]),
+    iduser: new FormControl('', [Validators.required]),
+    state: new FormControl(''),
   });
   loading = false;
   done = false;
@@ -38,22 +39,29 @@ export class CreateIncidentComponent implements OnInit {
   filteredClients: any[] = [];
   allClients: any[] = [];
   user: User | undefined = undefined;
+  incidentDetail: Incident | undefined = undefined;
+  incidentId: string | null = null;
 
-  constructor(private router: Router, private incidentService: IncidentService,
+  constructor(private route: ActivatedRoute, private router: Router, private incidentService: IncidentDetailService,
     private layoutService: LayoutService ) {
     this.user = layoutService.getUser();
     this.setClientValidator();
     this.setUserValidator();
   }
   ngOnInit(): void {
-    this.getUsers();
+    this.incidentId = this.route.snapshot.paramMap.get('id');
     this.getClients();
 
-    this.incidentForm.get('iduser')?.valueChanges.subscribe(value => {
+    if (this.incidentId) {
+      this.getUsers();
+      this.getIncidentDetail(this.incidentId);
+    }
+
+    this.incidentDetailForm.get('iduser')?.valueChanges.subscribe(value => {
       this.onSearch(value ?? '');
     });
-  }
 
+  }
 
   goBack() {
     this.router.navigate(['/', 'app', 'incident']);
@@ -63,43 +71,45 @@ export class CreateIncidentComponent implements OnInit {
       return this.incidentService.user_token();
   }
 
-  save() {
-    this.loading = true;
-    const incident = this.incidentForm.value;
-    // Obtener los datos del usuario
-    const userData$ = this.getUserData();
-    incident.type = Number(incident.type);
-    if (this.userid == null)
-    {
-      this.userid = this.user?.id_number ?? null;
-    }
-    if (userData$) {
-      userData$.subscribe({
-        next: (response: any) => {
-          // Ahora realiza la solicitud de guardado del incidente
-          if (incident.clientid == '')
-          {
-            incident.clientid = response.data.client_id;
-          }
-          
-          this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: State.Open,channel: Channel.Web} as Incident).subscribe(() => {
-            this.loading = false;
-            this.done = true;
-          });
-        },
-        error: (error) => {
-          this.loading = false;
-          console.error('Error al obtener los datos del usuario:', error);
-        }
-      });
-    } else {
-      console.error('No se pudo realizar la solicitud porque no hay token.');
-      this.loading = false;
-    }
+  getIncidentStateString(state: State | undefined): string {
+    if (state === undefined) return '';
+    return State[state];
   }
 
   isValid() {
-    return this.incidentForm.valid;
+    return this.incidentDetailForm.valid;
+  }
+
+  getIncidentDetail(id: string): void {
+    this.incidentService.getById(id).subscribe(
+      (data) => {
+        this.incidentDetail = data;
+        if( Number(this.incidentDetail?.channel) === Channel.Mobile ){
+          this.isPhoneEnabled = true;
+          this.isMailEnabled = false;
+          this.isSmartphoneEnabled = false;
+        }
+        if( Number(this.incidentDetail?.serviceid) === Channel.Email ){
+          this.isPhoneEnabled = false;
+          this.isMailEnabled = true;
+          this.isSmartphoneEnabled = false;
+        }
+        if( Number(this.incidentDetail?.serviceid) === Channel.Web ){
+          this.isPhoneEnabled = false;
+          this.isMailEnabled = false;
+          this.isSmartphoneEnabled = true;
+        }
+        const defaultUser = this.filteredUsers.find(user => user.id_number === Number(this.incidentDetail?.userid));
+        this.incidentDetailForm.patchValue({
+          clientid: this.incidentDetail.clientid,
+          iduser: defaultUser,
+          type: this.incidentDetail.type,
+        });
+      },
+      (error) => {
+        console.error('Error al obtener el detalle del incidente:', error);
+      }
+    );
   }
 
   onToggleChange(toggleType: string) {
@@ -139,7 +149,7 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   displayUser(user: any): string {
-    return user ? `${user.id_number} - ${user.username}` : '';
+      return user ? `${user.id_number} - ${user.username}` : '';
   }
 
   getUsers(): void {
@@ -170,11 +180,11 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   onUserSelected(event: any): void {
-    this.userid = event.option.value.id_number;
+      this.userid = event.option.value.id_number;
   }
 
   setClientValidator() {
-    const clientidControl = this.incidentForm.get('clientid');
+    const clientidControl = this.incidentDetailForm.get('clientid');
 
     if (this.user?.type !== 3) {
       clientidControl?.setValidators(Validators.required);
@@ -187,7 +197,7 @@ export class CreateIncidentComponent implements OnInit {
   }
 
   setUserValidator() {
-    const useridControl = this.incidentForm.get('iduser');
+    const useridControl = this.incidentDetailForm.get('iduser');
 
     if (this.user?.type !== 1) {
       useridControl?.setValidators(Validators.required);
@@ -198,4 +208,5 @@ export class CreateIncidentComponent implements OnInit {
     // Asegúrate de que Angular vuelva a validar este campo
     useridControl?.updateValueAndValidity();
   }
+
 }

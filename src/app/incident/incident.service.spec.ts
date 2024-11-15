@@ -17,8 +17,10 @@ describe('IncidentService', () => {
     state: null,
     agentid: 'Agent1',
     serviceid: 'Service1',
-    userid: 1,
-    type: null
+    userid: '1',
+    type: null,
+    channel: null,
+    createat: new Date()
   };
 
   beforeEach(() => {
