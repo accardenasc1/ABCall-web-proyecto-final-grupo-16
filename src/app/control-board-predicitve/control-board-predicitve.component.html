@@ -1,0 +1,41 @@
+<div class="nav-filter">
+  <p *ngIf="!hasTitle">
+  </p>
+  <p *ngIf="hasTitle">
+   Análisis de los incidentes predictivos para las fechas
+  </p>
+  <div class="date-picker-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Rango de fechas</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
+        <input matStartDate placeholder="Fecha de inicio" [(ngModel)]="startDate" >
+        <input matEndDate placeholder="Fecha de fin" [(ngModel)]="endDate"  (ngModelChange)="onDateChange()">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+</div>
+<div class="container">
+  <div class="part part-small">
+    <h6><b>Cantidad Total Incidentes Predictivos</b></h6>     
+      <h1>{{totalNumber}}</h1>      
+  </div>
+  <div class="part">
+    <h6><b>Estados Predictivos</b></h6>
+    <canvas id="pieChart"></canvas>
+  </div>
+  <div class="part part-canal">
+    <h6><b>Canal Predictivos</b></h6>
+    <canvas id="barChart"></canvas>
+  </div>
+  <div class="part">  
+     <h6><b>Tipo Predictivos</b></h6>
+     <canvas id="typeBarChart"></canvas>
+    </div>
+</div>
+<div>
+  <canvas id="pieChart"></canvas>
+  <canvas id="barChart"></canvas>
+  <canvas id="typeBarChart"></canvas>
+</div>

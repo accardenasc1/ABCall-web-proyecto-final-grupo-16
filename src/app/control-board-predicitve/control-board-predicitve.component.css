@@ -1,0 +1,88 @@
+.nav-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh; 
+    background-color: var(--secundary);
+    color: var(--on-secundary);
+    margin-bottom: 0; 
+    padding: 0 20px;
+  }
+  .nav-filter p {
+    margin: 0; 
+    flex: 1; 
+    text-align: right; 
+  }
+  .date-picker-container {
+    display: flex;
+    align-items: center; 
+    height: 100%; 
+  }
+
+::ng-deep .mat-calendar {
+    background-color: #ffffff; 
+}
+
+::ng-deep .mat-calendar-body-selected {
+    background-color: var(--primary) !important;
+    color: #ffffff;
+}
+
+::ng-deep .mat-calendar-header {
+    background-color: var(--primary) !important;
+
+}
+
+::ng-deep .mat-calendar-header .mat-calendar-next-button,
+::ng-deep .mat-calendar-header .mat-calendar-previous-button,
+::ng-deep .mat-calendar-header .mat-calendar-period-button {
+    color: #ffffff !important;
+
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 0px; 
+    height: 79vh; 
+    margin-top: 0; 
+  }
+  
+  .part {
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: flex-start; 
+    border: 2px solid #333; 
+    background-color: #ffffff; 
+    padding: 10px; 
+  }
+  
+  .part h6 {
+    margin: 0; 
+  }  
+
+  canvas {
+    width: 690px !important; 
+    height: 350px !important; 
+  }
+  .part-canal {
+    height: 500px; 
+  }
+  .part-small {
+    height: 382px; 
+    position: relative; 
+  }
+  
+  .part-small h6 {
+    margin: 0; 
+  }
+  
+  .part-small h1 {
+    font-size: 13rem; 
+    margin: 0; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

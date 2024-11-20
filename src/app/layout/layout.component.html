@@ -46,6 +46,13 @@
         <span matLine i18n>Tablero Control</span>
         </div>
       </mat-list-item>
+
+      <mat-list-item routerLink="/app/control-board-predictive" [class.active]="isActive('/app/control-board-predictive')" *ngIf="user?.type?.toString() === '3'">
+        <div class="item">
+          <mat-icon matListIcon>add</mat-icon>
+        <span matLine i18n>Analitica Predictiva</span>
+        </div>
+      </mat-list-item>
       
       <mat-list-item routerLink="/app/user" [class.active]="isActive('/app/user')" *ngIf="user?.type?.toString() === '0'">
         <div class="item">
