@@ -93,6 +93,13 @@
             Este campo es obligatorio
           </mat-error>
         </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="this.user?.type !== 1">
+          <mat-label>Nivel de riesgo</mat-label>
+          <input
+            matInput
+            formControlName="nvriesgo" readonly
+          />
+        </mat-form-field>
         <div class="actions">
           <button
             class="save"
