@@ -16,6 +16,7 @@ import { IncidentModule } from './incident/incident.module';
 import { CreateClientModule } from './create-client/create-client.module';
 import { ControlBoardModule } from './control-board/control-board.module';
 import { ResetPasswordModule } from './reset-password/reset-password.module';
+import { ControlBoardPredicitveModule } from './control-board-predicitve/control-board-predicitve.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ResetPasswordModule } from './reset-password/reset-password.module';
     IncidentModule,
     CreateClientModule,
     ControlBoardModule,
+    ControlBoardPredicitveModule,
     ResetPasswordModule
   ],
   providers: [

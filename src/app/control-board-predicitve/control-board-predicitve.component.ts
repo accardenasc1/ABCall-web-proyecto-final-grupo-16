@@ -1,24 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Chart } from 'chart.js';
 import { IncidentService } from '../incident/incident.service';
-import { Incident } from '../models/incident';
-import { User } from '../models/user';
 import { LayoutService } from '../layout/layout.service';
+import { Channel } from '../models/channel';
+import { Incident } from '../models/incident';
 import { Role } from '../models/role';
 import { State } from '../models/state';
+import { User } from '../models/user';
 import { Type } from '../models/type';
-import { Channel } from '../models/channel';
-
-Chart.register(...registerables);
 @Component({
-  selector: 'app-control-board',
-  templateUrl: './control-board.component.html',
-  styleUrls: ['./control-board.component.css']
+  selector: 'app-control-board-predicitve',
+  templateUrl: './control-board-predicitve.component.html',
+  styleUrls: ['./control-board-predicitve.component.css']
 })
-export class ControlBoardComponent implements OnInit {
+export class ControlBoardPredicitveComponent implements OnInit {
+
+  constructor(private incidentService: IncidentService, 
+    private layoutService: LayoutService) {      
+     }
   startDate: Date | null = null;
   endDate: Date | null = null;
-  constructor(private incidentService: IncidentService, private layoutService: LayoutService) { }
+  minDate: Date | null = null;
+  maxDate: Date | null = null;
   incidents: Incident[] = [];
   totalNumber = 0;
   user: User | undefined;
@@ -26,10 +29,15 @@ export class ControlBoardComponent implements OnInit {
   barChart: Chart<'bar'> | undefined;
   barTypeChart: Chart<'bar'> | undefined;
   incidentsByDate: Incident[] = [];
-  ngOnInit() {
+  hasTitle = false;
+  
+  ngOnInit() {   
     this.getUser()
     this.incidentService.getByRole(Number(this.user?.client_id), Role.Client)
-    .subscribe((incidents) => {   
+    .subscribe((incidents) => { 
+      const currentDate = new Date();
+      this.minDate =new Date();;
+      this.maxDate = new Date(currentDate.setMonth(currentDate.getMonth() + 6)); 
       this.incidents = incidents;
       this.updateCharts(this.incidents);   
     });    
@@ -39,21 +47,41 @@ export class ControlBoardComponent implements OnInit {
   }
   onDateChange() {
     if (this.startDate && this.endDate) {
-      const startDate = new Date(this.startDate);
-      const endDate = new Date(this.endDate);
-    
-      startDate.setHours(0, 0, 0, 0);
-      endDate.setHours(23, 59, 59, 999);
-
-      this.incidentsByDate = this.incidents.filter(incident => {
-        const dateString = incident.createat ? incident.createat.toString() : '';
-        const dateObject = new Date(dateString);   
-        dateObject.setHours(0, 0, 0, 0);   
-        return incident.createat && (dateObject >= startDate && dateObject <= endDate)
-      }      
-      );  
+      this.hasTitle = true;
+      const randomCount = Math.floor(Math.random() * 100) + 1;
+      this.incidentsByDate = this.generateRandomIncidents(randomCount); 
       this.updateCharts(this.incidentsByDate);  
     }
+  }
+  generateRandomIncidents(count: number): Incident[] {
+    const states = [State.Open, State.Closed, State.InProgress, State.Canceled];
+    const types = [Type.Other, Type.Hardaware, Type.Users, Type.Software, Type.Hardaware, Type.Techincal];
+    const channels = [Channel.Web, Channel.Email, Channel.Mobile];
+    const incidents: Incident[] = [];
+
+    for (let i = 0; i < count; i++) {
+      const randomState = states[Math.floor(Math.random() * states.length)];
+      const randomType = types[Math.floor(Math.random() * types.length)];
+      const randomChannel = channels[Math.floor(Math.random() * channels.length)];
+      const randomDate = new Date(
+        this.startDate!.getTime() + Math.random() * (this.endDate!.getTime() - this.startDate!.getTime())
+      );
+
+      incidents.push({
+        title: 'Incidente aleatorio',
+        description: 'Descripción aleatoria',
+        clientid: '1',
+        serviceid: '1',
+        userid: '1',
+        agentid: '1',
+        state: randomState,
+        type: randomType,
+        channel: randomChannel,
+        createat: randomDate
+      });
+    }
+
+    return incidents;
   }
 
   destroyCharts() {
