@@ -1,0 +1,96 @@
+<div class="page">
+    <ng-container *ngIf="!done">
+      <form [formGroup]="incidentDetailForm">
+        <h3>Generar respuesta Incidente #{{ incidentDetail?.id_number }}</h3>
+        <table mat-table >
+          <tr>
+            <td><b>{{ clientName }}</b></td>
+            <td><b>Estado {{ getIncidentStateString(incidentDetail?.state ?? undefined) }}</b></td>
+          </tr>
+          <tr>
+            <td><b>Usuario: </b>{{userName}}</td>
+            <td><mat-icon class="icon" *ngIf="this.selectedIcon === 'phone'">phone</mat-icon>
+              <mat-icon class="icon" *ngIf="this.selectedIcon === 'mail'">mail</mat-icon>
+              <mat-icon class="icon" *ngIf="this.selectedIcon === 'smartphone'">smartphone</mat-icon></td>
+          </tr>
+          <tr>
+            <td><b>Tipo PQR: </b> {{ getIncidentTypeString(incidentDetail?.type ?? undefined) }}</td>
+            <td><b></b></td>
+          </tr>
+          <tr>
+            <td colspan="2">{{ incidentDetail?.title }}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><b></b></td>
+          </tr>
+          <tr>
+            <td colspan="2">{{ incidentDetail?.description }}</td>
+          </tr>
+        </table>
+        <mat-form-field appearance="outline" >
+          <mat-label>Posibles respuestas</mat-label>
+          <select
+            matNativeControl
+            formControlName="response"
+            (change)="onResponseChange($event)"
+          >
+          <option *ngFor="let item of responses" [value]="item.titulo">
+            {{ item.titulo }}
+          </option>
+          </select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="desresponse">
+          <mat-label>Respuesta</mat-label>
+          <textarea matInput formControlName="description" [value]="selectedText" ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" >
+          <mat-label>Estado</mat-label>
+          <select
+            matNativeControl
+            formControlName="state"
+          >
+            @for (item of states; track item) {
+            <option [value]="item.value" [selected]="item.value === incidentDetail?.state">
+              {{ item.label  }}
+            </option>
+            }
+          </select>
+        </mat-form-field>
+        <div class="actions">
+          <button
+            class="save"
+            mat-flat-button
+            (click)="goBack()"
+            [disabled]="!isValid()"
+          >
+            ENVIAR
+          </button>
+          <button class="cancel" mat-stroked-button (click)="goBack()">
+            CANCELAR
+          </button>
+        </div>
+      </form>
+    </ng-container>
+    <ng-container *ngIf="done">
+      <div class="done">
+        <p>Incidente registrado correctamente.</p>
+        <button class="back" mat-flat-button (click)="goBack()">
+          Volver a la lista
+        </button>
+      </div>
+    </ng-container>
+</div>
+
+<ng-template #customLoadingTemplate>
+  <div class="custom-class">
+    <h3>Loading...</h3>
+  </div>
+</ng-template>
+
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px' }"
+  [template]="customLoadingTemplate"
+></ngx-loading>
+

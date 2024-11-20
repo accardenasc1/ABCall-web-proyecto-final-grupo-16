@@ -28,6 +28,7 @@ export class IncidentComponent implements OnInit {
     'username',
     'type',
     'state',
+    'action'
   ];
   dataSource = new MatTableDataSource<Incident>(this.incidents);
   errorMessage = '';
@@ -133,4 +134,8 @@ export class IncidentComponent implements OnInit {
   goToDetail(id: number): void {
     this.router.navigate(['/app/detail-incident', id]);
   }
+  goToResponse(id: number): void {
+    this.router.navigate(['/app/response-incident', id]);
+  }
+
 }
