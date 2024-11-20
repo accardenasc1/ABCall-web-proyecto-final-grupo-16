@@ -27,6 +27,7 @@ const routes: Routes = [
       { path: 'control-board-predictive', loadChildren: () => import('./control-board-predicitve/control-board-predicitve.module').then(m => m.ControlBoardPredicitveModule) , canActivate: [AuthGuard]},
       { path: 'create-incident', loadChildren: () => import('./create-incident/create-incident.module').then(m => m.CreateIncidentModule) , canActivate: [AuthGuard]},
       { path: 'detail-incident/:id', loadChildren: () => import('./detail-incident/detail-incident.module').then(m => m.DetailIncidentModule) , canActivate: [AuthGuard]},
+      { path: 'response-incident/:id', loadChildren: () => import('./response-incident/response-incident.module').then(m => m.ResponseIncidentModule) , canActivate: [AuthGuard]},
       {
         path: 'client',
         component: CreateClientComponent,

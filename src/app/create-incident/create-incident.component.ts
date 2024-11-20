@@ -24,6 +24,7 @@ export class CreateIncidentComponent implements OnInit {
     description: new FormControl('', [Validators.required]),
     clientid: new FormControl('', [Validators.required]),
     iduser: new FormControl<number | null>(null, [Validators.required]),
+    nvriesgo: new FormControl(''),
   });
   loading = false;
   done = false;
@@ -81,7 +82,7 @@ export class CreateIncidentComponent implements OnInit {
           {
             incident.clientid = response.data.client_id;
           }
-          
+
           this.incidentService.post({...incident, serviceid: this.serviceId, userid: this.userid, agentid: response.data.id, state: State.Open,channel: Channel.Web} as Incident).subscribe(() => {
             this.loading = false;
             this.done = true;
@@ -171,6 +172,8 @@ export class CreateIncidentComponent implements OnInit {
 
   onUserSelected(event: any): void {
     this.userid = event.option.value.id_number;
+    const nivelRiesgo = this.calcularNivelRiesgo(event.option.value.id_number);
+    this.incidentForm.get('nvriesgo')?.setValue(nivelRiesgo);
   }
 
   setClientValidator() {
@@ -197,5 +200,20 @@ export class CreateIncidentComponent implements OnInit {
 
     // Asegúrate de que Angular vuelva a validar este campo
     useridControl?.updateValueAndValidity();
+  }
+
+  calcularNivelRiesgo(idNumber: string): string {
+    // Ejemplo de lógica: Calcula el nivel de riesgo usando el módulo 3 del número
+    const numericId = parseInt(idNumber, 10);
+    if (isNaN(numericId)) return 'N/A'; // Si no es un número válido
+
+    const riskLevel = numericId % 3;
+    if (riskLevel === 0) {
+      return 'N0 - Bajo';
+    } else if (riskLevel === 1) {
+      return 'N1 - Medio';
+    } else {
+      return 'N2 - Alto';
+    }
   }
 }

@@ -98,7 +98,7 @@ describe('IncidentComponent', () => {
   it('should save the incident successfully', () => {
     // Datos de usuario simulados
     const mockUserData = { data: { id: 'agent1' } };
-    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456 };
+    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: 456, nvriesgo: 'N1 - Medio' };
 
     // Espiar getUserData y post del servicio
     spyOn(component, 'getUserData').and.returnValue(of(mockUserData)); // Retorna datos de usuario simulados
@@ -336,7 +336,7 @@ describe('IncidentComponent', () => {
   it('should save the incident successfully userid null', () => {
     // Datos de usuario simulados
     const mockUserData = { data: { id: 'agent1' } };
-    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: null };
+    const mockIncident = { title: 'Test Incident',type: Type.Other, description: 'Test Description', clientid: '123', iduser: null, nvriesgo: 'N1 - Medio' };
 
     // Espiar getUserData y post del servicio
     spyOn(component, 'getUserData').and.returnValue(of(mockUserData)); // Retorna datos de usuario simulados
@@ -354,6 +354,17 @@ describe('IncidentComponent', () => {
     // Verificar que loading se establece en false y done en true después del guardado
     expect(component.loading).toBeFalse();
     expect(component.done).toBeTrue();
+  });
+
+  it('debería devolver "N0 - Bajo" cuando el número de identificación es divisible por 3', () => {
+    expect(component.calcularNivelRiesgo('9')).toBe('N0 - Bajo');
+  });
+
+  it('debería devolver "N/A" cuando el número de identificación no es un número válido', () => {
+    expect(component.calcularNivelRiesgo('abc')).toBe('N/A');
+    expect(component.calcularNivelRiesgo('')).toBe('N/A');
+    expect(component.calcularNivelRiesgo(null as any)).toBe('N/A');
+    expect(component.calcularNivelRiesgo(undefined as any)).toBe('N/A');
   });
 
 });
