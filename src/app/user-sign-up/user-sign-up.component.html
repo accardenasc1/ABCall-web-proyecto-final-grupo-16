@@ -7,40 +7,42 @@
       <ng-container *ngIf="!done">
         <form [formGroup]="userForm">
           <mat-form-field appearance="outline">
-            <mat-label>Nombres</mat-label>
+            <mat-label i18n>Nombres</mat-label>
             <input formControlName="first_name" matInput />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Apellidos</mat-label>
+            <mat-label i18n>Apellidos</mat-label>
             <input formControlName="last_name" matInput />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Usuario</mat-label>
+            <mat-label i18n>Usuario</mat-label>
             <mat-hint
               *ngIf="userForm.hasError('invalid_username')"
               class="error"
+              i18n
               >Usuario ya existe</mat-hint
             >
             <input formControlName="username" matInput />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Identificación</mat-label>
+            <mat-label i18n>Identificación</mat-label>
             <mat-hint
               *ngIf="userForm.hasError('invalid_id_number')"
               class="error"
+              i18n
               >Identificación ya existe</mat-hint
             >
             <input formControlName="id_number" matInput />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <mat-hint *ngIf="userForm.hasError('invalid_email')" class="error"
+            <mat-label i18n>Email</mat-label>
+            <mat-hint *ngIf="userForm.hasError('invalid_email')" class="error" i18n
               >Email ya existe</mat-hint
             >
             <input formControlName="email" matInput />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Contraseña</mat-label>
+            <mat-label i18n>Contraseña</mat-label>
             <input
               type="password"
               formControlName="password"
@@ -49,8 +51,8 @@
             />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Confirmar Contraseña</mat-label>
-            <mat-hint *ngIf="userForm.hasError('confirmedError')" class="error"
+            <mat-label i18n>Confirmar Contraseña</mat-label>
+            <mat-hint *ngIf="userForm.hasError('confirmedError')" class="error" i18n
               >La contraseña no coincide</mat-hint
             >
             <input
@@ -61,11 +63,11 @@
             />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Celular</mat-label>
+            <mat-label i18n>Celular</mat-label>
             <input formControlName="phone" matInput />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Departamento</mat-label>
+            <mat-label i18n>Departamento</mat-label>
             <select
               matNativeControl
               formControlName="department"
@@ -79,7 +81,7 @@
             </select>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Ciudad</mat-label>
+            <mat-label i18n>Ciudad</mat-label>
             <select matNativeControl formControlName="city">
               @for (item of department.ciudades; track item) {
               <option [value]="item">{{ item }}</option>
@@ -87,11 +89,11 @@
             </select>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Dirección</mat-label>
+            <mat-label i18n>Dirección</mat-label>
             <input formControlName="address" matInput />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Fecha De Nacimiento</mat-label>
+            <mat-label i18n>Fecha De Nacimiento</mat-label>
             <input
               formControlName="birthday"
               matInput
@@ -104,18 +106,18 @@
             ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-          <mat-checkbox formControlName="dataCheck"
+          <mat-checkbox formControlName="dataCheck" i18n
             >Aceptar tratamiento de datos personales</mat-checkbox
           >
           <div class="actions">
-            <button class="cancel" mat-stroked-button (click)="goToLogin()">
+            <button class="cancel" mat-stroked-button (click)="goToLogin()" i18n>
               CANCELAR
             </button>
             <button
               class="save"
               mat-flat-button
               (click)="save()"
-              [disabled]="!isValid()"
+              [disabled]="!isValid()" i18n
             >
               REGISTRAR
             </button>
@@ -124,8 +126,8 @@
       </ng-container>
       <ng-container *ngIf="done">
         <div class="done">
-          <p>Usuario registrado correctamente.</p>
-          <button class="back" mat-flat-button (click)="goToLogin()">
+          <p i18n>Usuario registrado correctamente.</p>
+          <button class="back" mat-flat-button (click)="goToLogin()" i18n>
             Volver al Login
           </button>
         </div>
