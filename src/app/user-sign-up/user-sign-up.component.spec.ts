@@ -80,8 +80,9 @@ describe('UserSignUpComponent', () => {
     const service = fixture.debugElement.injector.get(UserSignUpService);
     const serviceSpy = spyOn(service, 'post').and.returnValue(of(data));
     component.save();
-
-    expect(serviceSpy).toHaveBeenCalledWith(data);
+    const today = new Date();
+    const birthday = today.getDate()  + '/' + (today.getMonth() + 1) + '/' +  today.getFullYear();
+    expect(serviceSpy).toHaveBeenCalledWith({...data, birthday: birthday});
     expect(component.done).toBeTruthy();
   });
 
@@ -95,8 +96,9 @@ describe('UserSignUpComponent', () => {
     }));
 
     component.save();
-
-    expect(serviceSpy).toHaveBeenCalledWith(data);
+    const today = new Date();
+    const birthday = today.getDate()  + '/' + (today.getMonth() + 1) + '/' +  today.getFullYear();
+    expect(serviceSpy).toHaveBeenCalledWith({...data, birthday: birthday});
     expect(component.done).toBeFalsy();
     expect(component.userForm.hasError('invalid_username')).toBeTruthy();
   });
@@ -111,8 +113,9 @@ describe('UserSignUpComponent', () => {
     }));
 
     component.save();
-
-    expect(serviceSpy).toHaveBeenCalledWith(data);
+    const today = new Date();
+    const birthday = today.getDate()  + '/' + (today.getMonth() + 1) + '/' +  today.getFullYear();
+    expect(serviceSpy).toHaveBeenCalledWith({...data, birthday: birthday});
     expect(component.done).toBeFalsy();
     expect(component.userForm.hasError('invalid_id_number')).toBeTruthy();
   });
@@ -127,8 +130,9 @@ describe('UserSignUpComponent', () => {
     }));
 
     component.save();
-
-    expect(serviceSpy).toHaveBeenCalledWith(data);
+    const today = new Date();
+    const birthday = today.getDate()  + '/' + (today.getMonth() + 1) + '/' +  today.getFullYear();
+    expect(serviceSpy).toHaveBeenCalledWith({...data, birthday: birthday});
     expect(component.done).toBeFalsy();
     expect(component.userForm.hasError('invalid_email')).toBeTruthy();
   });
