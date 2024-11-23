@@ -6,33 +6,33 @@
           <mat-label i18n>Razón social</mat-label>
           <mat-hint
             *ngIf="clientForm.hasError('invalid_name')"
-            class="error"
+            class="error" i18n
             >Razón social ya existe </mat-hint
           >
           <input formControlName="name" matInput />
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Nit</mat-label>
+          <mat-label i18n>Nit</mat-label>
           <mat-hint
             *ngIf="clientForm.hasError('invalid_nit')"
-            class="error"
+            class="error" i18n
             >Nit ya existe</mat-hint
           >
           <input formControlName="nit" matInput />
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <mat-hint *ngIf="clientForm.hasError('invalid_email')" class="error"
+          <mat-label i18n>Correo</mat-label>
+          <mat-hint *ngIf="clientForm.hasError('invalid_email')" class="error" i18n
             >Email ya existe</mat-hint
           >
           <input formControlName="email" matInput />
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Teléfono</mat-label>
+          <mat-label i18n>Teléfono</mat-label>
           <input formControlName="phone" matInput />
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Departamento</mat-label>
+          <mat-label i18n>Departamento</mat-label>
           <select
             matNativeControl
             formControlName="department"
@@ -46,7 +46,7 @@
           </select>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Ciudad</mat-label>
+          <mat-label i18n>Ciudad</mat-label>
           <select matNativeControl formControlName="city">
             @for (item of department.ciudades; track item) {
             <option [value]="item">{{ item }}</option>
@@ -54,7 +54,7 @@
           </select>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Dirección</mat-label>
+          <mat-label i18n>Dirección</mat-label>
           <input formControlName="address" matInput />
         </mat-form-field>
         <div class="actions">
@@ -63,10 +63,11 @@
             mat-flat-button
             (click)="save()"
             [disabled]="!isValid()"
+            i18n
           >
             GUARDAR
           </button>
-          <button class="cancel" mat-stroked-button (click)="goBack()">
+          <button class="cancel" mat-stroked-button (click)="goBack()" i18n>
             CANCELAR
           </button>
         </div>
@@ -83,12 +84,12 @@
   </ng-container>
   <ng-container *ngIf="hasClientAssigned">
     <div class="assigned-message">
-      <p>Ya se ha asignado un cliente. </p>
-      <button class="back" mat-flat-button (click)="goBack()">
+      <p i18n>Ya se ha asignado un cliente. </p>
+      <button class="back" mat-flat-button (click)="goBack()" i18n>
         Volver al home
       </button>
     </div>
   </ng-container>
   <router-outlet  *ngIf="!hasClientAssigned"></router-outlet>
- 
+
 </div>
