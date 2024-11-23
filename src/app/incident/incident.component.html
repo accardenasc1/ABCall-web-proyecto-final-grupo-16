@@ -1,9 +1,5 @@
 <div class="container">
-<<<<<<< HEAD
-  <button mat-button class="create" (click)="onCreate()" aria-label="Create">Crear</button>
-=======
-  <button mat-button class="create" (click)="onCreate()" i18n>Crear</button>
->>>>>>> develop
+  <button mat-button class="create" (click)="onCreate()" i18n aria-label="Create">Crear</button>
   <!-- Filtros de búsqueda -->
   <div class="search-filters">
     <div class="search-item">
@@ -68,11 +64,7 @@
       <ng-container matColumnDef="action" stickyEnd >
         <th mat-header-cell *matHeaderCellDef aria-label="Acciones">&nbsp;</th>
         <td mat-cell *matCellDef="let element">
-<<<<<<< HEAD
-          <button mat-button (click)="goToResponse(element.id_number)" *ngIf="this.user?.type !== 1" aria-label="Answer Generate">Generar respuesta</button>
-=======
-          <button mat-button (click)="goToResponse(element.id_number)" *ngIf="this.user?.type !== 1" i18n>Generar respuesta</button>
->>>>>>> develop
+          <button mat-button (click)="goToResponse(element.id_number)" *ngIf="this.user?.type !== 1" i18n aria-label="Response">Generar respuesta</button>
         </td>
       </ng-container>
 

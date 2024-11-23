@@ -21,11 +21,7 @@
           </div>
         </mat-form-field>
 
-<<<<<<< HEAD
-        <button class="login-button" mat-flat-button (click)="onLogInUser()" [disabled]="!loginForm.valid"aria-label="Login">INGRESAR</button>
-=======
-        <button class="login-button" mat-flat-button (click)="onLogInUser()" [disabled]="!loginForm.valid" i18n>INGRESAR</button>
->>>>>>> develop
+        <button class="login-button" mat-flat-button (click)="onLogInUser()" [disabled]="!loginForm.valid" i18n aria-label="login">INGRESAR</button>
         <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
         <div class="links">
           <a href="/user-sign-up" i18n>CREAR USUARIO</a>
