@@ -27,17 +27,17 @@
           </div>
         </div>
         <mat-form-field appearance="outline">
-          <mat-label>Título</mat-label>
-          <mat-error *ngIf="incidentForm.get('title')?.hasError('required')  && (incidentForm.get('title')?.touched || incidentForm.get('title')?.dirty)">
+          <mat-label i18n>Título</mat-label>
+          <mat-error *ngIf="incidentForm.get('title')?.hasError('required')  && (incidentForm.get('title')?.touched || incidentForm.get('title')?.dirty)" i18n>
             Este campo es obligatorio
           </mat-error>
-          <mat-error *ngIf="incidentForm.get('title')?.hasError('maxlength') && (incidentForm.get('title')?.touched || incidentForm.get('title')?.dirty)">
+          <mat-error *ngIf="incidentForm.get('title')?.hasError('maxlength') && (incidentForm.get('title')?.touched || incidentForm.get('title')?.dirty)" i18n>
             Puede contener máximo 50 caracteres
           </mat-error>
           <input formControlName="title" matInput />
         </mat-form-field>
           <mat-form-field appearance="outline" *ngIf="this.user?.type !== 3">
-            <mat-label>Cliente</mat-label>
+            <mat-label i18n>Cliente</mat-label>
             <select
               matNativeControl
               formControlName="clientid"
@@ -49,12 +49,12 @@
               </option>
               }
             </select>
-            <mat-error *ngIf="incidentForm.get('clientid')?.hasError('required')">
+            <mat-error *ngIf="incidentForm.get('clientid')?.hasError('required')" i18n>
               Este campo es obligatorio
             </mat-error>
           </mat-form-field>
         <mat-form-field appearance="outline" *ngIf="this.user?.type !== 1">
-          <mat-label>Usuario</mat-label>
+          <mat-label i18n>Usuario</mat-label>
           <input
             matInput
             formControlName="iduser"
@@ -66,35 +66,35 @@
               {{ user.id_number }} - {{ user.username }}
             </mat-option>
           </mat-autocomplete>
-          <mat-error *ngIf="incidentForm.get('iduser')?.hasError('required')">
+          <mat-error *ngIf="incidentForm.get('iduser')?.hasError('required')" i18n>
             Este campo es obligatorio
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="description">
           <mat-label>Descripción</mat-label>
-          <mat-error *ngIf="incidentForm.get('description')?.hasError('required') && (incidentForm.get('description')?.touched || incidentForm.get('description')?.dirty)">
+          <mat-error *ngIf="incidentForm.get('description')?.hasError('required') && (incidentForm.get('description')?.touched || incidentForm.get('description')?.dirty)" i18n>
             Este campo es obligatorio
           </mat-error>
-          <mat-error *ngIf="incidentForm.get('description')?.hasError('maxlength') && (incidentForm.get('description')?.touched || incidentForm.get('description')?.dirty)">
+          <mat-error *ngIf="incidentForm.get('description')?.hasError('maxlength') && (incidentForm.get('description')?.touched || incidentForm.get('description')?.dirty)" i18n>
             Puede contener máximo 255 caracteres
           </mat-error>
           <textarea matInput formControlName="description" ></textarea>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Tipo PQR</mat-label>
+          <mat-label i18n>Tipo PQR</mat-label>
           <select matNativeControl formControlName="type">
-            <option [value]="IncidentType.Other">Otro</option>
-            <option [value]="IncidentType.Techincal">Técnico</option>
-            <option [value]="IncidentType.Users">Usuarios</option>
-            <option [value]="IncidentType.Software">Software</option>
-            <option [value]="IncidentType.Hardaware">Hardware</option>
+            <option [value]="IncidentType.Other" i18n>Otro</option>
+            <option [value]="IncidentType.Techincal" i18n>Técnico</option>
+            <option [value]="IncidentType.Users" i18n>Usuarios</option>
+            <option [value]="IncidentType.Software" i18n>Software</option>
+            <option [value]="IncidentType.Hardaware" i18n>Hardware</option>
           </select>
-          <mat-error *ngIf="incidentForm.get('type')?.hasError('required')">
+          <mat-error *ngIf="incidentForm.get('type')?.hasError('required')" i18n>
             Este campo es obligatorio
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" *ngIf="this.user?.type !== 1">
-          <mat-label>Nivel de riesgo</mat-label>
+          <mat-label i18n>Nivel de riesgo</mat-label>
           <input
             matInput
             formControlName="nvriesgo" readonly
@@ -106,11 +106,19 @@
             mat-flat-button
             (click)="save()"
             [disabled]="!isValid()"
+<<<<<<< HEAD
             aria-label="Save"
           >
             GUARDAR
           </button>
           <button class="cancel" mat-stroked-button (click)="goBack()" aria-label="Cancel">
+=======
+            i18n
+          >
+            GUARDAR
+          </button>
+          <button class="cancel" mat-stroked-button (click)="goBack()" i18n>
+>>>>>>> develop
             CANCELAR
           </button>
         </div>
@@ -118,8 +126,13 @@
     </ng-container>
     <ng-container *ngIf="done">
       <div class="done">
+<<<<<<< HEAD
         <p>Incidente registrado correctamente.</p>
         <button class="back" mat-flat-button (click)="goBack()" aria-label="Back">
+=======
+        <p i18n>Incidente registrado correctamente.</p>
+        <button class="back" mat-flat-button (click)="goBack()" i18n>
+>>>>>>> develop
           Volver a la lista
         </button>
       </div>

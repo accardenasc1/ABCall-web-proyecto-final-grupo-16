@@ -1,20 +1,20 @@
 <div class="page">
     <ng-container *ngIf="!done">
       <form [formGroup]="incidentDetailForm">
-        <h3>Generar respuesta Incidente #{{ incidentDetail?.id_number }}</h3>
+        <h3 i18n>Generar respuesta Incidente #{{ incidentDetail?.id_number }}</h3>
         <table mat-table >
           <tr>
             <td><b>{{ clientName }}</b></td>
-            <td><b>Estado {{ getIncidentStateString(incidentDetail?.state ?? undefined) }}</b></td>
+            <td><b i18n>Estado {{ getIncidentStateString(incidentDetail?.state ?? undefined) }}</b></td>
           </tr>
           <tr>
-            <td><b>Usuario: </b>{{userName}}</td>
-            <td><mat-icon class="icon" *ngIf="this.selectedIcon === 'phone'">phone</mat-icon>
-              <mat-icon class="icon" *ngIf="this.selectedIcon === 'mail'">mail</mat-icon>
-              <mat-icon class="icon" *ngIf="this.selectedIcon === 'smartphone'">smartphone</mat-icon></td>
+            <td><b i18n>Usuario: </b>{{userName}}</td>
+            <td><mat-icon class="icon" *ngIf="this.selectedIcon === 'phone'" i18n>phone</mat-icon>
+              <mat-icon class="icon" *ngIf="this.selectedIcon === 'mail'" i18n>mail</mat-icon>
+              <mat-icon class="icon" *ngIf="this.selectedIcon === 'smartphone'" i18n>smartphone</mat-icon></td>
           </tr>
           <tr>
-            <td><b>Tipo PQR: </b> {{ getIncidentTypeString(incidentDetail?.type ?? undefined) }}</td>
+            <td><b i18n>Tipo PQR: </b> {{ getIncidentTypeString(incidentDetail?.type ?? undefined) }}</td>
             <td><b></b></td>
           </tr>
           <tr>
@@ -29,7 +29,7 @@
           </tr>
         </table>
         <mat-form-field appearance="outline" >
-          <mat-label>Posibles respuestas</mat-label>
+          <mat-label i18n>Posibles respuestas</mat-label>
           <select
             matNativeControl
             formControlName="response"
@@ -41,11 +41,11 @@
           </select>
         </mat-form-field>
         <mat-form-field appearance="outline" class="desresponse">
-          <mat-label>Respuesta</mat-label>
+          <mat-label i18n>Respuesta</mat-label>
           <textarea matInput formControlName="description" [value]="selectedText" ></textarea>
         </mat-form-field>
         <mat-form-field appearance="outline" >
-          <mat-label>Estado</mat-label>
+          <mat-label i18n>Estado</mat-label>
           <select
             matNativeControl
             formControlName="state"
@@ -63,11 +63,19 @@
             mat-flat-button
             (click)="goBack()"
             [disabled]="!isValid()"
+<<<<<<< HEAD
             aria-label="Send"
           >
             ENVIAR
           </button>
           <button class="cancel" mat-stroked-button (click)="goBack()" aria-label="Cancel"> 
+=======
+            i18n
+          >
+            ENVIAR
+          </button>
+          <button class="cancel" mat-stroked-button (click)="goBack()" i18n>
+>>>>>>> develop
             CANCELAR
           </button>
         </div>
@@ -75,8 +83,13 @@
     </ng-container>
     <ng-container *ngIf="done">
       <div class="done">
+<<<<<<< HEAD
         <p>Incidente registrado correctamente.</p>
         <button class="back" mat-flat-button (click)="goBack()" aria-label="Back">
+=======
+        <p i18n>Incidente registrado correctamente.</p>
+        <button class="back" mat-flat-button (click)="goBack()" i18n>
+>>>>>>> develop
           Volver a la lista
         </button>
       </div>

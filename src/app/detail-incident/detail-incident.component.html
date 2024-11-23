@@ -1,9 +1,9 @@
 <div class="page">
     <ng-container *ngIf="!done">
       <form [formGroup]="incidentDetailForm">
-        <h2>Incidente #{{ incidentDetail?.id_number }}</h2>
+        <h2 i18n>Incidente #{{ incidentDetail?.id_number }}</h2>
         <mat-form-field appearance="outline">
-          <mat-label>Estado</mat-label>
+          <mat-label i18n>Estado</mat-label>
           <input formControlName="state" [value]="getIncidentStateString(incidentDetail?.state ?? undefined)" matInput />
         </mat-form-field>
         <div class="toggle-container">
@@ -32,17 +32,17 @@
           </div>
         </div>
         <mat-form-field appearance="outline">
-          <mat-label>Título</mat-label>
-          <mat-error *ngIf="incidentDetailForm.get('title')?.hasError('required')  && (incidentDetailForm.get('title')?.touched || incidentDetailForm.get('title')?.dirty)">
+          <mat-label i18n>Título</mat-label>
+          <mat-error *ngIf="incidentDetailForm.get('title')?.hasError('required')  && (incidentDetailForm.get('title')?.touched || incidentDetailForm.get('title')?.dirty)" i18n>
             Este campo es obligatorio
           </mat-error>
-          <mat-error *ngIf="incidentDetailForm.get('title')?.hasError('maxlength') && (incidentDetailForm.get('title')?.touched || incidentDetailForm.get('title')?.dirty)">
+          <mat-error *ngIf="incidentDetailForm.get('title')?.hasError('maxlength') && (incidentDetailForm.get('title')?.touched || incidentDetailForm.get('title')?.dirty)" i18n>
             Puede contener máximo 50 caracteres
           </mat-error>
           <input formControlName="title" [value]="incidentDetail?.title" matInput />
         </mat-form-field>
           <mat-form-field appearance="outline" *ngIf="this.user?.type !== 3">
-            <mat-label>Cliente</mat-label>
+            <mat-label i18n>Cliente</mat-label>
             <select
               matNativeControl
               formControlName="clientid"
@@ -54,11 +54,11 @@
               </option>
               }
             </select>
-            <mat-error *ngIf="incidentDetailForm.get('clientid')?.hasError('required')">
+            <mat-error *ngIf="incidentDetailForm.get('clientid')?.hasError('required')" i18n>
               Este campo es obligatorio
             </mat-error>
           </mat-form-field>
-        <mat-form-field appearance="outline" *ngIf="this.user?.type !== 1">
+        <mat-form-field appearance="outline" *ngIf="this.user?.type !== 1" i18n>
           <mat-label>Usuario</mat-label>
           <input
             matInput
@@ -71,35 +71,39 @@
               {{ user.id_number }} - {{ user.username }}
             </mat-option>
           </mat-autocomplete>
-          <mat-error *ngIf="incidentDetailForm.get('iduser')?.hasError('required')">
+          <mat-error  *ngIf="incidentDetailForm.get('iduser')?.hasError('required')">
             Este campo es obligatorio
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="description">
-          <mat-label>Descripción</mat-label>
-          <mat-error *ngIf="incidentDetailForm.get('description')?.hasError('required') && (incidentDetailForm.get('description')?.touched || incidentDetailForm.get('description')?.dirty)">
+          <mat-label i18n>Descripción</mat-label>
+          <mat-error *ngIf="incidentDetailForm.get('description')?.hasError('required') && (incidentDetailForm.get('description')?.touched || incidentDetailForm.get('description')?.dirty)" i18n>
             Este campo es obligatorio
           </mat-error>
-          <mat-error *ngIf="incidentDetailForm.get('description')?.hasError('maxlength') && (incidentDetailForm.get('description')?.touched || incidentDetailForm.get('description')?.dirty)">
+          <mat-error *ngIf="incidentDetailForm.get('description')?.hasError('maxlength') && (incidentDetailForm.get('description')?.touched || incidentDetailForm.get('description')?.dirty)" i18n>
             Puede contener máximo 255 caracteres
           </mat-error>
           <textarea matInput formControlName="description" [value]="incidentDetail?.description" ></textarea>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Tipo PQR</mat-label>
+          <mat-label i18n>Tipo PQR</mat-label>
           <select matNativeControl formControlName="type">
-            <option [value]="IncidentType.Other">Otro</option>
-            <option [value]="IncidentType.Techincal">Técnico</option>
-            <option [value]="IncidentType.Users">Usuarios</option>
-            <option [value]="IncidentType.Software">Software</option>
-            <option [value]="IncidentType.Hardaware">Hardware</option>
+            <option [value]="IncidentType.Other" i18n>Otro</option>
+            <option [value]="IncidentType.Techincal" i18n>Técnico</option>
+            <option [value]="IncidentType.Users" i18n>Usuarios</option>
+            <option [value]="IncidentType.Software" i18n>Software</option>
+            <option [value]="IncidentType.Hardaware" i18n>Hardware</option>
           </select>
-          <mat-error *ngIf="incidentDetailForm.get('type')?.hasError('required')">
+          <mat-error *ngIf="incidentDetailForm.get('type')?.hasError('required')" i18n>
             Este campo es obligatorio
           </mat-error>
         </mat-form-field>
         <div class="actions">
+<<<<<<< HEAD
           <button class="cancel" mat-stroked-button (click)="goBack()" aria-label="Cancel">
+=======
+          <button class="cancel" mat-stroked-button (click)="goBack()" i18n>
+>>>>>>> develop
             SALIR
           </button>
         </div>
@@ -107,8 +111,13 @@
     </ng-container>
     <ng-container *ngIf="done">
       <div class="done">
+<<<<<<< HEAD
         <p>Incidente registrado correctamente.</p>
         <button class="back" mat-flat-button (click)="goBack()" aria-label="Back">
+=======
+        <p i18n>Incidente registrado correctamente.</p>
+        <button class="back" mat-flat-button (click)="goBack()" i18n>
+>>>>>>> develop
           Volver a la lista
         </button>
       </div>
