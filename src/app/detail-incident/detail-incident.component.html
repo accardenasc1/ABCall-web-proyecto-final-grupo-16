@@ -26,7 +26,7 @@
             <mat-slide-toggle  [checked]="isSmartphoneEnabled"></mat-slide-toggle>
           </div>
           <div>
-            <button mat-icon-button (click)="fileInput.click()"  class="download-button">
+            <button mat-icon-button (click)="fileInput.click()"  class="download-button" aria-label="Upload">
               <mat-icon>upload</mat-icon></button>
             <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none">
           </div>
@@ -99,7 +99,7 @@
           </mat-error>
         </mat-form-field>
         <div class="actions">
-          <button class="cancel" mat-stroked-button (click)="goBack()">
+          <button class="cancel" mat-stroked-button (click)="goBack()" aria-label="Cancel">
             SALIR
           </button>
         </div>
@@ -108,7 +108,7 @@
     <ng-container *ngIf="done">
       <div class="done">
         <p>Incidente registrado correctamente.</p>
-        <button class="back" mat-flat-button (click)="goBack()">
+        <button class="back" mat-flat-button (click)="goBack()" aria-label="Back">
           Volver a la lista
         </button>
       </div>

@@ -4,9 +4,9 @@
       <h3>{{ plan.title }}</h3>
       <p class="benefits">{{ plan.benefits }}</p>
       <p>{{ plan.description }}</p>
-      <button class="select-button" (click)="selectPlan(plan.plan)" mat-flat-button  [ngClass]="{'disabled':!plan.selectable}">Seleccionar</button>
+      <button class="select-button" (click)="selectPlan(plan.plan)" mat-flat-button  [ngClass]="{'disabled':!plan.selectable}" aria-label="Select Plan">Seleccionar</button>
     </div>
-    <button class="cancel" mat-stroked-button (click)="goBack()">
+    <button class="cancel" mat-stroked-button (click)="goBack()" aria-label="Cancel">
       CANCELAR
     </button>  
   </form>
