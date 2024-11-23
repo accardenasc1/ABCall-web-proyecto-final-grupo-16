@@ -44,10 +44,10 @@
   }
   
   .benefits {
-    color: grey;
+    color: var(--tertiary);
   }
   .select-button.disabled {
-    opacity: 0.1;    
+    opacity: 0.9;    
   }
   .cancel {
     background-color: var(--disabled) !important;

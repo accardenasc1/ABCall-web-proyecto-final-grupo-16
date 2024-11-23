@@ -64,10 +64,11 @@
             (click)="goBack()"
             [disabled]="!isValid()"
             i18n
+            aria-label="Save"
           >
             ENVIAR
           </button>
-          <button class="cancel" mat-stroked-button (click)="goBack()" i18n>
+          <button class="cancel" mat-stroked-button (click)="goBack()" i18n aria-label="Cancel">
             CANCELAR
           </button>
         </div>
@@ -76,7 +77,7 @@
     <ng-container *ngIf="done">
       <div class="done">
         <p i18n>Incidente registrado correctamente.</p>
-        <button class="back" mat-flat-button (click)="goBack()" i18n>
+        <button class="back" mat-flat-button (click)="goBack()" i18n aria-label="Come Back">
           Volver a la lista
         </button>
       </div>

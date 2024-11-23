@@ -118,6 +118,7 @@
               mat-flat-button
               (click)="save()"
               [disabled]="!isValid()" i18n
+              aria-label="Register"
             >
               REGISTRAR
             </button>
@@ -127,7 +128,7 @@
       <ng-container *ngIf="done">
         <div class="done">
           <p i18n>Usuario registrado correctamente.</p>
-          <button class="back" mat-flat-button (click)="goToLogin()" i18n>
+          <button class="back" mat-flat-button (click)="goToLogin()" i18n aria-label="Login">
             Volver al Login
           </button>
         </div>
