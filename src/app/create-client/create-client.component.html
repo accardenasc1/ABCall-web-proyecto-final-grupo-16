@@ -64,10 +64,11 @@
             (click)="save()"
             [disabled]="!isValid()"
             i18n
+            aria-label="Save"
           >
             GUARDAR
           </button>
-          <button class="cancel" mat-stroked-button (click)="goBack()" i18n>
+          <button class="cancel" mat-stroked-button (click)="goBack()" i18n aria-label="Cancel">
             CANCELAR
           </button>
         </div>
@@ -85,7 +86,7 @@
   <ng-container *ngIf="hasClientAssigned">
     <div class="assigned-message">
       <p i18n>Ya se ha asignado un cliente. </p>
-      <button class="back" mat-flat-button (click)="goBack()" i18n>
+      <button class="back" mat-flat-button (click)="goBack()" i18n aria-label="Home">
         Volver al home
       </button>
     </div>
