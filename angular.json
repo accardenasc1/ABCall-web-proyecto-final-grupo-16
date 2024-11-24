@@ -5,12 +5,9 @@
   "projects": {
     "abccall-web": {
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": "es",
         "locales": {
-          "en": {
-            "translation": "src/locale/messages.en.xlf",
-            "baseHref": ""
-          }
+          "en": "src/locale/messages.en.xlf"
         }
       },
       "projectType": "application",

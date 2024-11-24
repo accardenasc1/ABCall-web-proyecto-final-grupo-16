@@ -6,7 +6,7 @@
       </div>
       <form [formGroup]="loginForm">
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label i18n>Usuario</mat-label>
+          <mat-label i18n> Usuario </mat-label>
           <input formControlName="username" matInput type="text">
           <div class="error-message" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" i18n>
             Campo requerido
