@@ -48,12 +48,13 @@ export class DetailIncidentComponent implements OnInit {
     this.setClientValidator();
     this.setUserValidator();
   }
-  ngOnInit(): void {
+  
+  async ngOnInit() {
     this.incidentId = this.route.snapshot.paramMap.get('id');
-    this.getClients();
+    await this.getClients();
 
     if (this.incidentId) {
-      this.getUsers();
+      await this.getUsers();
       this.getIncidentDetail(this.incidentId);
     }
 
@@ -152,18 +153,16 @@ export class DetailIncidentComponent implements OnInit {
       return user ? `${user.id_number} - ${user.username}` : '';
   }
 
-  getUsers(): void {
-    this.incidentService.getAllUsers().subscribe((users) => {
-      this.allUsers = users;  // Guardamos todos los usuarios
-      this.filteredUsers = users;  // Inicialmente mostramos todos
-    });
+  async getUsers() {
+    const users = await this.incidentService.getAllUsers().toPromise();
+    this.allUsers = users ?? [];  // Guardamos todos los usuarios
+    this.filteredUsers = users ?? [];  // Inicialmente mostramos todos
   }
 
-  getClients(): void {
-    this.incidentService.getAllClients().subscribe((clients) => {
-      this.allClients = clients;  // Guardamos todos los usuarios
-      this.filteredClients = clients;  // Inicialmente mostramos todos
-    });
+  async getClients() {
+    const clients = await this.incidentService.getAllClients().toPromise()
+    this.allClients = clients ?? [];  // Guardamos todos los usuarios
+    this.filteredClients = clients  ?? [];  // Inicialmente mostramos todos
   }
 
   onSearch(searchTerm: any): void {
