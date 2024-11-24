@@ -6,26 +6,26 @@
       </div>
       <form [formGroup]="loginForm">
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Usuario</mat-label>
+          <mat-label i18n> Usuario </mat-label>
           <input formControlName="username" matInput type="text">
-          <div class="error-message" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+          <div class="error-message" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" i18n>
             Campo requerido
           </div>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Contraseña</mat-label>
+          <mat-label i18n>Contraseña</mat-label>
           <input formControlName="password" matInput type="password">
-          <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" i18n>
             Campo requerido
           </div>
         </mat-form-field>
 
-        <button class="login-button" mat-flat-button (click)="onLogInUser()" [disabled]="!loginForm.valid">INGRESAR</button>
+        <button class="login-button" mat-flat-button (click)="onLogInUser()" [disabled]="!loginForm.valid" i18n aria-label="login">INGRESAR</button>
         <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
         <div class="links">
-          <a href="/user-sign-up">CREAR USUARIO</a>
-          <a href="/reset-password">OLVIDÉ MI CONTRASEÑA</a>
+          <a href="/user-sign-up" i18n>CREAR USUARIO</a>
+          <a href="/reset-password" i18n>OLVIDÉ MI CONTRASEÑA</a>
         </div>
       </form>
     </div>

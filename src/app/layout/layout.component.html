@@ -1,9 +1,9 @@
 <mat-toolbar class="custom-toolbar">
-  <button class="logo-button" mat-icon-button (click)="sidenav.toggle()">
+  <button class="logo-button" mat-icon-button (click)="sidenav.toggle()" aria-label="Toggle navigation">
     <!-- <mat-icon>menu</mat-icon> -->
     <img src="assets/images/logo.png" width="64px" alt="logo ABCall" />
   </button>
-  <span>ABCCall</span>
+  <span i18n>ABCCall</span>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
@@ -53,7 +53,7 @@
         <span matLine i18n>Analitica Predictiva</span>
         </div>
       </mat-list-item>
-      
+
       <mat-list-item routerLink="/app/user" [class.active]="isActive('/app/user')" *ngIf="user?.type?.toString() === '0'">
         <div class="item">
           <mat-icon matListIcon>add</mat-icon>

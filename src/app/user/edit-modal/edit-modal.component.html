@@ -1,13 +1,13 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
-<h2 mat-dialog-title>Cambiar Permisos</h2>
+<h2 mat-dialog-title i18n>Cambiar Permisos</h2>
 <mat-dialog-content>
   <form [formGroup]="userForm">
     <mat-form-field appearance="outline">
-      <mat-label>Usuario</mat-label>
+      <mat-label i18n>Usuario</mat-label>
       <input formControlName="username" matInput />
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Rol</mat-label>
+      <mat-label i18n>Rol</mat-label>
       <select
         matNativeControl
         formControlName="type"
@@ -23,7 +23,7 @@
       </select>
     </mat-form-field>
     <mat-form-field appearance="outline" *ngIf="userForm.get('type')?.value == 3">
-      <mat-label>Cliente</mat-label>
+      <mat-label i18n>Cliente</mat-label>
       <select
         matNativeControl
         formControlName="client_id"
@@ -39,6 +39,6 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button class="save" (click)="onSave()">Guardar</button>
+  <button mat-button mat-dialog-close i18n aria-label="Cancel">Cancelar</button>
+  <button mat-button class="save" (click)="onSave()" i18n aria-label="Save">Guardar</button>
 </mat-dialog-actions>

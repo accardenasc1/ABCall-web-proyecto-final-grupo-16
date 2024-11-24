@@ -47,7 +47,11 @@ export class UserSignUpComponent {
   save() {
     this.loading = true;
     const user = this.userForm.value;
-    this.userSignUpService.post({...user, type: 1} as User).subscribe(() => {
+    let birthday = '';
+    if (user.birthday) {
+      birthday = user.birthday.getDate()  + '/' + (user.birthday.getMonth() + 1) + '/' +  user.birthday.getFullYear();
+    }
+    this.userSignUpService.post({...user, type: 1, birthday: birthday} as User).subscribe(() => {
       this.loading = false;
       this.done = true;
     }, error => {

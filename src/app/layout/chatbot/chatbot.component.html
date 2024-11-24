@@ -1,10 +1,10 @@
-<button class="chat-button" matRipple (click)="toggleChat()">
+<button class="chat-button" matRipple (click)="toggleChat()" aria-label="Chatbot Navigation">
   <mat-icon>chat</mat-icon>
 </button>
 <mat-card class="chat" appearance="outlined" *ngIf="isOpen">
   <mat-card-header class="chat-header">
     <img mat-card-avatar src="assets/images/batman.png" width="48px" alt="chatbot" />
-    <mat-card-title>Chatbot</mat-card-title>
+    <mat-card-title i18n>Chatbot</mat-card-title>
   </mat-card-header>
   <mat-card-content class="chat-content">
     @for (message of messages; track message.text) {
@@ -18,10 +18,10 @@
   </mat-card-content>
   <mat-card-actions>
     <form [formGroup]="chatForm">
-      <div class="field">
-        <input formControlName="message" type="text" matInput>
+      <div class="field"> 
+        <input formControlName="message" type="text" matInput placeholder="Mensaje">
       </div>
-      <button class="chat-send" mat-button (click)="send()" [disabled]="!chatForm.get('message')?.value"><mat-icon>send</mat-icon></button>
+      <button class="chat-send" mat-button (click)="send()" [disabled]="!chatForm.get('message')?.value" aria-label="Send"><mat-icon>send</mat-icon></button>
     </form>
     </mat-card-actions>
 </mat-card>

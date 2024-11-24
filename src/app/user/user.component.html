@@ -1,41 +1,41 @@
 <div class="container">
   <div class="toolbar">
     <mat-form-field appearance="outline">
-      <mat-label>Busqueda</mat-label>
+      <mat-label i18n>Busqueda</mat-label>
       <input [formControl]="searchField" matInput (ngModelChange)="onSearch()"/>
     </mat-form-field>
   </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef> User </th>
+      <th mat-header-cell *matHeaderCellDef i18n> Usuario </th>
       <td mat-cell *matCellDef="let element"> {{element.username}} </td>
     </ng-container>
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <th mat-header-cell *matHeaderCellDef i18n> Correo </th>
       <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
     <ng-container matColumnDef="id_number">
-      <th mat-header-cell *matHeaderCellDef> Identificación </th>
+      <th mat-header-cell *matHeaderCellDef i18n> Identificación </th>
       <td mat-cell *matCellDef="let element"> {{element.id_number}} </td>
     </ng-container>
     <ng-container matColumnDef="department">
-      <th mat-header-cell *matHeaderCellDef> Departmento </th>
+      <th mat-header-cell *matHeaderCellDef i18n> Departmento </th>
       <td mat-cell *matCellDef="let element"> {{element.department}} </td>
     </ng-container>
     <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef> Ciudad </th>
+      <th mat-header-cell *matHeaderCellDef i18n> Ciudad </th>
       <td mat-cell *matCellDef="let element"> {{element.city}} </td>
     </ng-container>
     <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef> Telefono </th>
+      <th mat-header-cell *matHeaderCellDef i18n> Telefono </th>
       <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
     </ng-container>
     <ng-container matColumnDef="birthday">
-      <th mat-header-cell *matHeaderCellDef> birthday </th>
+      <th mat-header-cell *matHeaderCellDef i18n> Cumpleaños </th>
       <td mat-cell *matCellDef="let element"> {{element.birthday}} </td>
     </ng-container>
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef> Rol </th>
+      <th mat-header-cell *matHeaderCellDef i18n> Rol </th>
       <td mat-cell *matCellDef="let element">
         <ng-container *ngIf="element.type === 0" i18n>Administrador</ng-container>
         <ng-container *ngIf="element.type === 1" i18n>Usuario</ng-container>
@@ -44,13 +44,13 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="client_id">
-      <th mat-header-cell *matHeaderCellDef> Cliente </th>
+      <th mat-header-cell *matHeaderCellDef i18n> Cliente </th>
       <td mat-cell *matCellDef="let element"> {{ getClient(element.client_id) }} </td>
     </ng-container>
     <ng-container matColumnDef="action" stickyEnd>
       <th mat-header-cell *matHeaderCellDef aria-label="Acciones">&nbsp;</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-button (click)="onOpenModal(element)">Cambiar Permisos</button>
+        <button mat-button (click)="onOpenModal(element)" i18n aria-label="Change">Cambiar Permisos</button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
