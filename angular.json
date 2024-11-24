@@ -54,7 +54,7 @@
               "localize": [
                 "en"
               ],
-              "outputPath": "dist/abccall-web-en/",
+              "outputPath": "dist/abcall-web-en/",
               "i18nMissingTranslation": "error"
             },
             "production": {
