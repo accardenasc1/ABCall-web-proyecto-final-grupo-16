@@ -281,11 +281,11 @@ describe('IncidentDetailComponent', () => {
     expect(component.filteredClients).toEqual(mockAllClient);
   });
 
-  it('should fetch and set users correctly in getusers()', () => {
+  it('should fetch and set users correctly in getusers()', async () => {
     const mockAllUser = [{ id_number: '123', username: 'user1' }, { id_number: '456', username: 'user2' }];
     mockDetailIncidentService.getAllUsers.and.returnValue(of(mockAllUser));
 
-    component.getUsers();
+    await component.getUsers();
 
     expect(mockDetailIncidentService.getAllClients).toHaveBeenCalled();
     expect(component.allUsers).toEqual(mockAllUser);
