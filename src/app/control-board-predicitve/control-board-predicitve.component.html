@@ -8,8 +8,8 @@
     <mat-form-field appearance="fill">
       <mat-label i18n>Rango de fechas</mat-label>
       <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
-        <input matStartDate i18n-placeholder="Fecha de inicio" [(ngModel)]="startDate" >
-        <input matEndDate i18n-placeholder="Fecha de fin" [(ngModel)]="endDate"  (ngModelChange)="onDateChange()">
+        <input matStartDate i18n-placeholder placeholder="Fecha de inicio" [(ngModel)]="startDate" >
+        <input matEndDate i18n-placeholder placeholder="Fecha de fin" [(ngModel)]="endDate"  (ngModelChange)="onDateChange()">
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>

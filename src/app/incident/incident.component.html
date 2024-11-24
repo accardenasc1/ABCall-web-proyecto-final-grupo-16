@@ -4,14 +4,14 @@
   <div class="search-filters">
     <div class="search-item">
       <mat-form-field appearance="outline" class="small-form-field">
-        <input matInput id="idIncidenteSearch" (keyup)="applyFilterByIdAndTitle($event)" placeholder="Id Incidente o Título" />
+        <input matInput id="idIncidenteSearch" (keyup)="applyFilterByIdAndTitle($event)" i18n-placeholder placeholder="Id Incidente o Título" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
 
     <div class="search-item">
       <mat-form-field appearance="outline" class="small-form-field">
-        <input matInput id="usuarioSearch" (keyup)="applyFilterByUser($event)" placeholder="Id Usuario o Nombre de Usuario" />
+        <input matInput id="usuarioSearch" (keyup)="applyFilterByUser($event)" i18n-placeholder placeholder="Id Usuario o Nombre de Usuario" />
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>
