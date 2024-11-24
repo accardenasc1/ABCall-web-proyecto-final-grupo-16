@@ -5,6 +5,14 @@
     height: 100vh;
     background-color: var(--disabled) !important;
   }
+
+  .lang {
+    float: right;
+  }
+
+  .flag { 
+    margin: 10px;
+  }
   
   .login-box {
     padding: 80px;
