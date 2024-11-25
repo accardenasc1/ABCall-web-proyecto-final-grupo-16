@@ -5,6 +5,14 @@
         <img src="assets/images/ABCall-logo.png" alt="Logo ABCall" class="logo">
       </div>
       <form [formGroup]="loginForm">
+        <div class="lang">
+          <a href="https://abcall-web-96254398457.us-central1.run.app" class="flag">
+            <img src="assets/images/spanish.png" width="24px" alt="Español">
+          </a>
+          <a href="https://abcall-web-en-96254398457.us-central1.run.app" class="flag">
+            <img src="assets/images/english.png" width="24px" alt="English">
+          </a>
+        </div>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label i18n> Usuario </mat-label>
           <input formControlName="username" matInput type="text">

@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,6 +40,7 @@ import { ControlBoardPredicitveModule } from './control-board-predicitve/control
   providers: [
     provideHttpClient(withInterceptors([AuthInterceptor])),
     provideAnimationsAsync(),
+    { provide: LOCALE_ID, useValue: 'en' }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -19,7 +19,7 @@
   <mat-card-actions>
     <form [formGroup]="chatForm">
       <div class="field"> 
-        <input formControlName="message" type="text" matInput placeholder="Mensaje">
+        <input formControlName="message" type="text" matInput i18n-placeholder placeholder="Mensaje">
       </div>
       <button class="chat-send" mat-button (click)="send()" [disabled]="!chatForm.get('message')?.value" aria-label="Send"><mat-icon>send</mat-icon></button>
     </form>

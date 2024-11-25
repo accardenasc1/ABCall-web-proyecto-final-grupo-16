@@ -22,6 +22,30 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6132179842722129733" datatype="html">
+        <source>Fecha de inicio</source>
+        <target>Start date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/control-board-predicitve/control-board-predicitve.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/control-board/control-board.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3393366316150954794" datatype="html">
+        <source>Fecha de fin</source>
+        <target>End Date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/control-board-predicitve/control-board-predicitve.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/control-board/control-board.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="3520037263915826810" datatype="html">
         <source>Cantidad Total Incidentes Predictivos</source>
         <target>Total Predictive Incidents</target>
@@ -270,6 +294,22 @@
           <context context-type="linenumber">7,8</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6181392829528060012" datatype="html">
+        <source>Mensaje</source>
+        <target>Messaje</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/chatbot/chatbot.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="930792334440832768" datatype="html">
+        <source>Id Incidente o Título</source>
+        <target>Incident ID or Title</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/incident/incident.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8331458230102334089" datatype="html">
         <source>Título</source>
         <target>Title</target>
@@ -280,6 +320,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/detail-incident/detail-incident.component.html</context>
           <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2645051173412914027" datatype="html">
+        <source>Id Usuario o Nombre de Usuario</source>
+        <source>User ID or Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/incident/incident.component.html</context>
+          <context context-type="linenumber">14,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3919359185000618311" datatype="html">
