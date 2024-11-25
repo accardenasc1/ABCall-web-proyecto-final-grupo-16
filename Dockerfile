@@ -22,7 +22,7 @@ FROM nginx:latest AS ngi
 # Copying compiled code and nginx config to different folder
 # NOTE: This path may change according to your project's output folder 
 RUN rm /usr/share/nginx/html/*
-COPY --from=build /dist/src/app/dist/abcall-web-en/browser /usr/share/nginx/html
+COPY --from=build /dist/src/app/dist/abcall-web-en/browser/en /usr/share/nginx/html
 RUN rm etc/nginx/conf.d/default.conf
 COPY /nginx.conf /etc/nginx/conf.d/default.conf
 # Exposing a port, here it means that inside the container 
