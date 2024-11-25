@@ -7,7 +7,7 @@
       "i18n": {
         "sourceLocale": "es",
         "locales": {
-          "en": "src/locale/messages.en.xlf"
+          "en": {"translation": "src/locale/messages.en.xlf", "baseHref": ""}
         }
       },
       "projectType": "application",
@@ -50,6 +50,13 @@
             "scripts": []
           },
           "configurations": {
+            "en": {
+              "localize": [
+                "en"
+              ],
+              "outputPath": "dist/abcall-web-en/",
+              "i18nMissingTranslation": "error"
+            },
             "production": {
               "budgets": [
                 {
