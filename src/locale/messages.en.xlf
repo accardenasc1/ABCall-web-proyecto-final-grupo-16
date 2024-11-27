@@ -296,7 +296,7 @@
       </trans-unit>
       <trans-unit id="6181392829528060012" datatype="html">
         <source>Mensaje</source>
-        <target>Messaje</target>
+        <target>Message</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/chatbot/chatbot.component.html</context>
           <context context-type="linenumber">22,23</context>
@@ -324,7 +324,7 @@
       </trans-unit>
       <trans-unit id="2645051173412914027" datatype="html">
         <source>Id Usuario o Nombre de Usuario</source>
-        <source>User ID or Name</source>
+        <target>User ID or Name</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/incident/incident.component.html</context>
           <context context-type="linenumber">14,15</context>
@@ -936,7 +936,7 @@
       </trans-unit>
       <trans-unit id="8159288849220289836" datatype="html">
         <source>Generar respuesta Incidente #<x id="INTERPOLATION" equiv-text="{{ incidentDetail?.id_number }}"/></source>
-        <target>Generar respuesta Incidente #<x id="INTERPOLATION" equiv-text="{{ incidentDetail?.id_number }}"/></target>
+        <target>Generate Incident Response #<x id="INTERPOLATION" equiv-text="{{ incidentDetail?.id_number }}"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/response-incident/response-incident.component.html</context>
           <context context-type="linenumber">4,5</context>
